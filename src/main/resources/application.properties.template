@@ -22,3 +22,4 @@ spring.flyway.baselineOnMigrate=true
 spring.mvc.dispatch-options-request=true
 
 security.oidc_discovery_url=https://example.com/auth/.well-known/openid-configuration
+security.enabled=true
