@@ -4,22 +4,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 import io.swagger.model.geno.VendorOrderStatusResponseResult.StatusEnum;
 import io.swagger.model.geno.VendorPlateSubmissionRequest.SampleTypeEnum;
 
 @Entity
 @Table(name="vendor_order")
-public class VendorOrderEntity extends BrAPIBaseEntity{
+public class VendorOrderEntity extends BrAPIPrimaryEntity{
 	@Column
     private String clientPlateDbId;
 	@Column
@@ -30,7 +25,7 @@ public class VendorOrderEntity extends BrAPIBaseEntity{
     private StatusEnum status;
 	@Column
     private Date statusTimeStamp;
-	@OneToOne(cascade = CascadeType.ALL, mappedBy= "order")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy= "order", fetch = FetchType.LAZY)
     private VendorPlateSubmissionEntity plateSubmission;
 	@OneToMany(mappedBy="order", cascade = CascadeType.ALL)
 	private List<VendorFileEntity> files;
