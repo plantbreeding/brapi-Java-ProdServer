@@ -148,7 +148,6 @@ public class ObservationVariableService {
 			fetchSynonyms(page);
 			fetchMethodXrefs(page);
 			fetchScaleXrefs(page);
-			fetchScaleValidValueCategories(page);
 			fetchTraitXrefs(page);
 		}
 
