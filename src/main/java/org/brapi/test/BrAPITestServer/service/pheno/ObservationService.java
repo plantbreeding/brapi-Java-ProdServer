@@ -381,7 +381,6 @@ public class ObservationService {
 			entity.setValue(observation.getValue());
 
 		if (observation.getObservationUnitDbId() != null) {
-			// TODO: is the DbId is all we need to insert?
 			ObservationUnitEntity observationUnit = observationUnitService
 					.getObservationUnitEntity(observation.getObservationUnitDbId());
 			entity.setObservationUnit(observationUnit);
