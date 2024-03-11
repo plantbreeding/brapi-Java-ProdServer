@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.Optional;
 import java.util.Set;
 
+import io.swagger.model.IndexPagination;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.germ.CrossingProjectEntity;
@@ -484,15 +485,21 @@ public class PedigreeService {
 		UpdateUtility.updateEntity(node, entity);
 		updateEntity(entity, node);
 		if (node.getParents() != null) {
-			
-			List<String> edgeIdsToDelete = new ArrayList<>(); 
-			edgeIdsToDelete.addAll(entity.getParentEdges().stream().map(e -> e.getId()).collect(Collectors.toList()));
-			edgeIdsToDelete.addAll(entity.getParentNodes().stream().flatMap(parent -> parent.getProgenyEdges().stream())
-					.filter(childEdge -> childEdge.getConncetedNode().equals(entity))
-					.map(e -> e.getId()).collect(Collectors.toList()));
 
-			pedigreeEdgeRepository.deleteAllByIdInBatch(edgeIdsToDelete);
-			pedigreeEdgeRepository.flush();
+			SearchQueryBuilder<PedigreeEdgeEntity> search = new SearchQueryBuilder<PedigreeEdgeEntity>(PedigreeEdgeEntity.class);
+			search.appendSingle(node.getGermplasmDbId(), "conncetedNode.germplasm.id");
+			search.appendEnum(PedigreeEdgeEntity.EdgeType.child, "edgeType");
+			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
+			Page<PedigreeEdgeEntity> existingParentEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
+
+			List<String> edgeIdsToDelete = new ArrayList<>();
+			edgeIdsToDelete.addAll(entity.getParentEdges().stream().map(e -> e.getId()).collect(Collectors.toList()));
+			edgeIdsToDelete.addAll(existingParentEdges.getContent().stream().map(e -> e.getId()).collect(Collectors.toList()));
+
+			if (!edgeIdsToDelete.isEmpty()) {
+				pedigreeEdgeRepository.deleteAllByIdInBatch(edgeIdsToDelete);
+				pedigreeEdgeRepository.flush();
+			}
 
 			for (PedigreeNodeParents parentNode : node.getParents()) {
 				PedigreeNodeEntity parentEntity = findOrCreatePedigreeNode(parentNode.getGermplasmDbId());
@@ -501,15 +508,21 @@ public class PedigreeService {
 			}
 		}
 		if (node.getProgeny() != null) {
-			
-			List<String> edgeIdsToDelete = new ArrayList<>(); 
-			edgeIdsToDelete.addAll(entity.getProgenyEdges().stream().map(e -> e.getId()).collect(Collectors.toList()));
-			edgeIdsToDelete.addAll(entity.getProgenyNodes().stream().flatMap(progeny -> progeny.getParentEdges().stream())
-					.filter(parentEdge -> parentEdge.getConncetedNode().equals(entity))
-					.map(e -> e.getId()).collect(Collectors.toList()));
 
-			pedigreeEdgeRepository.deleteAllByIdInBatch(edgeIdsToDelete);
-			pedigreeEdgeRepository.flush();
+			SearchQueryBuilder<PedigreeEdgeEntity> search = new SearchQueryBuilder<PedigreeEdgeEntity>(PedigreeEdgeEntity.class);
+			search.appendSingle(node.getGermplasmDbId(), "conncetedNode.germplasm.id");
+			search.appendEnum(PedigreeEdgeEntity.EdgeType.parent, "edgeType");
+			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
+			Page<PedigreeEdgeEntity> existingProgenyEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
+
+			List<String> edgeIdsToDelete = new ArrayList<>();
+			edgeIdsToDelete.addAll(entity.getProgenyEdges().stream().map(e -> e.getId()).collect(Collectors.toList()));
+			edgeIdsToDelete.addAll(existingProgenyEdges.getContent().stream().map(e -> e.getId()).collect(Collectors.toList()));
+
+			if (!edgeIdsToDelete.isEmpty()) {
+				pedigreeEdgeRepository.deleteAllByIdInBatch(edgeIdsToDelete);
+				pedigreeEdgeRepository.flush();
+			}
 
 			for (PedigreeNodeParents childNode : node.getProgeny()) {
 				PedigreeNodeEntity childEntity = findOrCreatePedigreeNode(childNode.getGermplasmDbId());
