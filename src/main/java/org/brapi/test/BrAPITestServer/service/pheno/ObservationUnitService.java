@@ -332,16 +332,17 @@ public class ObservationUnitService {
 
 	public List<ObservationUnit> saveObservationUnits(@Valid List<ObservationUnitNewRequest> requests)
 			throws BrAPIServerException {
-		List<ObservationUnit> savedObservationUnits = new ArrayList<>();
-
+		List<ObservationUnitEntity> toSave = new ArrayList<>();
 		for (ObservationUnitNewRequest request : requests) {
 			ObservationUnitEntity entity = new ObservationUnitEntity();
-			updateEntity(entity, request);
-			ObservationUnitEntity savedEntity = observationUnitRepository.save(entity);
-			savedObservationUnits.add(convertFromEntity(savedEntity));
+			updateEntity(entity, request);  // TODO: does updateEntity need to hit the database?
+			toSave.add(entity);
 		}
 
-		return savedObservationUnits;
+		return observationUnitRepository.saveAllAndFlush(toSave)
+				.stream()
+				.map(this::convertFromEntity)
+				.collect(Collectors.toList());
 	}
 
 	public List<ObservationUnit> updateObservationUnits(@Valid Map<String, ObservationUnitNewRequest> requests)

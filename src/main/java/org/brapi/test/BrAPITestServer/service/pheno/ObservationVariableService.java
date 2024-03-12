@@ -1,14 +1,11 @@
 package org.brapi.test.BrAPITestServer.service.pheno;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
-import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
-import org.brapi.test.BrAPITestServer.model.entity.ExternalReferenceEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.*;
 import org.brapi.test.BrAPITestServer.repository.core.TraitRepository;
@@ -24,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -143,89 +139,13 @@ public class ObservationVariableService {
 		log.debug("Starting variable search");
 		Page<ObservationVariableEntity> page = observationVariableRepository.findAllBySearch(searchQuery, pageReq);
 		log.debug("Variable search complete");
-		if(!page.isEmpty()) {
-			observationVariableRepository.fetchXrefs(page, ObservationVariableEntity.class);
-			fetchSynonyms(page);
-			fetchMethodXrefs(page);
-			fetchScaleXrefs(page);
-			fetchScaleValidValueCategories(page);
-			fetchTraitXrefs(page);
-		}
+
 
 		log.debug("converting "+page.getSize()+" entities");
 		List<ObservationVariable> observationVariables = page.map(this::convertFromEntity).getContent();
 		log.debug("done converting entities");
 		PagingUtility.calculateMetaData(metadata, page);
 		return observationVariables;
-	}
-
-	public void fetchSynonyms(Page<ObservationVariableEntity> page) {
-		SearchQueryBuilder<ObservationVariableEntity> searchQuery = new SearchQueryBuilder<>(ObservationVariableEntity.class);
-		searchQuery.leftJoinFetch("synonyms", "synonyms")
-				   .appendList(page.stream().map(BrAPIBaseEntity::getId).collect(Collectors.toList()), "id");
-
-		Page<ObservationVariableEntity> synonyms = observationVariableRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
-
-		Map<String, List<String>> synonymsByVar = new HashMap<>();
-		synonyms.forEach(entity -> synonymsByVar.put(entity.getId(), entity.getSynonyms()));
-
-		page.forEach(entity -> entity.setSynonyms(synonymsByVar.get(entity.getMethod().getId())));
-	}
-
-	public void fetchMethodXrefs(Page<ObservationVariableEntity> page) {
-		SearchQueryBuilder<MethodEntity> searchQuery = new SearchQueryBuilder<>(MethodEntity.class);
-		searchQuery.leftJoinFetch("externalReferences", "externalReferences")
-				   .join("variables", "variables")
-				   .appendList(page.stream().map(BrAPIBaseEntity::getId).collect(Collectors.toList()), "*variables.id");
-
-		Page<MethodEntity> xrefs = methodRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
-
-		Map<String, List<ExternalReferenceEntity>> xrefByEntity = new HashMap<>();
-		xrefs.forEach(entity -> xrefByEntity.put(entity.getId(), entity.getExternalReferences()));
-
-		page.forEach(entity -> entity.getMethod().setExternalReferences(xrefByEntity.get(entity.getMethod().getId())));
-	}
-
-	public void fetchScaleXrefs(Page<ObservationVariableEntity> page) {
-		SearchQueryBuilder<ScaleEntity> searchQuery = new SearchQueryBuilder<>(ScaleEntity.class);
-		searchQuery.leftJoinFetch("externalReferences", "externalReferences")
-				   .join("variables", "variables")
-				   .appendList(page.stream().map(BrAPIBaseEntity::getId).collect(Collectors.toList()), "*variables.id");
-
-		Page<ScaleEntity> xrefs = scaleRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
-
-		Map<String, List<ExternalReferenceEntity>> xrefByEntity = new HashMap<>();
-		xrefs.forEach(entity -> xrefByEntity.put(entity.getId(), entity.getExternalReferences()));
-
-		page.forEach(entity -> entity.getScale().setExternalReferences(xrefByEntity.get(entity.getMethod().getId())));
-	}
-
-	public void fetchScaleValidValueCategories(Page<ObservationVariableEntity> page) {
-		SearchQueryBuilder<ScaleEntity> searchQuery = new SearchQueryBuilder<>(ScaleEntity.class);
-		searchQuery.leftJoinFetch("validValueCategories", "validValueCategories")
-				   .join("variables", "variables")
-				   .appendList(page.stream().map(BrAPIBaseEntity::getId).collect(Collectors.toList()), "*variables.id");
-
-		Page<ScaleEntity> validValueCategories = scaleRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
-
-		Map<String, List<ScaleValidValueCategoryEntity>> infoByEntity = new HashMap<>();
-		validValueCategories.forEach(entity -> infoByEntity.put(entity.getId(), entity.getValidValueCategories()));
-
-		page.forEach(entity -> entity.getScale().setValidValueCategories(infoByEntity.get(entity.getId())));
-	}
-
-	public void fetchTraitXrefs(Page<ObservationVariableEntity> page) {
-		SearchQueryBuilder<TraitEntity> searchQuery = new SearchQueryBuilder<>(TraitEntity.class);
-		searchQuery.leftJoinFetch("externalReferences", "externalReferences")
-				   .join("variables", "variables")
-				   .appendList(page.stream().map(BrAPIBaseEntity::getId).collect(Collectors.toList()), "*variables.id");
-
-		Page<TraitEntity> xrefs = traitRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
-
-		Map<String, List<ExternalReferenceEntity>> xrefByEntity = new HashMap<>();
-		xrefs.forEach(entity -> xrefByEntity.put(entity.getId(), entity.getExternalReferences()));
-
-		page.forEach(entity -> entity.getTrait().setExternalReferences(xrefByEntity.get(entity.getMethod().getId())));
 	}
 
 	public List<ObservationVariable> saveObservationVariables(@Valid List<ObservationVariableNewRequest> body)
