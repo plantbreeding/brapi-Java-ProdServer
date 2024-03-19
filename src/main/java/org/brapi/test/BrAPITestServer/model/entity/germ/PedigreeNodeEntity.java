@@ -25,7 +25,7 @@ public class PedigreeNodeEntity extends BrAPIPrimaryEntity {
 	private GermplasmEntity germplasm;
 	@Column
 	private String pedigreeString;
-	@OneToMany(mappedBy = "thisNode", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "thisNode", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PedigreeEdgeEntity> edges = new ArrayList<>();
 
 	@Override
