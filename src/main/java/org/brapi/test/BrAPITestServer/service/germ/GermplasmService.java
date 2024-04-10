@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
-import org.brapi.test.BrAPITestServer.model.entity.AdditionalInfoEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.ExternalReferenceEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
@@ -155,8 +154,6 @@ public class GermplasmService {
 		if(!page.isEmpty()) {
 			log.debug("fetching xrefs");
 			fetchXrefs(page);
-			log.debug("fetching additionalInfo");
-			fetchAdditionalInfo(page);
 			log.debug("fetching attributes");
 			fetchAttributes(page);
 			log.debug("fetching donors");
@@ -188,20 +185,6 @@ public class GermplasmService {
 		xrefs.forEach(entity -> xrefByEntity.put(entity.getId(), entity.getExternalReferences()));
 
 		page.forEach(entity -> entity.setExternalReferences(xrefByEntity.get(entity.getId())));
-	}
-
-	private void fetchAdditionalInfo(Page<GermplasmEntity> page) {
-		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(GermplasmEntity.class);
-		searchQuery.leftJoinFetch("additionalInfo", "additionalInfo")
-				   .leftJoinFetch("pedigree", "pedigree")
-				   .appendList(page.stream().map(BrAPIBaseEntity::getId).collect(Collectors.toList()), "id");
-
-		Page<GermplasmEntity> additionalInfo = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
-
-		Map<String, List<AdditionalInfoEntity>> infoByEntity = new HashMap<>();
-		additionalInfo.forEach(entity -> infoByEntity.put(entity.getId(), entity.getAdditionalInfo()));
-
-		page.forEach(entity -> entity.setAdditionalInfo(infoByEntity.get(entity.getId())));
 	}
 
 	private void fetchAttributes(Page<GermplasmEntity> page) {
@@ -343,12 +326,11 @@ public class GermplasmService {
 		return convertFromEntity(savedEntity);
 	}
 
-	// TODO: evaluate performance!
 	public List<Germplasm> saveGermplasm(@Valid List<GermplasmNewRequest> body) throws BrAPIServerException {
 		List<GermplasmEntity> toSave = new ArrayList<>();
 		for (GermplasmNewRequest germplasm : body) {
 			GermplasmEntity entity = new GermplasmEntity();
-			updateEntity(entity, germplasm);  // TODO: does updateEntity need to hit the database?
+			updateEntity(entity, germplasm);
 			toSave.add(entity);
 		}
 		// Save batch.
@@ -427,17 +409,13 @@ public class GermplasmService {
 		if (request.getBiologicalStatusOfAccessionCode() != null)
 			entity.setBiologicalStatusOfAccessionCode(request.getBiologicalStatusOfAccessionCode());
 		if (request.getBreedingMethodDbId() != null) {
-			// TODO: the DbId is all we need to insert.
-			BreedingMethodEntity method = new BreedingMethodEntity();
-			method.setId(request.getBreedingMethodDbId());
-//					breedingMethodService
-//					.getBreedingMethodEntity(request.getBreedingMethodDbId());
+			BreedingMethodEntity method = breedingMethodService
+					.getBreedingMethodEntity(request.getBreedingMethodDbId());
 			entity.setBreedingMethod(method);
 		}
 		if (request.getCollection() != null)
 			entity.setCollection(request.getCollection());
 		if (request.getCommonCropName() != null) {
-			// TODO: can we drop or batch?
 			CropEntity crop = cropService.findCropEntity(request.getCommonCropName());
 			if (crop == null) {
 				crop = cropService.saveCropEntity(request.getCommonCropName());

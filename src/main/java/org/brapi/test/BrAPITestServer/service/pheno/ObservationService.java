@@ -1,11 +1,8 @@
 package org.brapi.test.BrAPITestServer.service.pheno;
 
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
+import io.swagger.model.Metadata;
+import io.swagger.model.pheno.*;
 import jakarta.validation.Valid;
-
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.SeasonEntity;
@@ -14,11 +11,7 @@ import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationVariableEntity;
 import org.brapi.test.BrAPITestServer.repository.pheno.ObservationRepository;
-import org.brapi.test.BrAPITestServer.service.DateUtility;
-import org.brapi.test.BrAPITestServer.service.GeoJSONUtility;
-import org.brapi.test.BrAPITestServer.service.PagingUtility;
-import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
-import org.brapi.test.BrAPITestServer.service.UpdateUtility;
+import org.brapi.test.BrAPITestServer.service.*;
 import org.brapi.test.BrAPITestServer.service.core.SeasonService;
 import org.brapi.test.BrAPITestServer.service.core.StudyService;
 import org.slf4j.Logger;
@@ -29,16 +22,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import io.swagger.model.Metadata;
-import io.swagger.model.pheno.Observation;
-import io.swagger.model.pheno.ObservationNewRequest;
-import io.swagger.model.pheno.ObservationSearchRequest;
-import io.swagger.model.pheno.ObservationTable;
-import io.swagger.model.pheno.ObservationTableHeaderRowEnum;
-import io.swagger.model.pheno.ObservationTableObservationVariables;
-import io.swagger.model.pheno.ObservationUnitHierarchyLevelEnum;
-import io.swagger.model.pheno.ObservationUnitLevel;
-import io.swagger.model.pheno.ObservationUnitLevelRelationship;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ObservationService {
@@ -185,9 +174,7 @@ public class ObservationService {
 		Pageable pageReq = PagingUtility.getPageRequest(metadata);
 		SearchQueryBuilder<ObservationEntity> searchQuery = new SearchQueryBuilder<ObservationEntity>(
 				ObservationEntity.class);
-		searchQuery
-				.leftJoinFetch("additionalInfo", "additionalInfo")
-				.leftJoinFetch("observationVariable", "observationVariable")
+		searchQuery.leftJoinFetch("observationVariable", "observationVariable")
 				.leftJoinFetch("*observationVariable.crop", "varCrop")
 				.leftJoinFetch("*observationVariable.method", "varMethod")
 				.leftJoinFetch("*observationVariable.ontology", "varOntology")
@@ -285,16 +272,16 @@ public class ObservationService {
 	}
 
 	public List<Observation> saveObservations(@Valid List<ObservationNewRequest> requests) throws BrAPIServerException {
-		List<Observation> savedObservations = new ArrayList<>();
-
+		List<ObservationEntity> toSave = new ArrayList<>();
 		for (ObservationNewRequest request : requests) {
 			ObservationEntity entity = new ObservationEntity();
-			updateEntity(entity, request);
-			ObservationEntity savedEntity = observationRepository.save(entity);
-			savedObservations.add(convertFromEntity(savedEntity));
+			updateEntity(entity, request);  // TODO: does updateEntity need to hit the database?
+			toSave.add(entity);
 		}
-
-		return savedObservations;
+		return observationRepository.saveAllAndFlush(toSave)
+				.stream()
+				.map(this::convertFromEntity)
+				.collect(Collectors.toList());
 	}
 
 	public List<Observation> updateObservations(@Valid Map<String, ObservationNewRequest> requests)
