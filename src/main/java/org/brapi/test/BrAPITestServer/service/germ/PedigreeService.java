@@ -340,7 +340,7 @@ public class PedigreeService {
 		}
 
 		// TODO: Should the pedigree node records written to the db be different? Converting to a hashset keeps
-		// an entry for records with null pedigree which is not desired in output. Filtering out here for now.
+		// an entry for records with null germplasm which is not desired in output. Filtering out here for now.
 		List<PedigreeNodeEntity> filteredBaseNodes = baseNodes.stream()
 				.filter(node -> node.getGermplasm() != null)
 				.collect(Collectors.toList());
