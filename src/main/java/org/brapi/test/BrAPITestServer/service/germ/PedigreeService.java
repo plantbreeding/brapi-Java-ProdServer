@@ -339,8 +339,14 @@ public class PedigreeService {
 			progenyDepth = Integer.MAX_VALUE;
 		}
 
-		Set<PedigreeNodeEntity> baseNodesSet = new HashSet<>(baseNodes);
-		Set<PedigreeNodeEntity> pedigreeTree = new HashSet<>(baseNodes);
+		// TODO: Should the pedigree node records written to the db be different? Converting to a hashset keeps
+		// an entry for records with null germplasm which is not desired in output. Filtering out here for now.
+		List<PedigreeNodeEntity> filteredBaseNodes = baseNodes.stream()
+				.filter(node -> node.getGermplasm() != null)
+				.collect(Collectors.toList());
+
+		Set<PedigreeNodeEntity> baseNodesSet = new HashSet<>(filteredBaseNodes);
+		Set<PedigreeNodeEntity> pedigreeTree = new HashSet<>(filteredBaseNodes);
 
 		getGenerationsRecursively(baseNodesSet, pedigreeDepth, true, pedigreeTree);
 		getGenerationsRecursively(baseNodesSet, progenyDepth, false, pedigreeTree);
