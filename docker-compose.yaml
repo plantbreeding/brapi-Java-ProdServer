@@ -30,7 +30,7 @@ services:
       - DB_PASSWORD
       - PROXY_ADDRESS_FORWARDING=true
   postgres:
-    image: postgres
+    image: postgres:13
     restart: unless-stopped
     environment:
       - POSTGRES_USER
