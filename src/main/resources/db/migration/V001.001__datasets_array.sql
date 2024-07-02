@@ -15,6 +15,7 @@
 
 -- Updates trial.additional_info to have a datasets array instead of just observationDatasetId.
 -- Leaves observationDatasetId in place out of an abundance of caution.
+-- Only updates rows that don't already have datasets key (just in case the code was updated prematurely).
 DO
 $$
 BEGIN
@@ -31,6 +32,8 @@ BEGIN
                         'level', '0'
                     )
                 )
-            );
+            )
+    WHERE
+        additional_info->'datasets' IS NULL;
 END
 $$;
