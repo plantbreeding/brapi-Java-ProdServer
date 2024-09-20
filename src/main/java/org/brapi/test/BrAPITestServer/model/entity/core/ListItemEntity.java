@@ -11,6 +11,8 @@ public class ListItemEntity extends BrAPIBaseEntity {
 	private ListEntity list;
 	@Column
 	private String item;
+	@Column
+	private Integer position;
 	
 	public ListEntity getList() {
 		return list;
@@ -24,6 +26,10 @@ public class ListItemEntity extends BrAPIBaseEntity {
 	public void setItem(String item) {
 		this.item = item;
 	}
-	
-	
+	public Integer getPosition() {
+		return position;
+	}
+	public void setPosition(Integer position) {
+		this.position = position;
+	}
 }
