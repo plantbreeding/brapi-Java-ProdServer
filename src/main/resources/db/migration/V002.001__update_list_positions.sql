@@ -23,7 +23,8 @@ BEGIN
     FROM
         (
             SELECT
-                row_number() OVER (PARTITION BY li.list_id ORDER BY (g.additional_info->'listEntryNumbers'->>xr.external_reference_id)::int) AS position,
+                -- Subtract 1 from row_number to get zero indexing.
+                row_number() OVER (PARTITION BY li.list_id ORDER BY (g.additional_info->'listEntryNumbers'->>xr.external_reference_id)::int) - 1 AS position,
                 li.id AS list_item_id
             FROM
                 list_item li
@@ -48,7 +49,8 @@ BEGIN
     FROM
         (
             SELECT
-                row_number() OVER (PARTITION BY li.list_id) AS position,
+                -- Subtract 1 from row_number to get zero indexing.
+                row_number() OVER (PARTITION BY li.list_id) - 1 AS position,
                 li.id AS list_item_id
             FROM
                 list_item li
