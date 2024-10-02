@@ -237,11 +237,14 @@ public class ListService {
 			List<ListItemEntity> items = new ArrayList<>();
 			ListIterator<String> iter = list.getData().listIterator();
 			while (iter.hasNext()) {
-				ListItemEntity itemEntity = new ListItemEntity();
-				itemEntity.setPosition(iter.nextIndex());
-				itemEntity.setItem(iter.next());
-				itemEntity.setList(entity);
-				items.add(itemEntity);
+				String item = iter.next();
+				if (item != null) {
+					ListItemEntity itemEntity = new ListItemEntity();
+					itemEntity.setPosition(iter.nextIndex());
+					itemEntity.setItem(item);
+					itemEntity.setList(entity);
+					items.add(itemEntity);
+				}
 			}
 			entity.setData(items);
 		} else {
