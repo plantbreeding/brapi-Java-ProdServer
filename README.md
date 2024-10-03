@@ -1,4 +1,4 @@
-# BrAPI Java Spring-Boot Test Server
+# BrAPI Java Test Server
 
 ## Server Usage
 This server implements all BrAPI calls. It is backed by a custom database with dummy data.
