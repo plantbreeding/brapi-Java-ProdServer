@@ -113,7 +113,8 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		Metadata metadata = generateMetaDataTemplate(body);
 		BatchTypes batchType = body.getBatchType();
 		BrAPIComponent component = componentFactory.getComponent(batchType);
-		List<BatchSummary> data = component.findEntities(body, metadata);
+		SearchRequest entitySearch = body.getSearchRequest();//component.mapToSearchRequest(body.getSearchRequest());
+		List<BatchSummary> data = component.findEntities(entitySearch, metadata);
 		List<String> dbIds = data.stream().map(BatchSummary::getBatchDbId).collect(Collectors.toList());
 		BatchNewRequest newBatchRequest = new BatchNewRequest();
 		newBatchRequest.data(dbIds);
