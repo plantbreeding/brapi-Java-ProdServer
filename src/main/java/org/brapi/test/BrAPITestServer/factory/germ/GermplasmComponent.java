@@ -1,16 +1,27 @@
 package org.brapi.test.BrAPITestServer.factory.germ;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.model.Metadata;
 import io.swagger.model.SearchRequest;
+import io.swagger.model.core.BatchSearchRequest;
 import io.swagger.model.core.BatchTypes;
 import io.swagger.model.germ.Germplasm;
 import io.swagger.model.germ.GermplasmSearchRequest;
 import jakarta.validation.Valid;
+import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
 import org.brapi.test.BrAPITestServer.service.germ.GermplasmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component

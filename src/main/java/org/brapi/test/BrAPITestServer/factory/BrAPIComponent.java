@@ -1,9 +1,16 @@
 package org.brapi.test.BrAPITestServer.factory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.model.Metadata;
 import io.swagger.model.SearchRequest;
+import io.swagger.model.core.BatchSearchRequest;
 import io.swagger.model.core.BatchTypes;
+import io.swagger.model.germ.GermplasmSearchRequest;
 import jakarta.validation.Valid;
+import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 
 import java.util.List;
 

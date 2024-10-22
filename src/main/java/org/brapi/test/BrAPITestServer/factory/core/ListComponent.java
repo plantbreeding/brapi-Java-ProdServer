@@ -1,6 +1,8 @@
 package org.brapi.test.BrAPITestServer.factory.core;
 
 import io.swagger.model.Metadata;
+import io.swagger.model.SearchRequest;
+import io.swagger.model.core.BatchSearchRequest;
 import io.swagger.model.core.BatchTypes;
 import io.swagger.model.core.ListSearchRequest;
 import io.swagger.model.core.ListSummary;
