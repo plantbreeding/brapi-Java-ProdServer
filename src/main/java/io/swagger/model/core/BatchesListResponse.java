@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchesBatchResponse implements BrAPIResponse<BatchesBatchResponseResult> {
+public class BatchesListResponse implements BrAPIResponse<BatchesListResponseResult> {
 	@JsonProperty("@context")
 	private Context _atContext = null;
 
@@ -23,9 +23,9 @@ public class BatchesBatchResponse implements BrAPIResponse<BatchesBatchResponseR
 	private Metadata metadata = null;
 
 	@JsonProperty("result")
-	private BatchesBatchResponseResult result = null;
+	private BatchesListResponseResult result = null;
 
-	public BatchesBatchResponse() {
+	public BatchesListResponse() {
 		this._atContext = new Context();
 		this._atContext.add("context");
 	}
@@ -34,7 +34,7 @@ public class BatchesBatchResponse implements BrAPIResponse<BatchesBatchResponseR
 	public void set_atContext(Context _atContext) {
 		this._atContext = _atContext;
 	}
-	public BatchesBatchResponse metadata(Metadata metadata) {
+	public BatchesListResponse metadata(Metadata metadata) {
 		this.metadata = metadata;
 		return this;
 	}
@@ -56,7 +56,7 @@ public class BatchesBatchResponse implements BrAPIResponse<BatchesBatchResponseR
 		this.metadata = metadata;
 	}
 
-	public BatchesBatchResponse result(BatchesBatchResponseResult result) {
+	public BatchesListResponse result(BatchesListResponseResult result) {
 		this.result = result;
 		return this;
 	}
@@ -70,11 +70,11 @@ public class BatchesBatchResponse implements BrAPIResponse<BatchesBatchResponseR
 	
 
 	@Valid
-	public BatchesBatchResponseResult getResult() {
+	public BatchesListResponseResult getResult() {
 		return result;
 	}
 
-	public void setResult(BatchesBatchResponseResult result) {
+	public void setResult(BatchesListResponseResult result) {
 		this.result = result;
 	}
 
@@ -86,10 +86,10 @@ public class BatchesBatchResponse implements BrAPIResponse<BatchesBatchResponseR
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		BatchesBatchResponse BatchesBatchResponse = (io.swagger.model.core.BatchesBatchResponse) o;
-		return Objects.equals(this._atContext, BatchesBatchResponse._atContext)
-				&& Objects.equals(this.metadata, BatchesBatchResponse.metadata)
-				&& Objects.equals(this.result, BatchesBatchResponse.result);
+		BatchesListResponse BatchesListResponse = (BatchesListResponse) o;
+		return Objects.equals(this._atContext, BatchesListResponse._atContext)
+				&& Objects.equals(this.metadata, BatchesListResponse.metadata)
+				&& Objects.equals(this.result, BatchesListResponse.result);
 	}
 
 	@Override

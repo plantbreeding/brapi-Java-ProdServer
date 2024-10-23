@@ -15,17 +15,26 @@ import java.util.Objects;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchesBatchResponseResult implements BrAPIResponseResult<BatchSummary>  {
+public class BatchesListResponseResult<T> implements BrAPIResponseResult<T>  {
+
+  @JsonProperty("batchDbId")
+  @Valid
+  private String batchDbId = null;
+
   @JsonProperty("data")
   @Valid
-  private List<BatchSummary> data = new ArrayList<BatchSummary>();
+  private List<T> data = new ArrayList<>();
 
-  public BatchesBatchResponseResult data(List<BatchSummary> data) {
+  public BatchesListResponseResult<T> batchDbId(String batchDbId) {
+      this.batchDbId = batchDbId;
+      return this;
+  }
+  public BatchesListResponseResult<T> data(List<T> data) {
     this.data = data;
     return this;
   }
 
-  public BatchesBatchResponseResult addDataItem(BatchSummary dataItem) {
+  public BatchesListResponseResult addDataItem(T dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -37,14 +46,17 @@ public class BatchesBatchResponseResult implements BrAPIResponseResult<BatchSumm
   @ApiModelProperty(required = true, value = "")
       
     @Valid
-    public List<BatchSummary> getData() {
+    public List<T> getData() {
     return data;
   }
 
-  public void setData(List<BatchSummary> data) {
+  public void setData(List<T> data) {
     this.data = data;
   }
 
+  public String getBatchDbId() { return batchDbId; }
+
+  public void setBatchDbId(String batchDbId) { this.batchDbId = batchDbId; }
 
   @Override
   public boolean equals(Object o) {
@@ -54,8 +66,8 @@ public class BatchesBatchResponseResult implements BrAPIResponseResult<BatchSumm
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BatchesBatchResponseResult BatchesBatchResponseResult = (io.swagger.model.core.BatchesBatchResponseResult) o;
-    return Objects.equals(this.data, BatchesBatchResponseResult.data);
+    BatchesListResponseResult BatchesListResponseResult = (BatchesListResponseResult) o;
+    return Objects.equals(this.data, BatchesListResponseResult.data);
   }
 
   @Override
