@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,22 +103,26 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<BatchesBatchResponse> batchesPost(@Valid @RequestBody BatchSearchRequest body,
+	public ResponseEntity<? extends BrAPIResponse> batchesPost(@Valid @RequestBody BatchSearchRequest body,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
 		Metadata metadata = generateMetaDataTemplate(body);
+		
+		// Fetch requested BrAPI entities
 		BatchTypes batchType = body.getBatchType();
 		BrAPIComponent component = componentFactory.getComponent(batchType);
-		SearchRequest entitySearch = body.getSearchRequest();//component.mapToSearchRequest(body.getSearchRequest());
-		List<BatchSummary> data = component.findEntities(entitySearch, metadata);
-		List<String> dbIds = data.stream().map(BatchSummary::getBatchDbId).collect(Collectors.toList());
-		BatchNewRequest newBatchRequest = new BatchNewRequest();
-		newBatchRequest.data(dbIds);
-		batchService.saveNewBatch(Arrays.asList(newBatchRequest));
-		return responseOK(new BatchesBatchResponse(), new BatchesBatchResponseResult(), data);
+		SearchRequest entitySearch = body.getSearchRequest();
+		List<?> entities = component.findEntities(entitySearch, metadata);
+
+		// Create a new batch for the requested entites
+		List<String> entityDbIds = component.collectDbIds(entities);
+		BatchNewRequest newBatchRequest = new BatchNewRequest().data(entityDbIds);
+		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
+
+		return responseOK(newBatchDbID, entities, metadata);
 	}
 
 	@CrossOrigin
@@ -144,7 +147,7 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 			BatchNewRequest newBatchRequest = new BatchNewRequest();
 			newBatchRequest.data(dbIds);
 			batchService.saveNewBatch(Arrays.asList(newBatchRequest));
-			return responseOK(new BatchesBatchResponse(), new BatchesBatchResponseResult(), data, metadata);
+			return responseOK(new BatchesListResponse(), new BatchesListResponseResult(), data, metadata);
 		}else {
 			return responseAccepted(searchResultsDbId);
 		}

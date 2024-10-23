@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import io.swagger.model.core.BatchesListResponse;
+import io.swagger.model.core.BatchesListResponseResult;
 import org.brapi.test.BrAPITestServer.auth.AuthDetails;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.exceptions.InvalidPagingException;
@@ -187,6 +189,14 @@ public class BrAPIController {
 		response.setMetadata(metadata);
 		response.setResult(result);
 		return new ResponseEntity<T>(response, HttpStatus.OK);
+	}
+
+	public <T> ResponseEntity<BatchesListResponse> responseOK(String batchDbId, List<T> data, Metadata metadata) {
+		BatchesListResponseResult<T> result = new BatchesListResponseResult<T>().batchDbId(batchDbId).data(data);
+		BatchesListResponse response = new BatchesListResponse();
+		response.setMetadata(metadata);
+		response.setResult(result);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	public ResponseEntity<Model202AcceptedSearchResponse> responseAccepted(String searchReqDbId){

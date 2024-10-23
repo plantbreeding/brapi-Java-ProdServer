@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
 @Api(value = "batches", description = "the batches API")
@@ -86,21 +85,21 @@ public interface BatchesApi {
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Create a New Batch", nickname = "batchesPost", notes = "Create a new batch", response = BatchesBatchResponse.class, authorizations = {
+    @ApiOperation(value = "Create a New Batch", nickname = "batchesPost", notes = "Create a new batch", response = BatchesListResponse.class, authorizations = {
             @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesBatchResponse.class),
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesListResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class) })
     @RequestMapping(value = "/batches", produces = { "application/json" }, consumes = {
             "application/json" }, method = RequestMethod.POST)
-    ResponseEntity<BatchesBatchResponse> batchesPost(@ApiParam(value = "") @Valid @RequestBody BatchSearchRequest body,
+    ResponseEntity<? extends BrAPIResponse> batchesPost(@ApiParam(value = "") @Valid @RequestBody BatchSearchRequest body,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Get the results of a Batch search request", nickname = "searchBatchesSearchResultsDbIdGet", notes = "Advanced searching for the batch resource. See Search Services for additional implementation details.", response = BatchesBatchResponse.class, authorizations = {
+    @ApiOperation(value = "Get the results of a Batch search request", nickname = "searchBatchesSearchResultsDbIdGet", notes = "Advanced searching for the batch resource. See Search Services for additional implementation details.", response = BatchesListResponse.class, authorizations = {
             @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesBatchResponse.class),
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesListResponse.class),
             @ApiResponse(code = 202, message = "Accepted", response = Model202AcceptedSearchResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
