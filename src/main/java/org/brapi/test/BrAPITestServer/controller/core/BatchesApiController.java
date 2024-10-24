@@ -110,10 +110,16 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
 		Metadata metadata = generateMetaDataTemplate(body);
-		
-		// Fetch requested BrAPI entities
 		BatchTypes batchType = body.getBatchType();
 		BrAPIComponent component = componentFactory.getComponent(batchType);
+
+		// Return the searchDbId with a 202 if the search is too in-depth with several parameters
+		String searchReqDbId = searchService.saveSearchRequest(body.getSearchRequest(), component.getSearchType());
+		if (searchReqDbId != null) {
+			return responseAccepted(searchReqDbId);
+		}
+
+		// Fetch requested BrAPI entities
 		SearchRequest entitySearch = body.getSearchRequest();
 		List<?> entities = component.findEntities(entitySearch, metadata);
 
@@ -138,19 +144,26 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		validateAcceptHeader(request);
 		Metadata metadata = generateMetaDataTemplate(page, pageSize);
 		SearchRequestEntity request = searchService.findById(searchResultsDbId);
-		if (request != null) {
-			BatchSearchRequest body = request.getParameters(BatchSearchRequest.class);
-			BatchTypes batchType = body.getBatchType();
-			BrAPIComponent component = componentFactory.getComponent(batchType);
-			List<BatchSummary> data = component.findEntities(body, metadata);
-			List<String> dbIds = data.stream().map(BatchSummary::getBatchDbId).collect(Collectors.toList());
-			BatchNewRequest newBatchRequest = new BatchNewRequest();
-			newBatchRequest.data(dbIds);
-			batchService.saveNewBatch(Arrays.asList(newBatchRequest));
-			return responseOK(new BatchesListResponse(), new BatchesListResponseResult(), data, metadata);
-		}else {
-			return responseAccepted(searchResultsDbId);
+
+		// Return a 202 if the search results are not ready
+		if (request == null) {
+			responseAccepted(searchResultsDbId);
 		}
+
+		BatchSearchRequest body = request.getParameters(BatchSearchRequest.class);
+		BatchTypes batchType = body.getBatchType();
+		BrAPIComponent component = componentFactory.getComponent(batchType);
+
+		// Fetch requested BrAPI entities
+		SearchRequest entitySearch = body.getSearchRequest();
+		List<?> entities = component.findEntities(entitySearch, metadata);
+
+		// Create a new batch for the requested entites
+		List<String> entityDbIds = component.collectDbIds(entities);
+		BatchNewRequest newBatchRequest = new BatchNewRequest().data(entityDbIds);
+		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
+
+		return responseOK(newBatchDbID, entities, metadata);
 	}
 
 	@CrossOrigin

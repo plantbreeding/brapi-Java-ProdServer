@@ -1,7 +1,6 @@
 package org.brapi.test.BrAPITestServer.factory;
 
 import io.swagger.model.core.BatchTypes;
-import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity.SearchRequestTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,7 @@ public class BrAPIComponentFactory {
     @Autowired
     public BrAPIComponentFactory(List<BrAPIComponent> components) {
         this.componentMap = components.stream()
-                .collect(Collectors.toMap(BrAPIComponent::getType, component -> component));
+                .collect(Collectors.toMap(BrAPIComponent::getBatchType, component -> component));
     }
 
     public BrAPIComponent getComponent(BatchTypes type) {
