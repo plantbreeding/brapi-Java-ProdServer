@@ -16,6 +16,7 @@ import io.swagger.model.germ.GermplasmSearchRequest;
 import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
+import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.service.germ.GermplasmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,8 +41,13 @@ public class GermplasmComponent implements BrAPIComponent<Germplasm, GermplasmSe
     }
 
     @Override
-    public BatchTypes getType() {
+    public BatchTypes getBatchType() {
         return BatchTypes.GERMPLASM;
+    }
+
+    @Override
+    public SearchRequestEntity.SearchRequestTypes getSearchType() {
+        return SearchRequestEntity.SearchRequestTypes.GERMPLASM;
     }
 
     @Override

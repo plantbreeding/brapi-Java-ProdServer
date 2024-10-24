@@ -7,6 +7,7 @@ import io.swagger.model.SearchRequest;
 import io.swagger.model.core.*;
 import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
+import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.service.core.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,13 @@ public class ListComponent implements BrAPIComponent<ListSummary, ListSearchRequ
     }
 
     @Override
-    public BatchTypes getType() {
+    public BatchTypes getBatchType() {
         return BatchTypes.LISTS;
+    }
+
+    @Override
+    public SearchRequestEntity.SearchRequestTypes getSearchType() {
+        return SearchRequestEntity.SearchRequestTypes.LISTS;
     }
 
     @Override
