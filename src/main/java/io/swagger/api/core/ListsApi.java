@@ -67,6 +67,20 @@ public interface ListsApi {
 			@ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
 			throws BrAPIServerException;
 
+	@ApiOperation(value = "Delete an existing generic list", nickname = "listsListDbIdDelete", notes = "Delete an existing generic list", response = ListsListResponse.class, authorizations = {
+			@Authorization(value = "AuthorizationToken") }, tags = { "Lists", })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = ListsSingleResponse.class),
+			@ApiResponse(code = 400, message = "Bad Request", response = String.class),
+			@ApiResponse(code = 401, message = "Unauthorized", response = String.class),
+			@ApiResponse(code = 403, message = "Forbidden", response = String.class),
+			@ApiResponse(code = 404, message = "Not Found", response = String.class) })
+	@RequestMapping(value = "/lists/{listDbId}", produces = { "application/json" }, method = RequestMethod.DELETE)
+	ResponseEntity<ListsSingleResponse> listsListDbIdDelete(
+			@ApiParam(value = "The unique ID of this generic list", required = true) @PathVariable("listDbId") String listDbId,
+			@ApiParam(value = "hard") @Valid @RequestParam(value = "hard", defaultValue = "false", required = false) boolean hard,
+			@ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
+			throws BrAPIServerException;
+
 	@ApiOperation(value = "Add Items to a specific List", nickname = "listsListDbIdItemsPost", notes = "Add new data to a specific generic lists", response = ListResponse.class, authorizations = {
 			@Authorization(value = "AuthorizationToken") }, tags = { "Lists", })
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = ListResponse.class),
