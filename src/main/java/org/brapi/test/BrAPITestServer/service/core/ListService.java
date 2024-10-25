@@ -145,6 +145,10 @@ public class ListService {
 		return convertToDetails(savedEntity);
 	}
 
+	public void deleteList(String listDbId) throws BrAPIServerException {
+		listRepository.deleteAllByIdInBatch(Arrays.asList(listDbId));
+	}
+
 	public List<ListSummary> saveNewList(@Valid List<ListNewRequest> requests) throws BrAPIServerException {
 
 		List<ListSummary> savedLists = new ArrayList<>();

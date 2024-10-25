@@ -127,6 +127,24 @@ public class ListsApiController extends BrAPIController implements ListsApi {
 		ListDetails data = listService.updateList(listDbId, body);
 		return responseOK(new ListsSingleResponse(), data);
 	}
+    @CrossOrigin
+	@Override
+	public ResponseEntity<ListsSingleResponse> listsListDbIdDelete(
+			@PathVariable("listDbId") String listDbId,
+			@Valid @RequestParam(value = "hard", defaultValue = "false" ,required = false) boolean hard,
+			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
+
+		log.debug("Request: " + request.getRequestURI());
+		validateSecurityContext(request, "ROLE_USER");
+		validateAcceptHeader(request);
+
+		if (hard) {
+            listService.deleteList(listDbId);
+			return responseOK(new ListsSingleResponse(), null);
+		}
+
+		return null;
+	}
 
 	@CrossOrigin
 	@Override

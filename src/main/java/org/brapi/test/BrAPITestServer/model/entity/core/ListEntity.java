@@ -29,7 +29,7 @@ public class ListEntity extends BrAPIPrimaryEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private PersonEntity listOwnerPerson;
-	@OneToMany(mappedBy="list", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="list", cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderColumn(name = "position")
 	private List<ListItemEntity> data;
 
