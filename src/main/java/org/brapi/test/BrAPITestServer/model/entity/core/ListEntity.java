@@ -26,6 +26,8 @@ public class ListEntity extends BrAPIPrimaryEntity {
 	private String listSource;
 	@Column
 	private ListTypes listType;
+	@Column
+	private boolean softDeleted;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private PersonEntity listOwnerPerson;
@@ -96,6 +98,10 @@ public class ListEntity extends BrAPIPrimaryEntity {
 	public void setListType(ListTypes listType) {
 		this.listType = listType;
 	}
+
+	public boolean getSoftDeleted() { return softDeleted; }
+
+	public void setSoftDeleted(boolean sofDeleted) { this.softDeleted = sofDeleted; }
 
 	public List<ListItemEntity> getData() {
 		return data;

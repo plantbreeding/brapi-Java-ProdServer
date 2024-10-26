@@ -13,6 +13,8 @@ public class ListItemEntity extends BrAPIBaseEntity {
 	private String item;
 	@Column
 	private Integer position;
+	@Column
+	private boolean softDeleted;
 	
 	public ListEntity getList() {
 		return list;
@@ -32,4 +34,6 @@ public class ListItemEntity extends BrAPIBaseEntity {
 	public void setPosition(Integer position) {
 		this.position = position;
 	}
+	public boolean getSoftDeleted() { return softDeleted; }
+	public void setSoftDeleted(boolean softDeleted) { this.softDeleted = softDeleted; }
 }
