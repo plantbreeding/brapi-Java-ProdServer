@@ -143,7 +143,8 @@ public class ListsApiController extends BrAPIController implements ListsApi {
 			return responseOK(new ListsSingleResponse(), null);
 		}
 
-		return null;
+		listService.softDeleteList(listDbId);
+		return responseOK(new ListsSingleResponse(), null);
 	}
 
 	@CrossOrigin

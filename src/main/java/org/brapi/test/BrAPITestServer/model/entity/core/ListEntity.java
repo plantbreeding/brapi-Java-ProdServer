@@ -8,9 +8,14 @@ import javax.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 import io.swagger.model.core.ListTypes;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "list")
+@Where(clause = "soft_deleted = false")
 public class ListEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Date dateCreated;
@@ -26,7 +31,7 @@ public class ListEntity extends BrAPIPrimaryEntity {
 	private String listSource;
 	@Column
 	private ListTypes listType;
-	@Column
+	@Column(name = "soft_deleted")
 	private boolean softDeleted;
 
 	@ManyToOne(fetch = FetchType.LAZY)
