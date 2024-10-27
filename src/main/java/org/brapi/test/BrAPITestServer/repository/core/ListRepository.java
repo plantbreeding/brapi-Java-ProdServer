@@ -5,17 +5,26 @@ import org.brapi.test.BrAPITestServer.repository.BrAPIRepository;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ListRepository extends BrAPIRepository<ListEntity, String>{
-    public Page<ListEntity> findAllBySearchAndNotDeleted(SearchQueryBuilder<ListEntity> searchQuery, Pageable pageReq);
+    @Modifying
+    @Transactional
+    @Query("UPDATE ListEntity l SET l.softDeleted = :softDeleted WHERE l.id = :listId")
+    int updateSoftDeletedStatus(@Param("listId") String listId, @Param("softDeleted") boolean softDeleted);
 
-    @Query("SELECT l FROM ListEntity l WHERE l.id = :id AND l.softDeleted = false")
-    public Optional<ListEntity> findByIdNotDeletedNoAuthCheck(String id);
+//    public Page<ListEntity> findAllBySearchAndNotDeleted(SearchQueryBuilder<ListEntity> searchQuery, Pageable pageReq);
 
-    public Optional<ListEntity> findByIdAndNotDeleted(String id);
+//    @Query("SELECT l FROM ListEntity l WHERE l.id = :id AND l.softDeleted = false")
+//    public Optional<ListEntity> findByIdNotDeletedNoAuthCheck(@Param("id") String id);
+//
+//    public Optional<ListEntity> findByIdAndSoftDeletedFalse(String id);
 
 }

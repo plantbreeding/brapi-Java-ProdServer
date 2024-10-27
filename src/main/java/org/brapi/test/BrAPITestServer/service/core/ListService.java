@@ -14,6 +14,8 @@ import org.brapi.test.BrAPITestServer.repository.core.ListRepository;
 import org.brapi.test.BrAPITestServer.service.DateUtility;
 import org.brapi.test.BrAPITestServer.service.PagingUtility;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
+import org.hibernate.Filter;
+import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -27,11 +29,19 @@ import io.swagger.model.core.ListSearchRequest;
 import io.swagger.model.core.ListSummary;
 import io.swagger.model.core.ListTypes;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ListService {
 
 	private ListRepository listRepository;
 	private PeopleService peopleService;
+//	@PersistenceContext
+//	private EntityManager entityManager;
 
 	public ListService(ListRepository listRepository, PeopleService peopleService) {
 		this.listRepository = listRepository;
@@ -147,6 +157,13 @@ public class ListService {
 
 	public void deleteList(String listDbId) throws BrAPIServerException {
 		listRepository.deleteAllByIdInBatch(Arrays.asList(listDbId));
+	}
+
+	public void softDeleteList(String listDbId) throws BrAPIServerDbIdNotFoundException {
+		int updatedCount = listRepository.updateSoftDeletedStatus(listDbId, true);
+		if (updatedCount == 0) {
+			throw new BrAPIServerDbIdNotFoundException("List with id " + listDbId + " not found", HttpStatus.NOT_FOUND);
+		}
 	}
 
 	public List<ListSummary> saveNewList(@Valid List<ListNewRequest> requests) throws BrAPIServerException {

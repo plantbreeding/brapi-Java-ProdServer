@@ -1,3 +1,21 @@
+-- Drop the trigger if it exists
+DROP TRIGGER IF EXISTS sync_soft_deleted_status ON public.list;
+
+-- Drop the function if it exists
+DROP FUNCTION IF EXISTS sync_list_related_tables_soft_deleted();
+
+-- Remove soft_deleted column from list table if it exists
+ALTER TABLE public.list
+DROP COLUMN IF EXISTS soft_deleted;
+
+-- Remove soft_deleted column from list_external_references table if it exists
+ALTER TABLE public.list_external_references
+DROP COLUMN IF EXISTS soft_deleted;
+
+-- Remove soft_deleted column from list_item table if it exists
+ALTER TABLE public.list_item
+DROP COLUMN IF EXISTS soft_deleted;
+
 -- Add soft_deleted column to list, list_external_references, and list_item tables
 ALTER TABLE public.list
     ADD COLUMN soft_deleted BOOLEAN NOT NULL DEFAULT FALSE;
@@ -15,7 +33,7 @@ BEGIN
     -- Update list_external_references
 UPDATE public.list_external_references
 SET soft_deleted = NEW.soft_deleted
-WHERE list_id = NEW.id;
+WHERE list_entity_id = NEW.id;
 
 -- Update list_item
 UPDATE public.list_item

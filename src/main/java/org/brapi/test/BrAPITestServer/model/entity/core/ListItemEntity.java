@@ -3,9 +3,14 @@ package org.brapi.test.BrAPITestServer.model.entity.core;
 import javax.persistence.*;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "list_item")
+@Where(clause = "soft_deleted = false")
 public class ListItemEntity extends BrAPIBaseEntity {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private ListEntity list;
@@ -13,7 +18,7 @@ public class ListItemEntity extends BrAPIBaseEntity {
 	private String item;
 	@Column
 	private Integer position;
-	@Column
+	@Column(name = "soft_deleted")
 	private boolean softDeleted;
 	
 	public ListEntity getList() {
