@@ -131,14 +131,14 @@ public class ListsApiController extends BrAPIController implements ListsApi {
 	@Override
 	public ResponseEntity<ListsSingleResponse> listsListDbIdDelete(
 			@PathVariable("listDbId") String listDbId,
-			@Valid @RequestParam(value = "hard", defaultValue = "false" ,required = false) boolean hard,
+			@Valid @RequestParam(value = "hardDelete", defaultValue = "false" ,required = false) boolean hardDelete,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
 
-		if (hard) {
+		if (hardDelete) {
             listService.deleteList(listDbId);
 			return responseOK(new ListsSingleResponse(), null);
 		}

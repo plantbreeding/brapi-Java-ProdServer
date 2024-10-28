@@ -77,7 +77,7 @@ public interface ListsApi {
 	@RequestMapping(value = "/lists/{listDbId}", produces = { "application/json" }, method = RequestMethod.DELETE)
 	ResponseEntity<ListsSingleResponse> listsListDbIdDelete(
 			@ApiParam(value = "The unique ID of this generic list", required = true) @PathVariable("listDbId") String listDbId,
-			@ApiParam(value = "hard") @Valid @RequestParam(value = "hard", defaultValue = "false", required = false) boolean hard,
+			@ApiParam(value = "hardDelete") @Valid @RequestParam(value = "hardDelete", defaultValue = "false", required = false) boolean hardDelete,
 			@ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
 			throws BrAPIServerException;
 

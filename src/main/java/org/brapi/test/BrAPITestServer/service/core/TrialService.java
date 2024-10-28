@@ -1,6 +1,7 @@
 package org.brapi.test.BrAPITestServer.service.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -152,6 +153,10 @@ public class TrialService {
 		}
 
 		return savedTrials;
+	}
+
+	public void deleteTrial(String trialDbId) throws BrAPIServerException {
+		trialRepository.deleteAllByIdInBatch(Arrays.asList(trialDbId));
 	}
 
 	public Trial updateTrial(String trialDbId, TrialNewRequest body) throws BrAPIServerException {
