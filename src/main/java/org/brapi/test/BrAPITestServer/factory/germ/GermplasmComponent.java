@@ -54,4 +54,14 @@ public class GermplasmComponent implements BrAPIComponent<Germplasm, GermplasmSe
     public List<String> collectDbIds(List<Germplasm> entities) {
         return entities.stream().map(Germplasm::getGermplasmDbId).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteBatchData(List<String> dbIds) {
+
+    }
+
+    @Override
+    public void softDeleteBatchData(List<String> dbIds) {
+
+    }
 }

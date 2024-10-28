@@ -122,6 +122,7 @@ public interface BatchesApi {
     @RequestMapping(value = "/batches/{batchDbId}", produces = { "application/json" }, method = RequestMethod.DELETE)
     ResponseEntity<BatchesSingleResponse> batchesBatchDbIdDelete(
             @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDbId") String batchDbId,
+            @ApiParam(value = "hard") @Valid @RequestParam(value = "hardDelete", defaultValue = "false", required = false) boolean hardDelete,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 

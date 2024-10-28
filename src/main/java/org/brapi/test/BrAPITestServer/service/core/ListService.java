@@ -40,8 +40,6 @@ public class ListService {
 
 	private ListRepository listRepository;
 	private PeopleService peopleService;
-//	@PersistenceContext
-//	private EntityManager entityManager;
 
 	public ListService(ListRepository listRepository, PeopleService peopleService) {
 		this.listRepository = listRepository;
@@ -153,6 +151,14 @@ public class ListService {
 		}
 
 		return convertToDetails(savedEntity);
+	}
+
+	public void deleteListBatch(List<String> listDbIds) {
+		listRepository.deleteAllByIdInBatch(listDbIds);
+	}
+
+	public void softDeleteListBatch(List<String> listDbIds) {
+		listRepository.updateSoftDeletedStatusBatch(listDbIds, true);
 	}
 
 	public void deleteList(String listDbId) throws BrAPIServerException {

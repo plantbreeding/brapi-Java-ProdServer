@@ -20,11 +20,8 @@ public interface ListRepository extends BrAPIRepository<ListEntity, String>{
     @Query("UPDATE ListEntity l SET l.softDeleted = :softDeleted WHERE l.id = :listId")
     int updateSoftDeletedStatus(@Param("listId") String listId, @Param("softDeleted") boolean softDeleted);
 
-//    public Page<ListEntity> findAllBySearchAndNotDeleted(SearchQueryBuilder<ListEntity> searchQuery, Pageable pageReq);
-
-//    @Query("SELECT l FROM ListEntity l WHERE l.id = :id AND l.softDeleted = false")
-//    public Optional<ListEntity> findByIdNotDeletedNoAuthCheck(@Param("id") String id);
-//
-//    public Optional<ListEntity> findByIdAndSoftDeletedFalse(String id);
-
+    @Modifying
+    @Transactional
+    @Query("UPDATE ListEntity l SET l.softDeleted = :softDeleted WHERE l.id IN :listIds")
+    int updateSoftDeletedStatusBatch(@Param("listIds") List<String> listIds, @Param("softDeleted") boolean softDeleted);
 }

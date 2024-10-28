@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
 @Controller
@@ -114,7 +113,8 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		BrAPIComponent component = componentFactory.getComponent(batchType);
 
 		// Return the searchDbId with a 202 if the search is too in-depth with several parameters
-		String searchReqDbId = searchService.saveSearchRequest(body.getSearchRequest(), component.getSearchType());
+		//String searchReqDbId = searchService.saveSearchRequest(body.getSearchRequest(), component.getSearchType());
+		String searchReqDbId = searchService.saveSearchRequest(body, SearchRequestEntity.SearchRequestTypes.BATCHES);
 		if (searchReqDbId != null) {
 			return responseAccepted(searchReqDbId);
 		}
@@ -125,7 +125,7 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 
 		// Create a new batch for the requested entites
 		List<String> entityDbIds = component.collectDbIds(entities);
-		BatchNewRequest newBatchRequest = new BatchNewRequest().data(entityDbIds);
+		BatchNewRequest newBatchRequest = (BatchNewRequest) new BatchNewRequest().data(entityDbIds).batchType(body.getBatchType());
 		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
 
 		return responseOK(newBatchDbID, entities, metadata);
@@ -169,12 +169,20 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 	@CrossOrigin
 	public ResponseEntity<BatchesSingleResponse> batchesBatchDbIdDelete(
 			@PathVariable("batchDbId") String batchDbId,
+			@Valid @RequestParam(value = "hardDelete", defaultValue = "false" ,required = false) boolean hardDelete,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
-		batchService.deleteBatch(batchDbId);
+		BatchDetails batch = batchService.getBatch(batchDbId);
+		BatchTypes batchType = batch.getBatchType();
+		BrAPIComponent component = componentFactory.getComponent(batchType);
+		if (hardDelete) {
+			component.deleteBatchData(batch.getData());
+			return responseOK(new BatchesSingleResponse(), null);
+		}
+		component.softDeleteBatchData(batch.getData());
 		return responseOK(new BatchesSingleResponse(), null);
 	}
 }
