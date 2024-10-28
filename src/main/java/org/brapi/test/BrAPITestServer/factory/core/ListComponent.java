@@ -45,4 +45,14 @@ public class ListComponent implements BrAPIComponent<ListSummary, ListSearchRequ
     public List<String> collectDbIds(List<ListSummary> entities) {
         return entities.stream().map(ListSummary::getListDbId).collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteBatchData(List<String> dbIds) {
+        listService.deleteListBatch(dbIds);
+    }
+
+    @Override
+    public void softDeleteBatchData(List<String> dbIds) {
+        listService.softDeleteListBatch(dbIds);
+    }
 }

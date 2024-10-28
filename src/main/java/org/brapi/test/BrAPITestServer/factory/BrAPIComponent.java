@@ -13,4 +13,6 @@ public interface BrAPIComponent<T, R extends SearchRequest> {
     BatchTypes getBatchType();
     SearchRequestEntity.SearchRequestTypes getSearchType();
     List<String> collectDbIds(List<T> entities);
+    void deleteBatchData(List<String> dbIds);
+    void softDeleteBatchData(List<String> dbIds);
 }
