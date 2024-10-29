@@ -151,6 +151,13 @@ public class SampleService {
 		sampleRepository.deleteAllByIdInBatch(Arrays.asList(sampleDbId));
 	}
 
+	public void softDeleteSample(String sampleDbId) throws BrAPIServerDbIdNotFoundException {
+		int updatedCount = sampleRepository.updateSoftDeletedStatus(sampleDbId, true);
+		if (updatedCount == 0) {
+			throw new BrAPIServerDbIdNotFoundException("Sample with id " + sampleDbId + " not found", HttpStatus.NOT_FOUND);
+		}
+	}
+
 	public Sample updateSample(String sampleDbId, SampleNewRequest body) throws BrAPIServerException {
 		SampleEntity entity = getSampleEntity(sampleDbId, HttpStatus.NOT_FOUND);
 		updateEntity(entity, body);
