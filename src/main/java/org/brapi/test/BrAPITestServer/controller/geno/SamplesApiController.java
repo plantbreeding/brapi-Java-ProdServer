@@ -10,6 +10,7 @@ import io.swagger.model.geno.SampleSearchRequest;
 import io.swagger.model.geno.SampleSingleResponse;
 import io.swagger.api.geno.SamplesApi;
 
+import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.controller.core.BrAPIController;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
@@ -116,6 +117,21 @@ public class SamplesApiController extends BrAPIController implements SamplesApi 
 		validateAcceptHeader(request);
 		Sample data = sampleService.getSample(sampleDbId);
 		return responseOK(new SampleSingleResponse(), data);
+	}
+
+	@Override
+	public ResponseEntity<SampleSingleResponse> samplesSampleDbIdDelete(
+			@PathVariable("sampleDbId") String sampleDbId,
+			@Valid @RequestParam(value = "hardDelete", defaultValue = "false", required = false) boolean hardDelete,
+			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
+		log.debug("Request: " + request.getRequestURI());
+		validateSecurityContext(request, "ROLE_USER");
+		validateAcceptHeader(request);
+		if (hardDelete) {
+			sampleService.deleteSample(sampleDbId);
+			return responseOK(new SampleSingleResponse(), null);
+		}
+		return null;
 	}
 
 	@CrossOrigin
