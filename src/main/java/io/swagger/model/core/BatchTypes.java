@@ -9,7 +9,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum BatchTypes {
   GERMPLASM("germplasm"),
-  LISTS("lists");
+  LISTS("lists"),
+  TRIALS("trials"),
+  SAMPLES("samples");
+
 
   private String value;
 
