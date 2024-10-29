@@ -131,7 +131,9 @@ public class SamplesApiController extends BrAPIController implements SamplesApi 
 			sampleService.deleteSample(sampleDbId);
 			return responseOK(new SampleSingleResponse(), null);
 		}
-		return null;
+
+		sampleService.softDeleteSample(sampleDbId);
+		return responseOK(new SampleSingleResponse(), null);
 	}
 
 	@CrossOrigin
