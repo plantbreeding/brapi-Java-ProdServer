@@ -147,6 +147,10 @@ public class SampleService {
 		return savedSamples;
 	}
 
+	public void deleteSample(String sampleDbId) throws BrAPIServerException {
+		sampleRepository.deleteAllByIdInBatch(Arrays.asList(sampleDbId));
+	}
+
 	public Sample updateSample(String sampleDbId, SampleNewRequest body) throws BrAPIServerException {
 		SampleEntity entity = getSampleEntity(sampleDbId, HttpStatus.NOT_FOUND);
 		updateEntity(entity, body);

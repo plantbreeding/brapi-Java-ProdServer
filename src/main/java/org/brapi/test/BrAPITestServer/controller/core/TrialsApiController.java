@@ -8,10 +8,6 @@ import io.swagger.model.core.TrialListResponseResult;
 import io.swagger.model.core.TrialNewRequest;
 import io.swagger.model.core.TrialSearchRequest;
 import io.swagger.model.core.TrialSingleResponse;
-import io.swagger.model.germ.Germplasm;
-import io.swagger.model.germ.GermplasmListResponse;
-import io.swagger.model.germ.GermplasmListResponseResult;
-import io.swagger.model.germ.GermplasmSearchRequest;
 import io.swagger.api.core.TrialsApi;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
@@ -22,7 +18,6 @@ import org.brapi.test.BrAPITestServer.service.SearchService;
 import org.brapi.test.BrAPITestServer.service.core.TrialService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
