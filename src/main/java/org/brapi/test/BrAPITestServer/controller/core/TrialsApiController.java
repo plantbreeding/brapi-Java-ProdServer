@@ -119,7 +119,8 @@ public class TrialsApiController extends BrAPIController implements TrialsApi {
 			 return responseOK(new TrialSingleResponse(), null);
 		 }
 
-		return null;
+		trialService.softDeleteTrial(trialDbId);
+		return responseOK(new TrialSingleResponse(), null);
 	}
 
 	@CrossOrigin
