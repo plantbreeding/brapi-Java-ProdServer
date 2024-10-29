@@ -155,6 +155,14 @@ public class TrialService {
 		return savedTrials;
 	}
 
+	public void deleteTrialBatch(List<String> trialDbIds) {
+		trialRepository.deleteAllByIdInBatch(trialDbIds);
+	}
+
+	public void softDeleteTrialBatch(List<String> trialDbIds) {
+		trialRepository.updateSoftDeletedStatusBatch(trialDbIds, true);
+	}
+
 	public void softDeleteTrial(String trialDbId) throws BrAPIServerDbIdNotFoundException {
 		int updatedCount = trialRepository.updateSoftDeletedStatus(trialDbId, true);
 		if (updatedCount == 0) {

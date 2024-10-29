@@ -147,6 +147,14 @@ public class SampleService {
 		return savedSamples;
 	}
 
+	public void deleteSampleBatch(List<String> sampleDbIds) {
+		sampleRepository.deleteAllByIdInBatch(sampleDbIds);
+	}
+
+	public void softDeleteSampleBatch(List<String> sampleDbIds) {
+		sampleRepository.updateSoftDeletedStatusBatch(sampleDbIds, true);
+	}
+
 	public void deleteSample(String sampleDbId) throws BrAPIServerException {
 		sampleRepository.deleteAllByIdInBatch(Arrays.asList(sampleDbId));
 	}
