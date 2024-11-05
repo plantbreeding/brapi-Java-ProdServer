@@ -1,10 +1,10 @@
 package org.brapi.test.BrAPITestServer.service.core;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+import io.swagger.model.core.BatchBaseFieldsInterface;
+import io.swagger.model.core.BatchDetails;
+import io.swagger.model.core.BatchNewRequest;
+import io.swagger.model.core.BatchSummary;
 import jakarta.validation.Valid;
-
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.BatchEntity;
@@ -12,24 +12,17 @@ import org.brapi.test.BrAPITestServer.model.entity.core.BatchItemEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.PersonEntity;
 import org.brapi.test.BrAPITestServer.repository.core.BatchRepository;
 import org.brapi.test.BrAPITestServer.service.DateUtility;
-import org.brapi.test.BrAPITestServer.service.PagingUtility;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import io.swagger.model.Metadata;
-import io.swagger.model.core.BatchBaseFieldsInterface;
-import io.swagger.model.core.BatchDetails;
-import io.swagger.model.core.BatchNewRequest;
-import io.swagger.model.core.BatchSummary;
-import io.swagger.model.core.BatchTypes;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BatchService {
 
-	private BatchRepository batchRepository;
-	private PeopleService peopleService;
+	private final BatchRepository batchRepository;
+	private final PeopleService peopleService;
 
 	public BatchService(BatchRepository batchRepository, PeopleService peopleService) {
 		this.batchRepository = batchRepository;

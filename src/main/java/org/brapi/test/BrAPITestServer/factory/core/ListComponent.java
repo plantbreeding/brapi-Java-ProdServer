@@ -1,17 +1,14 @@
 package org.brapi.test.BrAPITestServer.factory.core;
 
-import io.swagger.model.BrAPIResponse;
-import io.swagger.model.BrAPIResponseResult;
 import io.swagger.model.Metadata;
-import io.swagger.model.SearchRequest;
-import io.swagger.model.core.*;
+import io.swagger.model.core.BatchTypes;
+import io.swagger.model.core.ListSearchRequest;
+import io.swagger.model.core.ListSummary;
 import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.service.core.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

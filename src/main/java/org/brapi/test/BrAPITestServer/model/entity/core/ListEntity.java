@@ -1,17 +1,12 @@
 package org.brapi.test.BrAPITestServer.model.entity.core;
 
-import java.util.Date;
-import java.util.List;
+import io.swagger.model.core.ListTypes;
+import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-
-import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
-
-import io.swagger.model.core.ListTypes;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
-import org.hibernate.annotations.Where;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "list")

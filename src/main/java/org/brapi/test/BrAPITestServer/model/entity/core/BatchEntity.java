@@ -1,13 +1,11 @@
 package org.brapi.test.BrAPITestServer.model.entity.core;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.*;
-
 import io.swagger.model.core.BatchTypes;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
-import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity.SearchRequestTypes;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "batch")
