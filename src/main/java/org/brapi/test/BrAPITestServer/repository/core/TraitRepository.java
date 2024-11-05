@@ -10,13 +10,4 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface TraitRepository extends BrAPIRepository<TraitEntity, String> {
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE ListEntity l SET l.softDeleted = :softDeleted WHERE l.id = :listId")
-//    int updateSoftDeletedStatus(@Param("listId") String listId, @Param("softDeleted") boolean softDeleted);
-//
-//    @Modifying
-//    @Transactional
-//    @Query("UPDATE ListEntity l SET l.softDeleted = :softDeleted WHERE l.id IN :listIds")
-//    int updateSoftDeletedStatusBatch(@Param("listIds") List<String> listIds, @Param("softDeleted") boolean softDeleted);
 }

@@ -14,7 +14,7 @@ public enum BatchTypes {
   SAMPLES("samples");
 
 
-  private String value;
+  private final String value;
 
   BatchTypes(String value) {
     this.value = value;

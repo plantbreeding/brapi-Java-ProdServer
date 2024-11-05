@@ -1,13 +1,10 @@
 package io.swagger.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import io.swagger.model.germ.GermplasmSearchRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class SearchRequest {
 	@JsonIgnore

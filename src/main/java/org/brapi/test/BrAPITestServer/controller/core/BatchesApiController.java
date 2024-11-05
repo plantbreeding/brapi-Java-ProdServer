@@ -113,7 +113,6 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		BrAPIComponent component = componentFactory.getComponent(batchType);
 
 		// Return the searchDbId with a 202 if the search is too in-depth with several parameters
-		//String searchReqDbId = searchService.saveSearchRequest(body.getSearchRequest(), component.getSearchType());
 		String searchReqDbId = searchService.saveSearchRequest(body, SearchRequestEntity.SearchRequestTypes.BATCHES);
 		if (searchReqDbId != null) {
 			return responseAccepted(searchReqDbId);

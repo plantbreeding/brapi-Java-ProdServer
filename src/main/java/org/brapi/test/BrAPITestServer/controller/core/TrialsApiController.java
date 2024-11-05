@@ -1,31 +1,23 @@
 package org.brapi.test.BrAPITestServer.controller.core;
 
+import io.swagger.api.core.TrialsApi;
 import io.swagger.model.BrAPIResponse;
 import io.swagger.model.Metadata;
-import io.swagger.model.core.Trial;
-import io.swagger.model.core.TrialListResponse;
-import io.swagger.model.core.TrialListResponseResult;
-import io.swagger.model.core.TrialNewRequest;
-import io.swagger.model.core.TrialSearchRequest;
-import io.swagger.model.core.TrialSingleResponse;
-import io.swagger.api.core.TrialsApi;
-
+import io.swagger.model.core.*;
+import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity.SearchRequestTypes;
 import org.brapi.test.BrAPITestServer.service.DateUtility;
 import org.brapi.test.BrAPITestServer.service.SearchService;
 import org.brapi.test.BrAPITestServer.service.core.TrialService;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -38,13 +30,15 @@ public class TrialsApiController extends BrAPIController implements TrialsApi {
 	private final HttpServletRequest request;
 	private final TrialService trialService;
 	private final SearchService searchService;
+	private final SessionFactory sessionFactory;
 
 	@org.springframework.beans.factory.annotation.Autowired
-	public TrialsApiController(TrialService trialService, SearchService searchService, HttpServletRequest request) {
+	public TrialsApiController(TrialService trialService, SearchService searchService, HttpServletRequest request, SessionFactory sessionFactory) {
 		this.trialService = trialService;
 		this.searchService = searchService;
 		this.request = request;
-	}
+        this.sessionFactory = sessionFactory;
+    }
 
 	@CrossOrigin
 	@Override

@@ -1,10 +1,8 @@
 package org.brapi.test.BrAPITestServer.service.core;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
+import io.swagger.model.Metadata;
+import io.swagger.model.core.*;
 import jakarta.validation.Valid;
-
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.ListEntity;
@@ -14,32 +12,21 @@ import org.brapi.test.BrAPITestServer.repository.core.ListRepository;
 import org.brapi.test.BrAPITestServer.service.DateUtility;
 import org.brapi.test.BrAPITestServer.service.PagingUtility;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
-import org.hibernate.Filter;
-import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import io.swagger.model.Metadata;
-import io.swagger.model.core.ListBaseFieldsInterface;
-import io.swagger.model.core.ListDetails;
-import io.swagger.model.core.ListNewRequest;
-import io.swagger.model.core.ListSearchRequest;
-import io.swagger.model.core.ListSummary;
-import io.swagger.model.core.ListTypes;
-
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class ListService {
 
-	private ListRepository listRepository;
-	private PeopleService peopleService;
+	private final ListRepository listRepository;
+	private final PeopleService peopleService;
 
 	public ListService(ListRepository listRepository, PeopleService peopleService) {
 		this.listRepository = listRepository;
