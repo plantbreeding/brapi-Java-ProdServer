@@ -4,39 +4,34 @@ services:
   brapi-java-server-v1:
     image: brapicoordinatorselby/brapi-java-server:v1
     restart: unless-stopped
-    depends_on: 
+    depends_on:
       - postgres
     volumes:
       - /home/jenkins/brapi.org/brapi-test-server/properties/v1/application.properties:/home/brapi/properties/application.properties
   brapi-java-server-v2:
     image: brapicoordinatorselby/brapi-java-server:v2
     restart: unless-stopped
-    depends_on: 
+    depends_on:
       - postgres
     volumes:
       - /home/jenkins/brapi.org/brapi-test-server/properties/v2/application.properties:/home/brapi/properties/application.properties
   keycloak-brapi:
-    image: jboss/keycloak:12.0.1
+    image: brapicoordinatorselby/brapi-keycloak:latest
     restart: unless-stopped
-    depends_on: 
+    entrypoint: /opt/keycloak/bin/kc.sh start --optimized --proxy edge
+    depends_on:
       - postgres
-    volumes:
-      - /home/jenkins/brapi.org/brapi-test-server/keycloak/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
     environment:
       - KEYCLOAK_USER
       - KEYCLOAK_PASSWORD
-      - DB_VENDOR
-      - DB_ADDR
-      - DB_DATABASE
-      - DB_USER
-      - DB_PASSWORD
-      - PROXY_ADDRESS_FORWARDING=true
+      - KC_HOSTNAME=auth.brapi.org
+      - KC_DB
+      - KC_DB_URL
+      - KC_DB_USERNAME
+      - KC_DB_PASSWORD
   postgres:
-    image: postgres
+    image: postgres:13
     restart: unless-stopped
-    environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
     volumes:
       - /home/jenkins/brapi.org/brapi-test-server/data:/var/lib/postgresql/data
 networks:

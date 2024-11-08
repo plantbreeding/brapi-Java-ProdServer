@@ -1,9 +1,6 @@
 package org.brapi.test.BrAPITestServer.service.core;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
@@ -237,12 +234,19 @@ public class ListService {
 		}
 
 		if (list.getData() != null) {
-			entity.setData(list.getData().stream().map((item) -> {
-				ListItemEntity itemEntity = new ListItemEntity();
-				itemEntity.setItem(item);
-				itemEntity.setList(entity);
-				return itemEntity;
-			}).collect(Collectors.toList()));
+			List<ListItemEntity> items = new ArrayList<>();
+			ListIterator<String> iter = list.getData().listIterator();
+			while (iter.hasNext()) {
+				String item = iter.next();
+				if (item != null) {
+					ListItemEntity itemEntity = new ListItemEntity();
+					itemEntity.setPosition(iter.nextIndex());
+					itemEntity.setItem(item);
+					itemEntity.setList(entity);
+					items.add(itemEntity);
+				}
+			}
+			entity.setData(items);
 		} else {
 			entity.setData(new ArrayList<>());
 		}
