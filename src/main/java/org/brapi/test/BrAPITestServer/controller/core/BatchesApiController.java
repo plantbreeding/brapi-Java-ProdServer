@@ -127,7 +127,7 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		BatchNewRequest newBatchRequest = (BatchNewRequest) new BatchNewRequest().data(entityDbIds).batchType(body.getBatchType());
 		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
 
-		return responseOK(newBatchDbID, entities, metadata);
+		return responseOK(newBatchDbID, entityDbIds, metadata);
 	}
 
 	@CrossOrigin
@@ -162,7 +162,7 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		BatchNewRequest newBatchRequest = new BatchNewRequest().data(entityDbIds);
 		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
 
-		return responseOK(newBatchDbID, entities, metadata);
+		return responseOK(newBatchDbID, entityDbIds, metadata);
 	}
 
 	@CrossOrigin
