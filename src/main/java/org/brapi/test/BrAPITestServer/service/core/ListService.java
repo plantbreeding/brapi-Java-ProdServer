@@ -149,13 +149,17 @@ public class ListService {
 	}
 
 	public void deleteList(String listDbId) throws BrAPIServerException {
+		// Soft delete the list first since the method throws a 404 exception if the list is not found
+		softDeleteList(listDbId);
+
+		// Hard delete the list
 		listRepository.deleteAllByIdInBatch(Arrays.asList(listDbId));
 	}
 
 	public void softDeleteList(String listDbId) throws BrAPIServerDbIdNotFoundException {
 		int updatedCount = listRepository.updateSoftDeletedStatus(listDbId, true);
 		if (updatedCount == 0) {
-			throw new BrAPIServerDbIdNotFoundException("List with id " + listDbId + " not found", HttpStatus.NOT_FOUND);
+			throw new BrAPIServerDbIdNotFoundException("list", listDbId, "list database ID", HttpStatus.NOT_FOUND);
 		}
 	}
 

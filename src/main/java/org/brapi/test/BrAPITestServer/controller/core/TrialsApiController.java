@@ -99,22 +99,25 @@ public class TrialsApiController extends BrAPIController implements TrialsApi {
 		Trial data = trialService.getTrial(trialDbId);
 		return responseOK(new TrialSingleResponse(), data);
 	}
-    @CrossOrigin
+
+	@CrossOrigin
 	@Override
 	public ResponseEntity<TrialSingleResponse> trialsTrialDbIdDelete(
 			@PathVariable("trialDbId") String trialDbId,
 			@Valid @RequestParam(value = "hardDelete", defaultValue = "false", required = false) boolean hardDelete,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
+
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
-		 if (hardDelete) {
-			 trialService.deleteTrial(trialDbId);
-			 return responseOK(new TrialSingleResponse(), null);
-		 }
+
+		if (hardDelete) {
+			trialService.deleteTrial(trialDbId);
+			return responseNoContent();
+		}
 
 		trialService.softDeleteTrial(trialDbId);
-		return responseOK(new TrialSingleResponse(), null);
+		return responseNoContent();
 	}
 
 	@CrossOrigin

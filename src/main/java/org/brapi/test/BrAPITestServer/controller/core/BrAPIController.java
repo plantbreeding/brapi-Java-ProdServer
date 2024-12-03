@@ -173,6 +173,10 @@ public class BrAPIController {
 		return responseOK(response, result, generateEmptyMetadata());
 	}
 
+	public <T> ResponseEntity<T> responseNoContent() {
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
 	public <R, T extends BrAPIResponse<R>> ResponseEntity<T> responseOK(T response, R result, Metadata metadata) {
 		response.setMetadata(metadata);
 		response.setResult(result);

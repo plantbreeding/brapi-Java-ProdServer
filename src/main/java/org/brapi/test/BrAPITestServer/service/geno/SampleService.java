@@ -156,6 +156,10 @@ public class SampleService {
 	}
 
 	public void deleteSample(String sampleDbId) throws BrAPIServerException {
+		// Soft delete the sample first since the method throws a 404 exception if the sample is not found
+		softDeleteSample(sampleDbId);
+
+		// Hard delete the sample
 		sampleRepository.deleteAllByIdInBatch(Arrays.asList(sampleDbId));
 	}
 
