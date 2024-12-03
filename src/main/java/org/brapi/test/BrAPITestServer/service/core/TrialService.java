@@ -166,11 +166,15 @@ public class TrialService {
 	public void softDeleteTrial(String trialDbId) throws BrAPIServerDbIdNotFoundException {
 		int updatedCount = trialRepository.updateSoftDeletedStatus(trialDbId, true);
 		if (updatedCount == 0) {
-			throw new BrAPIServerDbIdNotFoundException("Trial with id " + trialDbId + " not found", HttpStatus.NOT_FOUND);
+			throw new BrAPIServerDbIdNotFoundException("trial", trialDbId, "trial database ID", HttpStatus.NOT_FOUND);
 		}
 	}
 
 	public void deleteTrial(String trialDbId) throws BrAPIServerException {
+		// Soft delete the trial first since the method throws a 404 exception if the trial is not found
+		softDeleteTrial(trialDbId);
+
+		// Hard delete the trial
 		trialRepository.deleteAllByIdInBatch(Arrays.asList(trialDbId));
 	}
 

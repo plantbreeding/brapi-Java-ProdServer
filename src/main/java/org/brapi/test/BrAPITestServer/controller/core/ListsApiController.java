@@ -13,6 +13,8 @@ import io.swagger.model.core.ListsListResponseResult;
 import io.swagger.model.core.ListsSingleResponse;
 import io.swagger.api.core.ListsApi;
 
+import org.apache.http.HttpResponse;
+import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity.SearchRequestTypes;
@@ -21,6 +23,7 @@ import org.brapi.test.BrAPITestServer.service.core.ListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -134,17 +137,17 @@ public class ListsApiController extends BrAPIController implements ListsApi {
 			@Valid @RequestParam(value = "hardDelete", defaultValue = "false" ,required = false) boolean hardDelete,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
-		log.debug("Request: " + request.getRequestURI());
-		validateSecurityContext(request, "ROLE_USER");
-		validateAcceptHeader(request);
+			log.debug("Request: " + request.getRequestURI());
+			validateSecurityContext(request, "ROLE_USER");
+			validateAcceptHeader(request);
 
-		if (hardDelete) {
-            listService.deleteList(listDbId);
-			return responseOK(new ListsSingleResponse(), null);
-		}
+			if (hardDelete) {
+				listService.deleteList(listDbId);
+				return responseNoContent();
+			}
 
-		listService.softDeleteList(listDbId);
-		return responseOK(new ListsSingleResponse(), null);
+			listService.softDeleteList(listDbId);
+			return responseNoContent();
 	}
 
 	@CrossOrigin

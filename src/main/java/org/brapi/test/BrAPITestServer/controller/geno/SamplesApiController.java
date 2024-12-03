@@ -124,16 +124,18 @@ public class SamplesApiController extends BrAPIController implements SamplesApi 
 			@PathVariable("sampleDbId") String sampleDbId,
 			@Valid @RequestParam(value = "hardDelete", defaultValue = "false", required = false) boolean hardDelete,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
+
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
+
 		if (hardDelete) {
 			sampleService.deleteSample(sampleDbId);
-			return responseOK(new SampleSingleResponse(), null);
+			return responseNoContent();
 		}
 
 		sampleService.softDeleteSample(sampleDbId);
-		return responseOK(new SampleSingleResponse(), null);
+		return responseNoContent();
 	}
 
 	@CrossOrigin
