@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import io.swagger.model.core.*;
 import jakarta.validation.Valid;
 
+import org.brapi.test.BrAPITestServer.exceptions.BatchDeleteWrongTypeException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
@@ -27,14 +29,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 import io.swagger.model.Metadata;
-import io.swagger.model.core.Contact;
-import io.swagger.model.core.SortBy;
-import io.swagger.model.core.SortOrder;
-import io.swagger.model.core.Trial;
-import io.swagger.model.core.TrialNewRequest;
-import io.swagger.model.core.TrialNewRequestDatasetAuthorships;
-import io.swagger.model.core.TrialNewRequestPublications;
-import io.swagger.model.core.TrialSearchRequest;
 
 @Service
 public class TrialService {
@@ -42,13 +36,30 @@ public class TrialService {
 	private final PeopleService peopleService;
 	private final ProgramService programService;
 	private final CropService cropService;
+	private final BatchService batchService;
 
 	public TrialService(TrialRepository trialRepository, PeopleService peopleService, ProgramService programService,
-			CropService cropService) {
+                        CropService cropService, BatchService batchService) {
 		this.trialRepository = trialRepository;
 		this.peopleService = peopleService;
 		this.programService = programService;
 		this.cropService = cropService;
+        this.batchService = batchService;
+    }
+
+	public List<Trial> findBatchDeleteTrials(String batchDeleteDbId, Metadata metadata) throws BrAPIServerException {
+		// Get the batch delete
+		BatchDetails details = batchService.getBatch(batchDeleteDbId);
+
+		// Can't process if the batch does not reference trials
+		if (!BatchTypes.TRIALS.equals(details.getBatchType())) {
+			throw new BatchDeleteWrongTypeException(BatchTypes.TRIALS, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
+		}
+
+		// Get the trials referenced in the batch delete
+		TrialSearchRequest request = new TrialSearchRequest();
+		details.getData().forEach(request::addTrialDbIdsItem);
+		return findTrials(request, metadata);
 	}
 
 	public List<Trial> findTrials(@Valid String commonCropName, @Valid String contactDbId, @Valid String programDbId,

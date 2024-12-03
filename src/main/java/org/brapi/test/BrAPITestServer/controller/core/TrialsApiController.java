@@ -43,6 +43,7 @@ public class TrialsApiController extends BrAPIController implements TrialsApi {
 	@CrossOrigin
 	@Override
 	public ResponseEntity<TrialListResponse> trialsGet(
+			@Valid @RequestParam(value = "batchDeleteDbId", required = false) String batchDeleteDbId,
 			@Valid @RequestParam(value = "active", required = false) Boolean active,
 			@Valid @RequestParam(value = "commonCropName", required = false) String commonCropName,
 			@Valid @RequestParam(value = "contactDbId", required = false) String contactDbId,
@@ -68,6 +69,13 @@ public class TrialsApiController extends BrAPIController implements TrialsApi {
 		validateSecurityContext(request, "ROLE_ANONYMOUS", "ROLE_USER");
 		validateAcceptHeader(request);
 		Metadata metadata = generateMetaDataTemplate(page, pageSize);
+
+		// If a batch delete dbId is given then get the referenced trials, ignoring all other query params except pagination
+		if (batchDeleteDbId != null) {
+			List<Trial> batchDeleteData = trialService.findBatchDeleteTrials(batchDeleteDbId, metadata);
+			return responseOK(new TrialListResponse(), new TrialListResponseResult(), batchDeleteData, metadata);
+		}
+
 		List<Trial> data = trialService.findTrials(commonCropName, contactDbId, programDbId, locationDbId,
 				DateUtility.toLocalDate(searchDateRangeStart), DateUtility.toLocalDate(searchDateRangeEnd), studyDbId, trialDbId, trialName, trialPUI,
 				externalReferenceId, externalReferenceID, externalReferenceSource, active, sortBy, sortOrder, metadata);

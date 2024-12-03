@@ -34,6 +34,7 @@ public interface TrialsApi {
 			@ApiResponse(code = 403, message = "Forbidden", response = String.class) })
 	@RequestMapping(value = "/trials", produces = { "application/json" }, method = RequestMethod.GET)
 	ResponseEntity<TrialListResponse> trialsGet(
+			@ApiParam(value = "batchDeleteDbId") @Valid @RequestParam(value = "batchDeleteDbId", required = false) String batchDelete,
 			@ApiParam(value = "active") @Valid @RequestParam(value = "active", required = false) Boolean active,
 			@ApiParam(value = "commonCropName") @Valid @RequestParam(value = "commonCropName", required = false) String commonCropName,
 			@ApiParam(value = "contactDbId") @Valid @RequestParam(value = "contactDbId", required = false) String contactDbId,
