@@ -7,8 +7,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Map.Entry;
 
+import io.swagger.model.core.BatchDetails;
+import io.swagger.model.core.BatchTypes;
 import jakarta.validation.Valid;
 
+import org.brapi.test.BrAPITestServer.exceptions.BatchDeleteWrongTypeException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.ProgramEntity;
@@ -21,6 +24,7 @@ import org.brapi.test.BrAPITestServer.repository.geno.SampleRepository;
 import org.brapi.test.BrAPITestServer.service.DateUtility;
 import org.brapi.test.BrAPITestServer.service.PagingUtility;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
+import org.brapi.test.BrAPITestServer.service.core.BatchService;
 import org.brapi.test.BrAPITestServer.service.core.ProgramService;
 import org.brapi.test.BrAPITestServer.service.core.StudyService;
 import org.brapi.test.BrAPITestServer.service.core.TrialService;
@@ -46,16 +50,33 @@ public class SampleService {
 	private final StudyService studyService;
 	private final TrialService trialService;
 	private final ProgramService programService;
+	private final BatchService batchService;
 
 	@Autowired
 	public SampleService(SampleRepository sampleRepository, PlateService plateService, StudyService studyService,
-			TrialService trialService, ProgramService programService, ObservationUnitService observationUnitservice) {
+                         TrialService trialService, ProgramService programService, ObservationUnitService observationUnitservice, BatchService batchService) {
 		this.sampleRepository = sampleRepository;
 		this.observationUnitservice = observationUnitservice;
 		this.plateService = plateService;
 		this.studyService = studyService;
 		this.trialService = trialService;
 		this.programService = programService;
+        this.batchService = batchService;
+    }
+
+	public List<Sample> findBatchDeleteSamples(String batchDeleteDbId, Metadata metadata) throws BrAPIServerException {
+		// Get the batch delete
+		BatchDetails details = batchService.getBatch(batchDeleteDbId);
+
+		// Can't process if the batch does not reference samples
+		if (!BatchTypes.SAMPLES.equals(details.getBatchType())) {
+			throw new BatchDeleteWrongTypeException(BatchTypes.SAMPLES, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
+		}
+
+		// Get the list summaries referenced in the batch delete
+		SampleSearchRequest request = new SampleSearchRequest();
+		details.getData().forEach(request::addSampleDbIdsItem);
+		return findSamples(request, metadata);
 	}
 
 	public List<Sample> findSamples(String sampleDbId, String sampleName, String sampleGroupDbId,

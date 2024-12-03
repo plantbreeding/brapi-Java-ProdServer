@@ -38,6 +38,7 @@ public interface SamplesApi {
 			@ApiResponse(code = 403, message = "Forbidden", response = String.class) })
 	@RequestMapping(value = "/samples", produces = { "application/json" }, method = RequestMethod.GET)
 	ResponseEntity<SampleListResponse> samplesGet(
+			@ApiParam(value = "batchDeleteDbId") @Valid @RequestParam(value = "batchDeleteDbId", required = false) String batchDelete,
 			@ApiParam(value = "sampleDbId") @Valid @RequestParam(value = "sampleDbId", required = false) String sampleDbId,
 			@ApiParam(value = "sampleName") @Valid @RequestParam(value = "sampleName", required = false) String sampleName,
 			@ApiParam(value = "sampleGroupDbId") @Valid @RequestParam(value = "sampleGroupDbId", required = false) String sampleGroupDbId,

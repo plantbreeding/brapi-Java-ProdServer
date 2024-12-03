@@ -40,6 +40,7 @@ public interface ListsApi {
 			@ApiResponse(code = 403, message = "Forbidden", response = String.class) })
 	@RequestMapping(value = "/lists", produces = { "application/json" }, method = RequestMethod.GET)
 	ResponseEntity<ListsListResponse> listsGet(
+			@ApiParam(value = "batchDeleteDbId") @Valid @RequestParam(value = "batchDeleteDbId", required = false) String batchDelete,
 			@ApiParam(value = "listType") @Valid @RequestParam(value = "listType", required = false) String listType,
 			@ApiParam(value = "listName") @Valid @RequestParam(value = "listName", required = false) String listName,
 			@ApiParam(value = "listDbId") @Valid @RequestParam(value = "listDbId", required = false) String listDbId,
@@ -69,7 +70,7 @@ public interface ListsApi {
 
 	@ApiOperation(value = "Delete an existing generic list", nickname = "listsListDbIdDelete", notes = "Delete an existing generic list", response = ListsListResponse.class, authorizations = {
 			@Authorization(value = "AuthorizationToken") }, tags = { "Lists", })
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = ListsSingleResponse.class),
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "OK", response = ListsSingleResponse.class),
 			@ApiResponse(code = 400, message = "Bad Request", response = String.class),
 			@ApiResponse(code = 401, message = "Unauthorized", response = String.class),
 			@ApiResponse(code = 403, message = "Forbidden", response = String.class),

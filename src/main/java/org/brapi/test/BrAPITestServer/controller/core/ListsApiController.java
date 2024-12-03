@@ -2,20 +2,13 @@ package org.brapi.test.BrAPITestServer.controller.core;
 
 import io.swagger.model.BrAPIResponse;
 import io.swagger.model.Metadata;
-import io.swagger.model.core.ListDetails;
-import io.swagger.model.core.ListNewRequest;
-import io.swagger.model.core.ListResponse;
-import io.swagger.model.core.ListSearchRequest;
-import io.swagger.model.core.ListSummary;
-import io.swagger.model.core.ListTypes;
-import io.swagger.model.core.ListsListResponse;
-import io.swagger.model.core.ListsListResponseResult;
-import io.swagger.model.core.ListsSingleResponse;
+import io.swagger.model.core.*;
 import io.swagger.api.core.ListsApi;
 
 import org.apache.http.HttpResponse;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
+import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity.SearchRequestTypes;
 import org.brapi.test.BrAPITestServer.service.SearchService;
@@ -57,6 +50,7 @@ public class ListsApiController extends BrAPIController implements ListsApi {
 	@CrossOrigin
 	@Override
 	public ResponseEntity<ListsListResponse> listsGet(
+			@Valid @RequestParam(value = "batchDeleteDbId", required = false) String batchDeleteDbId,
 			@Valid @RequestParam(value = "listType", required = false) String listType,
 			@Valid @RequestParam(value = "listName", required = false) String listName,
 			@Valid @RequestParam(value = "listDbId", required = false) String listDbId,
@@ -75,6 +69,13 @@ public class ListsApiController extends BrAPIController implements ListsApi {
 		validateSecurityContext(request, "ROLE_ANONYMOUS", "ROLE_USER");
 		validateAcceptHeader(request);
 		Metadata metadata = generateMetaDataTemplate(page, pageSize);
+
+		// If a batch delete dbId is given then get the referenced lists, ignoring all other query params except pagination
+		if (batchDeleteDbId != null) {
+			List<ListSummary> batchDeleteData = listService.findBatchDeleteLists(batchDeleteDbId, metadata);
+			return responseOK(new ListsListResponse(), new ListsListResponseResult(), batchDeleteData, metadata);
+		}
+
 		List<ListSummary> data = listService.findLists(ListTypes.fromValue(listType), listName, listDbId, listSource, programDbId, commonCropName, externalReferenceId, externalReferenceID, externalReferenceSource, metadata);
 		return responseOK(new ListsListResponse(), new ListsListResponseResult(), data, metadata);
 	}
