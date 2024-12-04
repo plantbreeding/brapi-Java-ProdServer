@@ -9,5 +9,6 @@ public class BatchDeleteWrongTypeException extends BrAPIServerException {
     public BatchDeleteWrongTypeException(BatchTypes requiredType, BatchTypes suppliedType, String batchDeleteDbId, HttpStatus status) {
         super(status, "");
         String msg = "The " + suppliedType.toString() + " batch delete " + batchDeleteDbId + " must be of type " + requiredType.toString();
+        this.setResponseMessage(msg);
     }
 }

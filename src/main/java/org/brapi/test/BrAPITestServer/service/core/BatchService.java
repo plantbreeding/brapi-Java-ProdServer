@@ -103,8 +103,7 @@ public class BatchService {
 	}
 
 	public void deleteBatch(String batchDbId) throws BrAPIServerException {
-		BatchDetails batch = getBatch(batchDbId);
-		batchRepository.deleteAllByIdInBatch(batch.getData());
+		batchRepository.deleteAllByIdInBatch(Arrays.asList(batchDbId));
 	}
 
 	private BatchDetails convertToDetails(BatchEntity entity) {

@@ -179,9 +179,11 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 		BrAPIComponent component = componentFactory.getComponent(batchType);
 		if (hardDelete) {
 			component.deleteBatchData(batch.getData());
-			return responseOK(new BatchesSingleResponse(), null);
+			batchService.deleteBatch(batchDbId);
+			return responseNoContent();
 		}
 		component.softDeleteBatchData(batch.getData());
-		return responseOK(new BatchesSingleResponse(), null);
+		batchService.deleteBatch(batchDbId);
+		return responseNoContent();
 	}
 }
