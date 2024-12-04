@@ -56,6 +56,11 @@ public class TrialService {
 			throw new BatchDeleteWrongTypeException(BatchTypes.TRIALS, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
 		}
 
+		// Check if the batch is empty
+		if (details.getData().isEmpty()) {
+			return new ArrayList<>();
+		}
+
 		// Get the trials referenced in the batch delete
 		TrialSearchRequest request = new TrialSearchRequest();
 		details.getData().forEach(request::addTrialDbIdsItem);

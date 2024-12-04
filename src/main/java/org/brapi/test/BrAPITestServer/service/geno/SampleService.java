@@ -73,6 +73,11 @@ public class SampleService {
 			throw new BatchDeleteWrongTypeException(BatchTypes.SAMPLES, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
 		}
 
+		// Check if the batch is empty
+		if (details.getData().isEmpty()) {
+			return new ArrayList<>();
+		}
+		
 		// Get the list summaries referenced in the batch delete
 		SampleSearchRequest request = new SampleSearchRequest();
 		details.getData().forEach(request::addSampleDbIdsItem);
