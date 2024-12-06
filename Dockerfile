@@ -4,7 +4,7 @@
 
 FROM adoptopenjdk/openjdk8
 
-EXPOSE 8080
+EXPOSE 8080 8008
 
 RUN mkdir /home/brapi
 
