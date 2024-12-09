@@ -11,7 +11,6 @@ import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity.SearchReq
 import org.brapi.test.BrAPITestServer.service.DateUtility;
 import org.brapi.test.BrAPITestServer.service.SearchService;
 import org.brapi.test.BrAPITestServer.service.core.TrialService;
-import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,12 @@ public class TrialsApiController extends BrAPIController implements TrialsApi {
 	private final HttpServletRequest request;
 	private final TrialService trialService;
 	private final SearchService searchService;
-	private final SessionFactory sessionFactory;
 
 	@org.springframework.beans.factory.annotation.Autowired
-	public TrialsApiController(TrialService trialService, SearchService searchService, HttpServletRequest request, SessionFactory sessionFactory) {
+	public TrialsApiController(TrialService trialService, SearchService searchService, HttpServletRequest request) {
 		this.trialService = trialService;
 		this.searchService = searchService;
 		this.request = request;
-        this.sessionFactory = sessionFactory;
     }
 
 	@CrossOrigin

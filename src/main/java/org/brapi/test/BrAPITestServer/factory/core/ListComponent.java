@@ -33,10 +33,6 @@ public class ListComponent implements BrAPIComponent<ListSummary, ListSearchRequ
         return BatchTypes.LISTS;
     }
 
-    @Override
-    public SearchRequestEntity.SearchRequestTypes getSearchType() {
-        return SearchRequestEntity.SearchRequestTypes.LISTS;
-    }
 
     @Override
     public List<String> collectDbIds(List<ListSummary> entities) {

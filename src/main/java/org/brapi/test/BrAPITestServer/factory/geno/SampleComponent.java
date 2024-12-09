@@ -32,10 +32,6 @@ public class SampleComponent implements BrAPIComponent<Sample, SampleSearchReque
         return BatchTypes.SAMPLES;
     }
 
-    @Override
-    public SearchRequestEntity.SearchRequestTypes getSearchType() {
-        return SearchRequestEntity.SearchRequestTypes.SAMPLES;
-    }
 
     @Override
     public List<String> collectDbIds(List<Sample> entities) {

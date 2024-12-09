@@ -33,10 +33,6 @@ public class GermplasmComponent implements BrAPIComponent<Germplasm, GermplasmSe
         return BatchTypes.GERMPLASM;
     }
 
-    @Override
-    public SearchRequestEntity.SearchRequestTypes getSearchType() {
-        return SearchRequestEntity.SearchRequestTypes.GERMPLASM;
-    }
 
     @Override
     public List<String> collectDbIds(List<Germplasm> entities) {
