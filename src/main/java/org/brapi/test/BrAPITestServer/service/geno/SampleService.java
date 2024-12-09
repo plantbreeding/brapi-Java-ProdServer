@@ -77,7 +77,7 @@ public class SampleService {
 		if (details.getData().isEmpty()) {
 			return new ArrayList<>();
 		}
-		
+
 		// Get the list summaries referenced in the batch delete
 		SampleSearchRequest request = new SampleSearchRequest();
 		details.getData().forEach(request::addSampleDbIdsItem);

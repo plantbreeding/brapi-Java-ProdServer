@@ -110,9 +110,7 @@ public class BatchService {
 		BatchDetails details = new BatchDetails();
 		details = (BatchDetails) convertToBaseFields(entity, details);
 		details.setBatchDbId(entity.getId());
-		details.setData(entity.getData().stream().map((e) -> {
-			return e.getItem();
-		}).collect(Collectors.toList()));
+		details.setData(entity.getData().stream().map((e) -> e.getItem()).collect(Collectors.toList()));
 
 		return details;
 	}

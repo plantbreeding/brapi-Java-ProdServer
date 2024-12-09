@@ -32,10 +32,6 @@ public class TrialComponent implements BrAPIComponent<Trial, TrialSearchRequest>
         return BatchTypes.TRIALS;
     }
 
-    @Override
-    public SearchRequestEntity.SearchRequestTypes getSearchType() {
-        return SearchRequestEntity.SearchRequestTypes.TRIALS;
-    }
 
     @Override
     public List<String> collectDbIds(List<Trial> entities) {

@@ -11,7 +11,6 @@ import java.util.List;
 public interface BrAPIComponent<T, R extends SearchRequest> {
     List<T> findEntities(@Valid R request, Metadata metadata);
     BatchTypes getBatchType();
-    SearchRequestEntity.SearchRequestTypes getSearchType();
     List<String> collectDbIds(List<T> entities);
     void deleteBatchData(List<String> dbIds);
     void softDeleteBatchData(List<String> dbIds);
