@@ -190,21 +190,9 @@ Congrats!  You finally have a token, and now you can utilize it with any request
 ##### Sending a request with a user token
 To test the user authentication functionality, find a POST endpoint in the BrAPI test server that you have an interest in inserting data into.
 
-Provide the token as a `Bearer Token` on the request.  Postman/Insomnia should have options for this type of token but really
-this is just another header in your request that has `Authorization` as the header name, and the header value looks like: `Bearer your-token-goes-here`.
+You can attach the auth token to a request and send it by following the steps in the [Testing the Server](#testing-the-server) section below.
 
-When providing your token be sure there are no quotation marks so the BrAPI test server can parse it properly.
-
-After you have made your POST request, now try a GET request on the same entity you are interested in.
-
-If you provide a generated token for your user, you will find you get your users record back.
-
-If you don't provide it, you will be provided with the publicly available records that are not assigned to users.
-
-Hopefully this gets you thinking about some different ways you can utilize this functionality.  Obviously generating a token via a command line
-is not how authorization systems work.
-
-The next step is setting up your own authentication provider (some single sign on service like Okta for example) to act as the
+After you've been successful in authenticating requests locally, the next step is setting up your own authentication provider (some single sign on service like Okta for example) to act as the
 entrypoint for your users to get into the system and interact with the BrAPI test server in a safe, user-oriented way.
 
 The containerization of all of these pieces should also give you a sense of all the different utilities you will need to support
