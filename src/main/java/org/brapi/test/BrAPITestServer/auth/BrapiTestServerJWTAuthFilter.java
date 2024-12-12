@@ -40,12 +40,17 @@ public class BrapiTestServerJWTAuthFilter extends BasicAuthenticationFilter {
 	private static final Logger log = LoggerFactory.getLogger(BrapiTestServerJWTAuthFilter.class);
 	private static final List<String> ADMIN_IDS = Arrays.asList("dummyAdmin", "ps664@cornell.edu");
 
-	private String oidcDiscoveryUrl;
-	private boolean authEnabled;
+	private final String oidcDiscoveryUrl;
+	private final String issuerUrl;
+	private final boolean authEnabled;
 
-	public BrapiTestServerJWTAuthFilter(AuthenticationManager authManager, String oidcDiscoveryUrl, boolean authEnabled) {
+	public BrapiTestServerJWTAuthFilter(AuthenticationManager authManager,
+										String oidcDiscoveryUrl,
+										String issuerUrl,
+										boolean authEnabled) {
 		super(authManager);
 		this.oidcDiscoveryUrl = oidcDiscoveryUrl;
+		this.issuerUrl = issuerUrl;
 		this.authEnabled = authEnabled;
 	}
 
@@ -158,7 +163,7 @@ public class BrapiTestServerJWTAuthFilter extends BasicAuthenticationFilter {
 			RSAPublicKey pubKey = getPublicKey(oidcDiscoveryUrl);
 
 			Algorithm algorithm = Algorithm.RSA256(pubKey, null);
-			JWTVerifier verifier = JWT.require(algorithm).withIssuer("https://auth.brapi.org/realms/brapi")
+			JWTVerifier verifier = JWT.require(algorithm).withIssuer(issuerUrl)
 					.build();
 			DecodedJWT jwt = verifier.verify(token);
 

@@ -1,49 +1,37 @@
 services:
   brapi-java-server-v2:
-    image: unakite791/brapi-java-server:latest
+    # Update this image with whatever image you have access to
+    image: brapicoordinatorselby/brapi-java-server:latest
     ports:
       - "8080:8080"
+      # Expose DEBUG port
+      - "5005:5005"
     depends_on:
       - postgres
     volumes:
-      - C:\Users\unaki\Coding Projects\brapi\brapi-Java-TestServer\src\main\resources\properties\application.properties:/home/brapi/properties/application.properties
+      # Update this path with the path your pipeline tool expects
+      - /home/jenkins/brapi.org/brapi-test-server/properties/v2/application.properties:/home/brapi/properties/application.properties
   keycloak-brapi:
-    image: quay.io/keycloak/keycloak:latest
-    entrypoint: /opt/keycloak/bin/kc.sh start-dev
+    # Update this image with whatever keycloak image you have access to
+    image: brapicoordinatorselby/brapi-keycloak:latest
+    entrypoint: /opt/keycloak/bin/kc.sh start --optimized --proxy edge
     depends_on:
-      - keycloak-db
+      - postgres
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
-      - KC_HOSTNAME=localhost
-      - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://keycloak-db:5432/keycloak
-      - KC_DB_SCHEMA=public
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=password
-      - KC_HOSTNAME_STRICT=false
-      - KC_HOSTNAME_STRICT_HTTPS=false
-      - KC_HTTP_PORT=8008
-
-      - KC_LOG_LEVEL=info
-      - KC_METRICS_ENABLED=true
-      - KC_HEALTH_ENABLED=true
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-    ports:
-      - "8008:8008"
-  keycloak-db:
-    image: postgres:13
-    volumes:
-      - /var/lib/postgresql/keycloak
-    environment:
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
+      # These vars will change depending on how you have configured your keycloak DB
+      - KEYCLOAK_USER
+      - KEYCLOAK_PASSWORD
+      - KC_HOSTNAME=auth.brapi.org
+      - KC_DB
+      - KC_DB_URL
+      - KC_DB_USERNAME
+      - KC_DB_PASSWORD
   postgres:
     image: postgres:13
-    environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USERNAME=brapi
-    restart: unless-stopped
     volumes:
-      - /var/lib/postgresql/brapi
+      # Update this path with the path your pipeline tool expects
+      - /home/jenkins/brapi.org/brapi-test-server/data:/var/lib/postgresql/data
+networks:
+    default:
+        external:
+            name: brapi_net

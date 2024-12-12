@@ -15,6 +15,9 @@ public class BrapiTestServerAuthConfig extends WebSecurityConfigurerAdapter{
 
 	@Value( "${security.oidc_discovery_url}" )
 	private String oidcDiscoveryUrl;
+
+    @Value("${security.issuer_url}")
+    private String issuerUrl;
 	
 	@Value( "${security.enabled:true}" )
 	private boolean authEnabled;
@@ -25,7 +28,10 @@ public class BrapiTestServerAuthConfig extends WebSecurityConfigurerAdapter{
                 .anyRequest()
                 .permitAll().and() //TODO secure this
                 //.authenticated().and()
-                .addFilter(new BrapiTestServerJWTAuthFilter(authenticationManager(), oidcDiscoveryUrl, authEnabled))
+                .addFilter(new BrapiTestServerJWTAuthFilter(authenticationManager(),
+                        oidcDiscoveryUrl,
+                        issuerUrl,
+                        authEnabled))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
