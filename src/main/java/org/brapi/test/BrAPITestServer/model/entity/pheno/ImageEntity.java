@@ -1,182 +1,165 @@
 package org.brapi.test.BrAPITestServer.model.entity.pheno;
 
-import java.util.Date;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.GeoJSONEntity;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
+
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "image")
 public class ImageEntity extends BrAPIPrimaryEntity {
-	@Column
-	private byte[] imageData;
-	@ManyToOne(cascade = CascadeType.DETACH)
-	private ObservationUnitEntity observationUnit;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
+    private byte[] imageData;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private ObservationUnitEntity observationUnit;
+    @Column
     private String name;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
     private String imageFileName;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
     private String description;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
     private String imageURL;
-	@Column
-	private Integer imageFileSize;
-	@Column
-	private Integer imageHeight;
-	@Column
-	private Integer imageWidth;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
+    private Integer imageFileSize;
+    @Column
+    private Integer imageHeight;
+    @Column
+    private Integer imageWidth;
+    @Column
     private String imageMIMEType;
-	@ElementCollection
-	private List<String> descriptiveOntologyTerms;
-	@ManyToMany
-	@JoinTable
-	private List<ObservationEntity> observations;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @ElementCollection
+    private List<String> descriptiveOntologyTerms;
+    @ManyToMany
+    @JoinTable
+    private List<ObservationEntity> observations;
+    @Column
     private String copyright;
-	@Column
-	private Date timeStamp;
-	@OneToOne(cascade = CascadeType.ALL)
-	private GeoJSONEntity coordinates;
+    @Column
+    private Date timeStamp;
+    @OneToOne(cascade = CascadeType.ALL)
+    private GeoJSONEntity coordinates;
 
-	public List<String> getDescriptiveOntologyTerms() {
-		return descriptiveOntologyTerms;
-	}
+    public List<String> getDescriptiveOntologyTerms() {
+        return descriptiveOntologyTerms;
+    }
 
-	public void setDescriptiveOntologyTerms(List<String> descriptiveOntologyTerms) {
-		this.descriptiveOntologyTerms = descriptiveOntologyTerms;
-	}
+    public void setDescriptiveOntologyTerms(List<String> descriptiveOntologyTerms) {
+        this.descriptiveOntologyTerms = descriptiveOntologyTerms;
+    }
 
-	public String getCopyright() {
-		return copyright;
-	}
+    public String getCopyright() {
+        return copyright;
+    }
 
-	public void setCopyright(String copyright) {
-		this.copyright = copyright;
-	}
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
+    }
 
-	public Date getTimeStamp() {
-		return timeStamp;
-	}
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
 
-	public void setTimeStamp(Date timeStamp) {
-		this.timeStamp = timeStamp;
-	}
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
-	public GeoJSONEntity getCoordinates() {
-		return coordinates;
-	}
+    public GeoJSONEntity getCoordinates() {
+        return coordinates;
+    }
 
-	public void setCoordinates(GeoJSONEntity coordinates) {
-		this.coordinates = coordinates;
-	}
+    public void setCoordinates(GeoJSONEntity coordinates) {
+        this.coordinates = coordinates;
+    }
 
-	public byte[] getImageData() {
-		return imageData;
-	}
+    public byte[] getImageData() {
+        return imageData;
+    }
 
-	public void setImageData(byte[] imageData) {
-		this.imageData = imageData;
-	}
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
-	public ObservationUnitEntity getObservationUnit() {
-		return observationUnit;
-	}
+    public ObservationUnitEntity getObservationUnit() {
+        return observationUnit;
+    }
 
-	public void setObservationUnit(ObservationUnitEntity observationUnit) {
-		this.observationUnit = observationUnit;
-	}
+    public void setObservationUnit(ObservationUnitEntity observationUnit) {
+        this.observationUnit = observationUnit;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getImageFileName() {
-		return imageFileName;
-	}
+    public String getImageFileName() {
+        return imageFileName;
+    }
 
-	public void setImageFileName(String imageFileName) {
-		this.imageFileName = imageFileName;
-	}
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getImageURL() {
-		return imageURL;
-	}
+    public String getImageURL() {
+        return imageURL;
+    }
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
-	}
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
 
-	public Integer getImageFileSize() {
-		return imageFileSize;
-	}
+    public Integer getImageFileSize() {
+        return imageFileSize;
+    }
 
-	public void setImageFileSize(Integer imageFileSize) {
-		this.imageFileSize = imageFileSize;
-	}
+    public void setImageFileSize(Integer imageFileSize) {
+        this.imageFileSize = imageFileSize;
+    }
 
-	public Integer getImageHeight() {
-		return imageHeight;
-	}
+    public Integer getImageHeight() {
+        return imageHeight;
+    }
 
-	public void setImageHeight(Integer imageHeight) {
-		this.imageHeight = imageHeight;
-	}
+    public void setImageHeight(Integer imageHeight) {
+        this.imageHeight = imageHeight;
+    }
 
-	public Integer getImageWidth() {
-		return imageWidth;
-	}
+    public Integer getImageWidth() {
+        return imageWidth;
+    }
 
-	public void setImageWidth(Integer imageWidth) {
-		this.imageWidth = imageWidth;
-	}
+    public void setImageWidth(Integer imageWidth) {
+        this.imageWidth = imageWidth;
+    }
 
-	public String getImageMIMEType() {
-		return imageMIMEType;
-	}
+    public String getImageMIMEType() {
+        return imageMIMEType;
+    }
 
-	public void setImageMIMEType(String imageMIMEType) {
-		this.imageMIMEType = imageMIMEType;
-	}
+    public void setImageMIMEType(String imageMIMEType) {
+        this.imageMIMEType = imageMIMEType;
+    }
 
-	public List<ObservationEntity> getObservations() {
-		return observations;
-	}
+    public List<ObservationEntity> getObservations() {
+        return observations;
+    }
 
-	public void setObservations(List<ObservationEntity> observations) {
-		this.observations = observations;
-	}
+    public void setObservations(List<ObservationEntity> observations) {
+        this.observations = observations;
+    }
 
 }

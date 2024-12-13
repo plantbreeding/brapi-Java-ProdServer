@@ -1,34 +1,21 @@
 package org.brapi.test.BrAPITestServer.model.entity.germ;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
-import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
-
 import io.swagger.model.germ.CrossType;
 import io.swagger.model.germ.PlannedCrossNewRequest.PlannedCrossStatusEnum;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
+import jakarta.persistence.*;
+import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name="cross_entity")
+@Table(name = "cross_entity")
 public class CrossEntity extends BrAPIPrimaryEntity {
-	@Column
+    @Column
     private CrossType crossType;
     @ManyToOne
     private CrossingProjectEntity crossingProject;
     @Column
-    @JdbcType(LongVarcharJdbcType.class)
     private String name;
     @Column
     private PlannedCrossStatusEnum status;
@@ -43,64 +30,82 @@ public class CrossEntity extends BrAPIPrimaryEntity {
     @Column
     private Boolean planned;
 
-    
-	public PlannedCrossStatusEnum getStatus() {
-		return status;
-	}
-	public void setStatus(PlannedCrossStatusEnum status) {
-		this.status = status;
-	}
-	public CrossEntity getPlannedCross() {
-		return plannedCross;
-	}
-	public void setPlannedCross(CrossEntity plannedCross) {
-		this.plannedCross = plannedCross;
-	}
-	public List<CrossPollinationEventEntity> getPollinationEvents() {
-		return pollinationEvents;
-	}
-	public void setPollinationEvents(List<CrossPollinationEventEntity> pollinationEvents) {
-		this.pollinationEvents = pollinationEvents;
-	}
-	public List<String> getCrossAttributes() {
-		return crossAttributes;
-	}
-	public void setCrossAttributes(List<String> crossAttributes) {
-		this.crossAttributes = crossAttributes;
-	}
-	public Boolean getPlanned() {
-		return planned;
-	}
-	public void setPlanned(Boolean planned) {
-		this.planned = planned;
-	}
-	public CrossType getCrossType() {
-		return crossType;
-	}
-	public void setCrossType(CrossType crossType) {
-		this.crossType = crossType;
-	}
-	public CrossingProjectEntity getCrossingProject() {
-		return crossingProject;
-	}
-	public void setCrossingProject(CrossingProjectEntity crossingProject) {
-		this.crossingProject = crossingProject;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public List<CrossParentEntity> getParents() {
-		return parents;
-	}
-	public void setParents(List<CrossParentEntity> parents) {
-		this.parents = parents;
-	}
-	public void addParentItem(CrossParentEntity parent) {
-		if (getParents() == null)
-			setParents(new ArrayList<>());
-		getParents().add(parent);
-	}
+
+    public PlannedCrossStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(PlannedCrossStatusEnum status) {
+        this.status = status;
+    }
+
+    public CrossEntity getPlannedCross() {
+        return plannedCross;
+    }
+
+    public void setPlannedCross(CrossEntity plannedCross) {
+        this.plannedCross = plannedCross;
+    }
+
+    public List<CrossPollinationEventEntity> getPollinationEvents() {
+        return pollinationEvents;
+    }
+
+    public void setPollinationEvents(List<CrossPollinationEventEntity> pollinationEvents) {
+        this.pollinationEvents = pollinationEvents;
+    }
+
+    public List<String> getCrossAttributes() {
+        return crossAttributes;
+    }
+
+    public void setCrossAttributes(List<String> crossAttributes) {
+        this.crossAttributes = crossAttributes;
+    }
+
+    public Boolean getPlanned() {
+        return planned;
+    }
+
+    public void setPlanned(Boolean planned) {
+        this.planned = planned;
+    }
+
+    public CrossType getCrossType() {
+        return crossType;
+    }
+
+    public void setCrossType(CrossType crossType) {
+        this.crossType = crossType;
+    }
+
+    public CrossingProjectEntity getCrossingProject() {
+        return crossingProject;
+    }
+
+    public void setCrossingProject(CrossingProjectEntity crossingProject) {
+        this.crossingProject = crossingProject;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<CrossParentEntity> getParents() {
+        return parents;
+    }
+
+    public void setParents(List<CrossParentEntity> parents) {
+        this.parents = parents;
+    }
+
+    public void addParentItem(CrossParentEntity parent) {
+        if (getParents() == null)
+            setParents(new ArrayList<>());
+        getParents().add(parent);
+    }
 }

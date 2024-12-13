@@ -41,8 +41,7 @@ public class VendorPlateSubmissionRequest   {
     RNA("RNA"),
     
     TISSUE("Tissue");
-
-    private String value;
+private String value;
 
     SampleTypeEnum(String value) {
       this.value = value;

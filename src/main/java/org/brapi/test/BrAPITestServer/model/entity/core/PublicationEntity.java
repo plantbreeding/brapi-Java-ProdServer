@@ -4,40 +4,40 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "trial_publication")
 public class PublicationEntity extends BrAPIBaseEntity {
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
     private String publicationPUI;
-	@Column 
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
     private String publicationReference;
-	@ManyToOne
-	private TrialEntity trial;
-	
-	public String getPublicationPUI() {
-		return publicationPUI;
-	}
-	public void setPublicationPUI(String publicationPUI) {
-		this.publicationPUI = publicationPUI;
-	}
-	public String getPublicationReference() {
-		return publicationReference;
-	}
-	public void setPublicationReference(String publicationReference) {
-		this.publicationReference = publicationReference;
-	}
-	public TrialEntity getTrial() {
-		return trial;
-	}
-	public void setTrial(TrialEntity trial) {
-		this.trial = trial;
-	}
-	
+    @ManyToOne
+    private TrialEntity trial;
+
+    public String getPublicationPUI() {
+        return publicationPUI;
+    }
+
+    public void setPublicationPUI(String publicationPUI) {
+        this.publicationPUI = publicationPUI;
+    }
+
+    public String getPublicationReference() {
+        return publicationReference;
+    }
+
+    public void setPublicationReference(String publicationReference) {
+        this.publicationReference = publicationReference;
+    }
+
+    public TrialEntity getTrial() {
+        return trial;
+    }
+
+    public void setTrial(TrialEntity trial) {
+        this.trial = trial;
+    }
+
 }

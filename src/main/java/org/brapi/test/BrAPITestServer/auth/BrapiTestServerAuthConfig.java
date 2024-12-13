@@ -20,8 +20,7 @@ public class BrapiTestServerAuthConfig {
 	@Value( "${security.oidc_discovery_url}" )
 	private String oidcDiscoveryUrl;
 
-    @Value("${security.issuer_url}")
-    private String issuerUrl;
+    @Value("${security.issuer_url}")private String issuerUrl;
 	
 	@Value( "${security.enabled:true}" )
 	private boolean authEnabled;

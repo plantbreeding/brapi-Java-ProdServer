@@ -29,8 +29,7 @@ public class VendorOrderStatusResponseResult   {
     COMPLETED("completed"),
     
     REJECTED("rejected");
-
-    private String value;
+private String value;
 
     StatusEnum(String value) {
       this.value = value;

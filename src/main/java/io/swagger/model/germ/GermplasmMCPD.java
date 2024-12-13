@@ -82,8 +82,7 @@ public class GermplasmMCPD   {
     _61("61"),
     _62("62"),
     _99("99");
-
-    private String value;
+private String value;
 
     AcquisitionSourceCodeEnum(String value) {
       this.value = value;
@@ -157,8 +156,7 @@ public class GermplasmMCPD   {
     _1("1"),
     
     _99("99");
-
-    private String value;
+private String value;
 
     MlsStatusEnum(String value) {
       this.value = value;

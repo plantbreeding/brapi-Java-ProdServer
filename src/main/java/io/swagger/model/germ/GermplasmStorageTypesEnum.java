@@ -23,9 +23,7 @@ public enum GermplasmStorageTypesEnum   {
     _40("40", "Cryo-preserved collection"),    
     _50("50", "DNA collection"),    
     _99("99", "Other");
-
-    private String value;
-    private String description;
+private String value;private String description;
 
     GermplasmStorageTypesEnum(String value, String description) {
       this.value = value;

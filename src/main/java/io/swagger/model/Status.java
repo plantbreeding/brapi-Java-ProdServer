@@ -32,8 +32,7 @@ public class Status   {
     WARNING("WARNING"),
     
     INFO("INFO");
-
-    private String value;
+private String value;
 
     MessageTypeEnum(String value) {
       this.value = value;

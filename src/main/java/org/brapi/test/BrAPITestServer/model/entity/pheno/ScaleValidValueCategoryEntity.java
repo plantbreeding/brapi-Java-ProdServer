@@ -4,39 +4,39 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
-import org.hibernate.annotations.JdbcType;
-import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
-@Table(name="scale_valid_value_category")
-public class ScaleValidValueCategoryEntity extends BrAPIBaseEntity{
-	@ManyToOne
-	private ScaleEntity scale;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+@Table(name = "scale_valid_value_category")
+public class ScaleValidValueCategoryEntity extends BrAPIBaseEntity {
+    @ManyToOne
+    private ScaleEntity scale;
+    @Column
     private String label;
-	@Column
-	@JdbcType(LongVarcharJdbcType.class)
+    @Column
     private String value;
 
-	public ScaleEntity getScale() {
-		return scale;
-	}
-	public void setScale(ScaleEntity scale) {
-		this.scale = scale;
-	}
-	public String getLabel() {
-		return label;
-	}
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public ScaleEntity getScale() {
+        return scale;
+    }
+
+    public void setScale(ScaleEntity scale) {
+        this.scale = scale;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
