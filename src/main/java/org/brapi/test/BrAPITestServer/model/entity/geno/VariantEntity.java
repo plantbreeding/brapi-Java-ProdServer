@@ -10,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "variant")
@@ -31,7 +33,8 @@ public class VariantEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Boolean filtersPassed;
 	@Column
-	private String referenceBases;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String referenceBases;
 	@ManyToOne
 	private ReferenceSetEntity referenceSet;
 	@Column(name = "variantStart")
@@ -41,11 +44,13 @@ public class VariantEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Date updated;
 	@Column
-	private String variantName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String variantName;
 	@ManyToOne
 	private VariantSetEntity variantSet;
 	@Column
-	private String variantType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String variantType;
 
 	public VariantEntity() {
 		super();

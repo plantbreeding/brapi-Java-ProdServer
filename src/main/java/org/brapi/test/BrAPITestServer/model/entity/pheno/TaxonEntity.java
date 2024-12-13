@@ -7,14 +7,18 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.GermplasmEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="germplasm_taxon")
 public class TaxonEntity extends BrAPIBaseEntity {
 	@Column
-	private String sourceName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sourceName;
 	@Column
-	private String taxonId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String taxonId;
 	@ManyToOne
 	private GermplasmEntity germplasm;
 	

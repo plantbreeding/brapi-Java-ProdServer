@@ -5,8 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="reference_bases")
@@ -14,7 +15,8 @@ public class ReferenceBasesPageEntity extends BrAPIPrimaryEntity {
 	@ManyToOne
 	private ReferenceEntity reference;
 	@Column(length = 2048)
-	private String bases;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String bases;
 	@Column
 	private Integer pageNumber;
 	

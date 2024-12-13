@@ -9,28 +9,39 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="vendor_spec")
 public class VendorSpecEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String vendorName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorName;
 	@Column
-	private String vendorDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorDescription;
 	@Column
-	private String vendorURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorURL;
 	@Column
-	private String contactName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String contactName;
 	@Column
-	private String vendorEmail;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorEmail;
 	@Column
-	private String vendorPhone;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorPhone;
 	@Column
-	private String vendorAddress;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorAddress;
 	@Column
-	private String vendorCity;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorCity;
 	@Column
-	private String vendorCountry;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorCountry;
 	@OneToMany(mappedBy="vendorSpecDbId")
 	private List<VendorSpecPlatformEntity> platforms;
 	public String getVendorName() {

@@ -18,6 +18,8 @@ import org.brapi.test.BrAPITestServer.model.entity.core.TrialEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.CrossEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.GermplasmEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.SeedLotEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "observation_unit")
@@ -27,9 +29,11 @@ public class ObservationUnitEntity extends BrAPIPrimaryEntity {
 	@ManyToOne
 	private GermplasmEntity germplasm;
 	@Column
-	private String observationUnitName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String observationUnitName;
 	@Column
-	private String observationUnitPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String observationUnitPUI;
 	@ManyToOne
 	private SeedLotEntity seedLot;
 	@OneToMany(mappedBy="observationUnit", cascade=CascadeType.ALL)

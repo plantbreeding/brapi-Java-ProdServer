@@ -8,14 +8,16 @@ import java.io.ObjectOutputStream;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="additional_info")
 public class AdditionalInfoEntity extends BrAPIBaseEntity{
 	@Column
-	private String key;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String key;
 	@Column
 	private byte[] value;
 	

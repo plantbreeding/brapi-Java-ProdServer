@@ -9,24 +9,33 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="ontology")
 public class OntologyEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String ontologyName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String ontologyName;
 	@Column
-	private String authors;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String authors;
 	@Column
-	private String version;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String version;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String copyright;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String copyright;
 	@Column
-	private String licence;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String licence;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@OneToMany(mappedBy="ontology")
 	private List<VariableBaseEntity> variables;
 	@ElementCollection

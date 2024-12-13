@@ -6,26 +6,36 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "study_data_link")
 public class DataLinkEntity extends BrAPIBaseEntity {
 	@Column
-	private String dataFormat;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String dataFormat;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String fileFormat;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String fileFormat;
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String provenance;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String provenance;
 	@Column
-	private String scientificType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String scientificType;
 	@Column
-	private String url;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String url;
 	@Column
-	private String version;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String version;
 	@ManyToOne
 	private StudyEntity study;
 

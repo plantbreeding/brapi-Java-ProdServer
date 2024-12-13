@@ -5,14 +5,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="vendor_spec_input_format")
 public class VendorSpecInputFormatEntity extends BrAPIBaseEntity {
 	@Column
-	private String vendorSpecStandardRequirementDbId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorSpecStandardRequirementDbId;
 	@Column
-	private String inputFormat;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String inputFormat;
 	public String getVendorSpecStandardRequirementDbId() {
 		return vendorSpecStandardRequirementDbId;
 	}

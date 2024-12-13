@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="scale_valid_value_category")
@@ -13,9 +15,11 @@ public class ScaleValidValueCategoryEntity extends BrAPIBaseEntity{
 	@ManyToOne
 	private ScaleEntity scale;
 	@Column
-	private String label;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String label;
 	@Column
-	private String value;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String value;
 
 	public ScaleEntity getScale() {
 		return scale;

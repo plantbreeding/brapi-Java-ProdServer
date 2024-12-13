@@ -12,6 +12,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "trait")
@@ -19,32 +21,42 @@ public class TraitEntity extends BrAPIPrimaryEntity implements OntologyReference
 	@ElementCollection
 	private List<String> alternativeAbbreviations;
 	@Column
-	private String attribute;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String attribute;
 	@Column
-	private String attributePUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String attributePUI;
 	@Column
-	private String entity;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String entity;
 	@Column
-	private String entityPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String entityPUI;
 	@Column
-	private String mainAbbreviation;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String mainAbbreviation;
 	@OneToOne
 	private OntologyEntity ontology;
 	@JoinTable
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<OntologyReferenceEntity> ontologyReference;
 	@Column
-	private String status;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String status;
 	@ElementCollection
 	private List<String> synonyms;
 	@Column
-	private String traitClass;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String traitClass;
 	@Column
-	private String traitDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String traitDescription;
 	@Column
-	private String traitName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String traitName;
 	@Column
-	private String traitPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String traitPUI;
 	@OneToMany(mappedBy = "trait")
 	private List<VariableBaseEntity> variables;
 	

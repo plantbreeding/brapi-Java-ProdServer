@@ -11,22 +11,30 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="method")
 public class MethodEntity extends BrAPIPrimaryEntity implements OntologyReferenceHolder{
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String methodClass;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String methodClass;
 	@Column
-	private String methodPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String methodPUI;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String formula;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String formula;
 	@Column
-	private String reference;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String reference;
 	@OneToMany(mappedBy="method")
 	private List<VariableBaseEntity> variables;
 	@OneToOne

@@ -5,28 +5,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "person")
 public class PersonEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String emailAddress;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String emailAddress;
 	@Column
-	private String firstName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String firstName;
 	@Column
-	private String lastName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String lastName;
 	@Column
-	private String mailingAddress;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String mailingAddress;
 	@Column
-	private String middleName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String middleName;
 	@Column
-	private String phoneNumber;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String phoneNumber;
 	@Column
-	private String userID;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String userID;
 	@Column
-	private String instituteName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteName;
 
 	public String getName() {
 		String name = getFirstName();

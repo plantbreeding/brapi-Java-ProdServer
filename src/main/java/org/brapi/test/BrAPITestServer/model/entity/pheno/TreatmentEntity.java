@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="observation_unit_treatment")
@@ -13,9 +15,11 @@ public class TreatmentEntity extends BrAPIBaseEntity{
 	@ManyToOne
 	private ObservationUnitEntity observationUnit;
 	@Column
-	private String factor;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String factor;
 	@Column
-	private String modality;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String modality;
 	
 	public String getFactor() {
 		return factor;

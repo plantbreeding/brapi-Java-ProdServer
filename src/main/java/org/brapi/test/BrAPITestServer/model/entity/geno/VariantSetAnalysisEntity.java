@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "variantset_analysis")
@@ -16,15 +18,18 @@ public class VariantSetAnalysisEntity extends BrAPIBaseEntity {
 	@ManyToOne
 	private VariantSetEntity variantSet;
 	@Column
-	private String analysisName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String analysisName;
 	@Column
 	private Date created;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@ElementCollection
 	private List<String> software;
 	@Column
-	private String type;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String type;
 	@Column
 	private Date updated;
 	

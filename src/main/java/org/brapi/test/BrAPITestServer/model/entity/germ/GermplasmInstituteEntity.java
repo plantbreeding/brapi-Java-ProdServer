@@ -6,19 +6,24 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "germplasm_institute")
 public class GermplasmInstituteEntity extends BrAPIBaseEntity {
 
 	@Column
-	private String instituteCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteCode;
 	@Column
 	private InstituteTypeEnum instituteType;
 	@Column
-	private String instituteName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteName;
 	@Column
-	private String instituteAddress;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteAddress;
 	@ManyToOne
 	private GermplasmEntity germplasm;
 

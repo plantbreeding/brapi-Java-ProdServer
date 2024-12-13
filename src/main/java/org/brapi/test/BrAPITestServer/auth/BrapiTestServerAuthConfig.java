@@ -32,16 +32,17 @@ public class BrapiTestServerAuthConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http.csrf(CsrfConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                 .anyRequest()
                 .permitAll() //TODO: secure this
             )    //.authenticated().and()
-            .addFilter(new BrapiTestServerJWTAuthFilter(authenticationManager(new AuthenticationConfiguration()),
-                        oidcDiscoveryUrl,
-                        issuerUrl,
-                        authEnabled))
+            .addFilter(new BrapiTestServerJWTAuthFilter(
+                    authenticationManager,
+                    oidcDiscoveryUrl,
+                    issuerUrl,
+                    authEnabled))
                 // this disables session creation on Spring Security
             .sessionManagement(sm -> sm
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

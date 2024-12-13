@@ -8,6 +8,8 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 import org.springframework.http.HttpStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,7 +23,8 @@ public class SearchRequestEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Integer responseCountdown;
 	@Lob
-	private String parameters;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String parameters;
 	
 	public SearchRequestTypes getRequestType() {
 		return requestType;

@@ -14,13 +14,16 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.geno.PlateEntity;
 
 import io.swagger.model.geno.VendorPlateSubmissionRequest.SampleTypeEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="plate_submission")
 public class VendorPlateSubmissionEntity extends BrAPIPrimaryEntity{
 	
 	@Column
-	private String clientId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String clientId;
 	@Column
 	private Integer numberOfSamples;
 	@Column

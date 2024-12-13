@@ -13,6 +13,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.StudyEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "variantset")
@@ -30,7 +32,8 @@ public class VariantSetEntity extends BrAPIPrimaryEntity {
 	@OneToMany(mappedBy = "variantSet")
 	private List<VariantEntity> variants;
 	@Column
-	private String variantSetName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String variantSetName;
 	
 	public List<VariantSetAnalysisEntity> getAnalysis() {
 		return analysis;

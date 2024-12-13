@@ -13,24 +13,31 @@ import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 import io.swagger.model.pheno.TraitDataType;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "scale")
 public class ScaleEntity extends BrAPIPrimaryEntity implements OntologyReferenceHolder {
 	@Column
-	private String scaleName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String scaleName;
 	@Column
-	private String scalePUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String scalePUI;
 	@Column
 	private TraitDataType dataType;
 	@Column
 	private Integer decimalPlaces;
 	@Column
-	private String units;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String units;
 	@Column
-	private String validValueMin;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String validValueMin;
 	@Column
-	private String validValueMax;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String validValueMax;
 	@OneToMany(mappedBy = "scale", cascade = CascadeType.ALL)
 	private List<ScaleValidValueCategoryEntity> validValueCategories;
 	@OneToMany(mappedBy = "scale", cascade = CascadeType.DETACH)

@@ -17,6 +17,8 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.PedigreeEdgeEntity.EdgeType;
 
 import io.swagger.model.germ.ParentType;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "pedigree_node")
@@ -26,11 +28,13 @@ public class PedigreeNodeEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Integer crossingYear;
 	@Column
-	private String familyCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String familyCode;
 	@OneToOne(cascade = CascadeType.ALL)
 	private GermplasmEntity germplasm;
 	@Column
-	private String pedigreeString;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String pedigreeString;
 	@OneToMany(mappedBy = "thisNode", cascade = CascadeType.ALL)
 	private List<PedigreeEdgeEntity> edges = new ArrayList<>();
 

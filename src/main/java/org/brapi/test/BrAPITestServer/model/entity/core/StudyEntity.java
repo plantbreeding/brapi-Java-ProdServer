@@ -18,6 +18,8 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationVariableEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "study")
@@ -31,11 +33,13 @@ public class StudyEntity extends BrAPIPrimaryEntity {
 					@JoinColumn(name = "person_db_id", referencedColumnName = "id") })
 	private List<PersonEntity> contacts;
 	@Column
-	private String culturalPractices;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String culturalPractices;
 	@OneToMany(mappedBy = "study")
 	private List<DataLinkEntity> dataLinks;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@Column
 	private Date endDate;
 	@OneToMany(mappedBy = "study")
@@ -47,13 +51,15 @@ public class StudyEntity extends BrAPIPrimaryEntity {
 	@OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
 	private StudyLastUpdateEntity lastUpdate;
 	@Column
-	private String license;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String license;
 	@OneToOne
 	private LocationEntity location;
 	@OneToMany(mappedBy = "study")
 	private List<ObservationLevelEntity> observationLevels;
 	@Column
-	private String observationUnitsDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String observationUnitsDescription;
 	@ManyToMany
 	@JoinTable(name = "study_season", joinColumns = {
 			@JoinColumn(name = "study_db_id", referencedColumnName = "id") }, inverseJoinColumns = {
@@ -67,15 +73,20 @@ public class StudyEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Date startDate;
 	@Column
-	private String studyCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String studyCode;
 	@Column
-	private String studyDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String studyDescription;
 	@Column
-	private String studyName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String studyName;
 	@Column
-	private String studyPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String studyPUI;
 	@Column
-	private String studyType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String studyType;
 	
 	@ManyToOne
 	private CropEntity crop;

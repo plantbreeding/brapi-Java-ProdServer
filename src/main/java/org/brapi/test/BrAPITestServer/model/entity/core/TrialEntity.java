@@ -16,6 +16,8 @@ import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "trial")
@@ -30,7 +32,8 @@ public class TrialEntity extends BrAPIPrimaryEntity {
 	@OneToMany(mappedBy = "trial")
 	private List<DatasetAuthorshipEntity> datasetAuthorships;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@Column
 	private Date endDate;
 	@OneToMany(mappedBy = "trial")
@@ -38,11 +41,14 @@ public class TrialEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Date startDate;
 	@Column
-	private String trialDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String trialDescription;
 	@Column
-	private String trialName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String trialName;
 	@Column
-	private String trialPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String trialPUI;
 
 	@ManyToOne
 	private CropEntity crop;

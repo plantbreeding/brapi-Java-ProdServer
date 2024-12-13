@@ -8,12 +8,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="geojson")
 public class GeoJSONEntity extends BrAPIBaseEntity{	
 	@Column
-	private String type;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String type;
 	@OneToMany(mappedBy="geoJSON", cascade = CascadeType.ALL)
 	private List<CoordinateEntity> coordinates;
 	

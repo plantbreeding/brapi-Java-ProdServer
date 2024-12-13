@@ -6,14 +6,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "trial_publication")
 public class PublicationEntity extends BrAPIBaseEntity {
 	@Column
-	private String publicationPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String publicationPUI;
 	@Column 
-	private String publicationReference;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String publicationReference;
 	@ManyToOne
 	private TrialEntity trial;
 	

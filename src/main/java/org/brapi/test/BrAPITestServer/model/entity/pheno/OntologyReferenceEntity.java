@@ -7,12 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "ontology_ref")
 public class OntologyReferenceEntity extends BrAPIBaseEntity {
 	@Column
-	private String URL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String URL;
 	@Column
 	private OntologyReferenceTypeEnum type;
 

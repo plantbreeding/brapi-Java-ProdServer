@@ -10,14 +10,18 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.ProgramEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "crossing_project")
 public class CrossingProjectEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@ManyToOne
 	private ProgramEntity program;
 	@OneToMany(mappedBy = "crossingProject")

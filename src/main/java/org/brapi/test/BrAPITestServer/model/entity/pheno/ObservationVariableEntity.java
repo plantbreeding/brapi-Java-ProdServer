@@ -6,14 +6,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="observation_variable")
 public class ObservationVariableEntity extends VariableBaseEntity{
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String pui;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String pui;
 	@OneToMany(mappedBy="observationVariable")
 	private List<ObservationEntity> observations;
 	

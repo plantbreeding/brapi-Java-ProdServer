@@ -13,6 +13,8 @@ import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.LocationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.ProgramEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "seed_lot")
@@ -28,15 +30,20 @@ public class SeedLotEntity extends BrAPIPrimaryEntity {
 	@ManyToOne
 	private ProgramEntity program;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String sourceCollection;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sourceCollection;
 	@Column
-	private String storageLocation;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String storageLocation;
 	@Column
-	private String units;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String units;
 	@OneToMany(mappedBy = "seedLot")
 	private List<SeedLotContentMixtureEntity> contentMixture;
 	

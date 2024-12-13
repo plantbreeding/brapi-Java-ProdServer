@@ -26,12 +26,15 @@ import io.swagger.model.germ.BiologicalStatusOfAccessionCode;
 import io.swagger.model.germ.GermplasmMCPD.AcquisitionSourceCodeEnum;
 import io.swagger.model.germ.GermplasmMCPD.MlsStatusEnum;
 import io.swagger.model.germ.GermplasmStorageTypesEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "germplasm")
 public class GermplasmEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String accessionNumber;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String accessionNumber;
 	@Column
 	private Date acquisitionDate;
 	@Column
@@ -43,27 +46,35 @@ public class GermplasmEntity extends BrAPIPrimaryEntity {
 	@ManyToOne(cascade = CascadeType.DETACH)
 	private BreedingMethodEntity breedingMethod;
 	@Column
-	private String collection;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String collection;
 	@Column
-	private String countryOfOriginCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String countryOfOriginCode;
 	@ManyToOne(cascade = CascadeType.DETACH)
 	private CropEntity crop;
 	@Column
-	private String defaultDisplayName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String defaultDisplayName;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@OneToMany(mappedBy = "germplasm", cascade = CascadeType.ALL)
 	private List<DonorEntity> donors;
 	@Column
-	private String genus;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String genus;
 	@Column
-	private String germplasmName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String germplasmName;
 	@OneToMany(mappedBy = "germplasm", cascade = CascadeType.ALL)
 	private List<GermplasmOriginEntity> germplasmOrigin;
 	@Column
-	private String germplasmPreprocessing;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String germplasmPreprocessing;
 	@Column
-	private String germplasmPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String germplasmPUI;
 	@OneToMany(mappedBy = "germplasm", cascade = CascadeType.ALL)
 	private List<GermplasmInstituteEntity> institutes;
 	@Column
@@ -74,17 +85,23 @@ public class GermplasmEntity extends BrAPIPrimaryEntity {
 	@JoinTable
 	private List<SearchRequestEntity> searchResults;
 	@Column
-	private String seedSource;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String seedSource;
 	@Column
-	private String seedSourceDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String seedSourceDescription;
 	@Column
-	private String species;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String species;
 	@Column
-	private String speciesAuthority;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String speciesAuthority;
 	@Column
-	private String subtaxa;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String subtaxa;
 	@Column
-	private String subtaxaAuthority;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String subtaxaAuthority;
 	@OneToMany(mappedBy = "germplasm", cascade = CascadeType.ALL)
 	private List<GermplasmSynonymEntity> synonyms;
 	@OneToMany(mappedBy = "germplasm", cascade = CascadeType.ALL)

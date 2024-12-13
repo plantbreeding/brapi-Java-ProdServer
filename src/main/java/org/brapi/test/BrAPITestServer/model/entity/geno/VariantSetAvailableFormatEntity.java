@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.model.WSMIMEDataTypes;
 import io.swagger.model.geno.GenoFileDataFormatEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "variantset_format")
@@ -22,15 +24,19 @@ public class VariantSetAvailableFormatEntity extends BrAPIBaseEntity {
 	@Column
 	private WSMIMEDataTypes fileFormat;
 	@Column
-	private String fileURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String fileURL;
 	@Column
 	private Boolean expandHomozygotes;
 	@Column
-	private String sepPhased;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sepPhased;
 	@Column
-	private String sepUnphased;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sepUnphased;
 	@Column
-	private String unknownString;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String unknownString;
 	
 	public Boolean getExpandHomozygotes() {
 		return expandHomozygotes;

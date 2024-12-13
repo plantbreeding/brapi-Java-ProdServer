@@ -13,18 +13,24 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.geno.SampleEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "vendor_file")
 public class VendorFileEntity extends BrAPIBaseEntity {
 	@Column
-	private String filename;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String filename;
 	@Column
-	private String URL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String URL;
 	@Column
-	private String md5sum;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String md5sum;
 	@Column
-	private String fileType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String fileType;
 	@ManyToOne
 	private VendorOrderEntity order;
 	@ManyToMany(cascade= CascadeType.ALL)

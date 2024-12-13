@@ -9,42 +9,57 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="vendor_spec_platform")
 public class VendorSpecPlatformEntity extends BrAPIBaseEntity{
 	@Column
-	private String vendorSpecDbId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String vendorSpecDbId;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String platformName;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String platformDescription;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String platformURL;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String contactName;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String contactEmail;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String contactPhone;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String shippingAddress;
 	@OneToMany(mappedBy="vendorSpecPlatformDbId")
     private List<VendorSpecDeliverableEntity> deliverables;
 	@OneToOne
     private VendorSpecStandardRequirementEntity standardRequirements;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String specificRequirements;
 	@OneToMany(mappedBy="vendorSpecPlatformDbId")
     private List<VendorSpecStatusEntity> statuses;
 	@Column
-	private String taxonomyIdSystemName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String taxonomyIdSystemName;
 	@Column
-	private String taxonomyIdSystemURI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String taxonomyIdSystemURI;
 	@Column
-	private String tissueIdSystemName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String tissueIdSystemName;
 	@Column
-	private String tissueIdSystemURI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String tissueIdSystemURI;
 	public String getVendorSpecDbId() {
 		return vendorSpecDbId;
 	}

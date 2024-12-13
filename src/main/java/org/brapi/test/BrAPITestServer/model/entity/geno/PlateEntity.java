@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.ProgramEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.StudyEntity;
@@ -19,17 +18,23 @@ import org.brapi.test.BrAPITestServer.model.entity.geno.vendor.VendorPlateSubmis
 
 import io.swagger.model.geno.PlateFormat;
 import io.swagger.model.geno.SampleType;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="plate")
 public class PlateEntity extends BrAPIPrimaryEntity{
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String clientPlateDbId;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String clientPlateBarcode;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String plateName;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String plateBarcode;
 	@Column
     private PlateFormat plateFormat ;

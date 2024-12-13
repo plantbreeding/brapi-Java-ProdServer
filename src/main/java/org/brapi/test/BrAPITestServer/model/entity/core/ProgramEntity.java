@@ -15,22 +15,29 @@ import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
 
 import io.swagger.model.core.ProgramSearchRequest.ProgramTypesEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="program")
 public class ProgramEntity extends BrAPIPrimaryEntity{
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String abbreviation;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String abbreviation;
 	@Column
-	private String objective;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String objective;
 	@Column
-	private String fundingInformation;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String fundingInformation;
 	@Column
 	private ProgramTypesEnum programType;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private PersonEntity leadPerson;
 	

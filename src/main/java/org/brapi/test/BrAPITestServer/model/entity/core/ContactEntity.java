@@ -5,24 +5,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="contact")
 public class ContactEntity extends BrAPIBaseEntity{
 	@Column
-	private String studyDbId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String studyDbId;
 	@Column
-	private String trialDbId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String trialDbId;
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String instituteName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteName;
 	@Column
-	private String email;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String email;
 	@Column
-	private String type;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String type;
 	@Column
-	private String orcid;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String orcid;
 	
 	public String getStudyDbId() {
 		return studyDbId;

@@ -12,6 +12,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.StudyEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "event")
@@ -19,13 +21,16 @@ public class EventEntity extends BrAPIPrimaryEntity {
 	@ElementCollection
 	private List<Date> dates;
 	@Column
-	private String eventDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String eventDescription;
 	@OneToMany(mappedBy="event")
 	private List<EventParameterEntity> eventParameters;
 	@Column
-	private String eventType = null;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String eventType = null;
 	@Column
-	private String eventTypeDbId = null;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String eventTypeDbId = null;
 	@ManyToMany
 	@JoinTable
 	private List<ObservationUnitEntity> observationUnits;

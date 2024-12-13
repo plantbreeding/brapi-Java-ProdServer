@@ -6,14 +6,18 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "study_experimental_design")
 public class ExperimentalDesignEntity extends BrAPIBaseEntity {
 	@Column
-	private String PUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String PUI;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@OneToOne
 	private StudyEntity study;
 

@@ -14,6 +14,8 @@ import org.brapi.test.BrAPITestServer.model.entity.GeoJSONEntity;
 import io.swagger.model.pheno.EntryTypeEnum;
 import io.swagger.model.pheno.ObservationUnitHierarchyLevelEnum;
 import io.swagger.model.pheno.PositionCoordinateTypeEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "observation_unit_position")
@@ -23,7 +25,8 @@ public class ObservationUnitPositionEntity extends BrAPIBaseEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	private GeoJSONEntity geoCoordinates;
 	@Column
-	private String levelCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String levelCode;
 	@Column
 	private ObservationUnitHierarchyLevelEnum levelName;
 	@Column
@@ -31,11 +34,13 @@ public class ObservationUnitPositionEntity extends BrAPIBaseEntity {
 	@OneToMany(mappedBy = "position", cascade = CascadeType.ALL)
 	private List<ObservationUnitLevelRelationshipEntity> observationLevelRelationships;
 	@Column
-	private String positionCoordinateX;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String positionCoordinateX;
 	@Column
 	private PositionCoordinateTypeEnum positionCoordinateXType;
 	@Column
-	private String positionCoordinateY;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String positionCoordinateY;
 	@Column
 	private PositionCoordinateTypeEnum positionCoordinateYType;
 	@OneToOne
@@ -154,7 +159,8 @@ public class ObservationUnitPositionEntity extends BrAPIBaseEntity {
 		return getRelationshipCode(ObservationUnitHierarchyLevelEnum.PLANT);
 	}
 	
-	private String getRelationshipCode(ObservationUnitHierarchyLevelEnum level) {
+	@JdbcType(LongVarcharJdbcType.class)
+    private String getRelationshipCode(ObservationUnitHierarchyLevelEnum level) {
 		if(getLevelName() == level) {
 			return getLevelCode();
 		}else {

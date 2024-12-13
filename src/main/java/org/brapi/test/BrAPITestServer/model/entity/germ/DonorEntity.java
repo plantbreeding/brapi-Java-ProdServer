@@ -7,6 +7,8 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="germplasm_donor")
@@ -14,13 +16,17 @@ public class DonorEntity extends BrAPIPrimaryEntity{
 	@ManyToOne
 	private GermplasmEntity germplasm;
 	@Column
-	private String donorAccessionNumber;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String donorAccessionNumber;
 	@Column
-	private String donorInstituteCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String donorInstituteCode;
 	@Column
-	private String donorInstituteName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String donorInstituteName;
 	@Column
-	private String germplasmPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String germplasmPUI;
 	
 	public String getDonorInstituteName() {
 		return donorInstituteName;

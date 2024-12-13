@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 
 @Entity
@@ -14,9 +16,11 @@ public class ReferenceEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Integer length;
 	@Column
-	private String md5checksum;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String md5checksum;
 	@Column
-	private String referenceName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String referenceName;
 	@ManyToOne
 	private ReferenceSetEntity referenceSet;
 	@Column

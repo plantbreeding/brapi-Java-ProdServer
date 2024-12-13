@@ -11,11 +11,14 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="crop")
 public class CropEntity extends BrAPIPrimaryEntity {
 	@Column(name="crop_name")
+	@JdbcType(LongVarcharJdbcType.class)
 	private String cropName;
 	
 	@OneToMany(mappedBy="crop")

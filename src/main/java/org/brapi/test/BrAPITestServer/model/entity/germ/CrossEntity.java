@@ -17,6 +17,8 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 import io.swagger.model.germ.CrossType;
 import io.swagger.model.germ.PlannedCrossNewRequest.PlannedCrossStatusEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="cross_entity")
@@ -26,6 +28,7 @@ public class CrossEntity extends BrAPIPrimaryEntity {
     @ManyToOne
     private CrossingProjectEntity crossingProject;
     @Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String name;
     @Column
     private PlannedCrossStatusEnum status;

@@ -14,6 +14,8 @@ import org.brapi.test.BrAPITestServer.model.entity.core.StudyEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.TrialEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.TaxonEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="sample")
@@ -21,7 +23,8 @@ public class SampleEntity extends BrAPIPrimaryEntity{
 	@Column
 	private Integer plateColumn; 
 	@Column
-	private String concentration;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String concentration;
 	@ManyToOne
 	private ObservationUnitEntity observationUnit;
 	@ManyToOne
@@ -33,31 +36,42 @@ public class SampleEntity extends BrAPIPrimaryEntity{
 	@ManyToOne
 	private PlateEntity plate;
 	@Column
-	private String plateRow; 
+	@JdbcType(LongVarcharJdbcType.class)
+    private String plateRow;
 	@Column
-	private String sampleBarcode; 
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sampleBarcode;
 	@Column
-	private String sampleDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sampleDescription;
 	@Column
-	private String sampleGroupDbId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sampleGroupDbId;
 	@Column
-	private String sampleName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sampleName;
 	@Column
-	private String samplePUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String samplePUI;
 	@Column
 	private Date sampleTimestamp;
 	@Column
-	private String sampleType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sampleType;
 	@Column
-	private String takenBy;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String takenBy;
 	@OneToOne
 	private TaxonEntity taxonId;
 	@Column
-	private String tissueType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String tissueType;
 	@Column
-	private String volume;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String volume;
 	@Column
-	private String well;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String well;
 	
 	public ProgramEntity getProgram() {
 		return program;

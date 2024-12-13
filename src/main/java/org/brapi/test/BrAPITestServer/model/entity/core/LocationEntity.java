@@ -9,42 +9,59 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.GeoJSONEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="location")
 public class LocationEntity extends BrAPIPrimaryEntity{
 	@Column
-	private String abbreviation;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String abbreviation;
 	@Column
-	private String coordinateDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String coordinateDescription;
 	@Column
-	private String coordinateUncertainty;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String coordinateUncertainty;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private GeoJSONEntity coordinates;
 	@Column
-	private String countryCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String countryCode;
 	@Column
-	private String countryName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String countryName;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@Column
-	private String environmentType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String environmentType;
 	@Column
-	private String exposure;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String exposure;
 	@Column
-	private String instituteAddress;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteAddress;
 	@Column
-	private String instituteName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String instituteName;
 	@Column
-	private String locationName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String locationName;
 	@Column
-	private String locationType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String locationType;
 	@Column
-	private String siteStatus;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String siteStatus;
 	@Column
-	private String slope;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String slope;
 	@Column
-	private String topography;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String topography;
 	@ManyToOne
 	private CropEntity crop;
 	@ManyToOne

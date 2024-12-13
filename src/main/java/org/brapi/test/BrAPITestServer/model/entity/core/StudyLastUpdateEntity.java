@@ -8,6 +8,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "study_last_update")
@@ -15,7 +17,8 @@ public class StudyLastUpdateEntity extends BrAPIBaseEntity {
 	@Column
 	private Date timestamp;
 	@Column
-	private String version;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String version;
 	@OneToOne
 	private StudyEntity study;
 

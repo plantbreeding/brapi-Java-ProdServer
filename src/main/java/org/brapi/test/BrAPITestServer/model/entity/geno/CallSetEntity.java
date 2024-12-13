@@ -14,12 +14,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "callset")
 public class CallSetEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String callSetName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String callSetName;
 	@Column
 	private Date created;
 	@ManyToOne

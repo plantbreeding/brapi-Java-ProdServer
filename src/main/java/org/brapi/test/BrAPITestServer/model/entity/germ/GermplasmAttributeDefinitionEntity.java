@@ -8,24 +8,33 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.pheno.VariableBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "germplasm_attribute_definition")
 public class GermplasmAttributeDefinitionEntity extends VariableBaseEntity {
 	@Column
-	private String attributeCategory;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String attributeCategory;
 	@Column
-	private String code;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String code;
 	@Column
-	private String uri;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String uri;
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String pui;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String pui;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String datatype;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String datatype;
 	@OneToMany(mappedBy = "attribute")
 	private List<GermplasmAttributeValueEntity> values;
 

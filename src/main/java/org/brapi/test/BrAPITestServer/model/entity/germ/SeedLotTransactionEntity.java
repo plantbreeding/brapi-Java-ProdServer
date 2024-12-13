@@ -9,6 +9,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "seed_lot_transaction")
@@ -20,11 +22,13 @@ public class SeedLotTransactionEntity extends BrAPIPrimaryEntity {
 	@ManyToOne
 	private SeedLotEntity fromSeedLot;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
 	private Date timestamp;
 	@Column
-	private String units;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String units;
 	
 	public BigDecimal getAmount() {
 		return amount;

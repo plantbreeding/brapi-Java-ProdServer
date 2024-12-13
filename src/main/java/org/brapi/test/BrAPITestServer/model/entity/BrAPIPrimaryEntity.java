@@ -15,6 +15,8 @@ import jakarta.persistence.MappedSuperclass;
 
 import io.swagger.model.ExternalReferences;
 import io.swagger.model.ExternalReferencesInner;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @MappedSuperclass
 public class BrAPIPrimaryEntity extends BrAPIBaseEntity {
@@ -30,7 +32,8 @@ public class BrAPIPrimaryEntity extends BrAPIBaseEntity {
 	private List<ExternalReferenceEntity> externalReferences;
 	
 	@Column
-	private String authUserId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String authUserId;
 
 	public String getAuthUserId() {
 		return authUserId;

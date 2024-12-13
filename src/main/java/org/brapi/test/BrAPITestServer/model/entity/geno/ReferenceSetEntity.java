@@ -7,28 +7,37 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.GermplasmEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="reference_set")
 public class ReferenceSetEntity extends BrAPIPrimaryEntity  {
 	@Column
-	private String assemblyPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String assemblyPUI;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
 	private Boolean isDerived;
 	@Column
-	private String md5checksum;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String md5checksum;
 	@Column
-	private String referenceSetName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String referenceSetName;
 	@ManyToOne
 	private GermplasmEntity sourceGermplasm;
 	@Column
-	private String sourceURI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String sourceURI;
 	@Column
-	private String speciesOntologyTerm;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String speciesOntologyTerm;
 	@Column
-	private String speciesOntologyTermURI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String speciesOntologyTermURI;
 	
 	public String getAssemblyPUI() {
 		return assemblyPUI;

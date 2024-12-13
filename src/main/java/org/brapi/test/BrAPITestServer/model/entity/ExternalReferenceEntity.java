@@ -3,14 +3,18 @@ package org.brapi.test.BrAPITestServer.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="external_reference")
 public class ExternalReferenceEntity extends BrAPIBaseEntity{
 	@Column
-	private String externalReferenceId;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String externalReferenceId;
 	@Column
-	private String externalReferenceSource;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String externalReferenceSource;
 	public String getExternalReferenceId() {
 		return externalReferenceId;
 	}

@@ -16,12 +16,15 @@ import org.brapi.test.BrAPITestServer.model.entity.core.ProgramEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.SeasonEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.StudyEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.TrialEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "observation")
 public class ObservationEntity extends BrAPIPrimaryEntity {
 	@Column
-	private String collector;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String collector;
 	@Column
 	private Date observationTimeStamp;
 	@ManyToOne
@@ -29,9 +32,11 @@ public class ObservationEntity extends BrAPIPrimaryEntity {
 	@ManyToOne
 	private SeasonEntity season;
 	@Column
-	private String uploadedBy;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String uploadedBy;
 	@Column
-	private String value;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String value;
 	@ManyToOne
 	private CropEntity crop;
 	@ManyToOne

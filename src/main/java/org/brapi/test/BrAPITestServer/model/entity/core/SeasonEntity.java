@@ -6,12 +6,15 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="season")
 public class SeasonEntity extends BrAPIPrimaryEntity{
 	@Column
-	private String season;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String season;
 	@Column
 	private Integer year;
 	

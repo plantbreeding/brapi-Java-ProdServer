@@ -17,13 +17,17 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 import io.swagger.model.geno.VendorOrderStatusResponseResult.StatusEnum;
 import io.swagger.model.geno.VendorPlateSubmissionRequest.SampleTypeEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="vendor_order")
 public class VendorOrderEntity extends BrAPIPrimaryEntity{
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String clientPlateDbId;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String clientPlateBarcode;
 	@Column
     private SampleTypeEnum sampleType;

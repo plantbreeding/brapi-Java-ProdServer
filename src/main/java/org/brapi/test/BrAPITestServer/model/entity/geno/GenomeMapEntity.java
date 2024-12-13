@@ -14,33 +14,42 @@ import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.StudyEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="genome_map")
 public class GenomeMapEntity extends BrAPIPrimaryEntity{
 	@Column
-	private String comments;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String comments;
 	@ManyToOne
 	private CropEntity crop;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@OneToMany(mappedBy="genomeMap")
 	private List<LinkageGroupEntity> linkageGroups;
 	@Column
-	private String mapName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String mapName;
 	@Column
-	private String mapPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String mapPUI;
 	@Column
 	private Date publishedDate;
 	@Column
-	private String scientificName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String scientificName;
 	@ManyToMany
 	@JoinTable
 	private List<StudyEntity> studies;
 	@Column
-	private String type;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String type;
 	@Column
-	private String unit;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String unit;
 	
 	public String getComments() {
 		return comments;

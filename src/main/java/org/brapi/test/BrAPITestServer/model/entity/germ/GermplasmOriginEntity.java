@@ -9,12 +9,15 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.GeoJSONEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="germplasm_origin")
 public class GermplasmOriginEntity extends BrAPIBaseEntity{
 	@Column
-	private String coordinateUncertainty;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String coordinateUncertainty;
 	@OneToOne(cascade = CascadeType.ALL)
 	private GeoJSONEntity coordinates;
 	@ManyToOne

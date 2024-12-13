@@ -9,6 +9,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="linkageGroup")
@@ -16,7 +18,8 @@ public class LinkageGroupEntity extends BrAPIPrimaryEntity{
 	@ManyToOne
 	private GenomeMapEntity genomeMap;
 	@Column
-	private String linkageGroupName; 
+	@JdbcType(LongVarcharJdbcType.class)
+    private String linkageGroupName;
 	@Column
 	private Integer maxMarkerPosition;
 	@OneToMany(mappedBy="linkageGroup")

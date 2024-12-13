@@ -8,6 +8,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="germplasm_attribute_value")
@@ -17,7 +19,8 @@ public class GermplasmAttributeValueEntity extends BrAPIPrimaryEntity{
 	@ManyToOne
 	private GermplasmEntity germplasm;
 	@Column
-	private String value;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String value;
 	@Column
 	private Date determinedDate;
 	

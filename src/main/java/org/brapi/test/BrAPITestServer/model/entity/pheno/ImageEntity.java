@@ -15,6 +15,8 @@ import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.GeoJSONEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "image")
@@ -24,13 +26,17 @@ public class ImageEntity extends BrAPIPrimaryEntity {
 	@ManyToOne(cascade = CascadeType.DETACH)
 	private ObservationUnitEntity observationUnit;
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String imageFileName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String imageFileName;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String imageURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String imageURL;
 	@Column
 	private Integer imageFileSize;
 	@Column
@@ -38,14 +44,16 @@ public class ImageEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Integer imageWidth;
 	@Column
-	private String imageMIMEType;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String imageMIMEType;
 	@ElementCollection
 	private List<String> descriptiveOntologyTerms;
 	@ManyToMany
 	@JoinTable
 	private List<ObservationEntity> observations;
 	@Column
-	private String copyright;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String copyright;
 	@Column
 	private Date timeStamp;
 	@OneToOne(cascade = CascadeType.ALL)

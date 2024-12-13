@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="trait_abbreviation")
@@ -13,7 +15,8 @@ public class TraitAbbreviationEntity extends BrAPIBaseEntity{
 	@ManyToOne
 	private TraitEntity trait;
 	@Column
-	private String abbreviation;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String abbreviation;
 	
 	public TraitEntity getTrait() {
 		return trait;

@@ -8,14 +8,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "trial_dataset_authorship")
 public class DatasetAuthorshipEntity extends BrAPIBaseEntity {
 	@Column
-	private String datasetPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String datasetPUI;
 	@Column 
-	private String license;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String license;
 	@Column
 	private Date publicReleaseDate;
 	@Column

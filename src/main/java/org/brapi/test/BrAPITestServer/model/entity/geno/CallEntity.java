@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="allele_call")
@@ -13,13 +15,15 @@ public class CallEntity extends BrAPIPrimaryEntity {
 	@ManyToOne
 	private CallSetEntity callSet;
 	@Column
-	private String genotype;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String genotype;
 	@Column
 	private Integer readDepth;
 	@Column
 	private Double genotypeLikelihood;
 	@Column 
-	private String phaseSet;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String phaseSet;
 	@ManyToOne
 	private VariantEntity variant;
 

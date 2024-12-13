@@ -8,12 +8,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="cross_pollination_event")
 public class CrossPollinationEventEntity extends BrAPIBaseEntity {
 	@Column
-	private String pollinationNumber = null;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String pollinationNumber = null;
 	@Column
 	private Boolean pollinationSuccessful = null;
 	@Column

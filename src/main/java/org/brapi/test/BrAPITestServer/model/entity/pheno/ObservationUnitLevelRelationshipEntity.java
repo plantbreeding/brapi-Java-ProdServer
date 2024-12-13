@@ -8,12 +8,15 @@ import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 
 import io.swagger.model.pheno.ObservationUnitHierarchyLevelEnum;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "observation_unit_level")
 public class ObservationUnitLevelRelationshipEntity extends BrAPIBaseEntity {
 	@Column
-	private String levelCode;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String levelCode;
 	@Column
 	private ObservationUnitHierarchyLevelEnum levelName;
 	@Column

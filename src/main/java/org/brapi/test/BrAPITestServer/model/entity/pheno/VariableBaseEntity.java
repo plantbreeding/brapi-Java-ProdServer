@@ -15,6 +15,8 @@ import jakarta.persistence.OneToMany;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -25,15 +27,20 @@ public class VariableBaseEntity extends BrAPIPrimaryEntity implements OntologyRe
 	@ElementCollection
 	private List<String> contextOfUse;
 	@Column
-	private String defaultValue;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String defaultValue;
 	@Column
-	private String documentationURL;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String documentationURL;
 	@Column
-	private String growthStage;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String growthStage;
 	@Column
-	private String institution;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String institution;
 	@Column
-	private String language;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String language;
 	@ManyToOne
 	private MethodEntity method;
 	@ManyToOne
@@ -41,9 +48,11 @@ public class VariableBaseEntity extends BrAPIPrimaryEntity implements OntologyRe
 	@ManyToOne
 	private ScaleEntity scale;
 	@Column
-	private String scientist;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String scientist;
 	@Column
-	private String status;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String status;
 	@Column
 	private Date submissionTimestamp;
 	@ElementCollection

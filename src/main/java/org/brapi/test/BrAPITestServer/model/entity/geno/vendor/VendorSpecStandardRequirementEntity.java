@@ -8,29 +8,39 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name="vendor_spec_requirement")
 public class VendorSpecStandardRequirementEntity extends BrAPIBaseEntity {
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String minConcentration;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String maxConcentration;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String minVolume;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String maxVolume;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String minSampleNumber;
 	@OneToMany(mappedBy="vendorSpecStandardRequirementDbId")
     private List<VendorSpecSampleTypeEntity> sampleTypes;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String sampleTypeDetails;
 	@OneToMany(mappedBy="vendorSpecStandardRequirementDbId")
     private List<VendorSpecInputFormatEntity> inputFormats;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String inputFormatDetails;
 	@Column
+    @JdbcType(LongVarcharJdbcType.class)
     private String plateOrientation;
 	@OneToMany(mappedBy="vendorSpecStandardRequirementDbId")
     private List<VendorSpecWellPositionEntity> blankWellPositions;

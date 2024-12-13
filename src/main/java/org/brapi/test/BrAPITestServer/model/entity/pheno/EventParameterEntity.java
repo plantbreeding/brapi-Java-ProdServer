@@ -9,26 +9,36 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "event_param")
 public class EventParameterEntity extends BrAPIBaseEntity {
 	@Column
-	private String key;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String key;
 	@Column
-	private String rdfValue;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String rdfValue;
 	@Column
-	private String value;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String value;
 	@Column
-	private String code;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String code;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String name;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String name;
 	@Column
-	private String units;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String units;
 	@Column
-	private String valueDescription;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String valueDescription;
 	@ElementCollection
 	private List<String> valuesByDate;
 	@ManyToOne

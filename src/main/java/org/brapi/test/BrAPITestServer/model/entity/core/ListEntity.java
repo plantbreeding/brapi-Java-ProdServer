@@ -13,6 +13,8 @@ import jakarta.persistence.Table;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 import io.swagger.model.core.ListTypes;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "list")
@@ -22,13 +24,17 @@ public class ListEntity extends BrAPIPrimaryEntity {
 	@Column
 	private Date dateModified;
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String listName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String listName;
 	@Column
-	private String listOwnerName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String listOwnerName;
 	@Column
-	private String listSource;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String listSource;
 	@Column
 	private ListTypes listType;
 

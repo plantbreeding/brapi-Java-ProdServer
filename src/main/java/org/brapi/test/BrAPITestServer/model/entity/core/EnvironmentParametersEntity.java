@@ -6,24 +6,33 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.type.descriptor.jdbc.LongVarcharJdbcType;
 
 @Entity
 @Table(name = "study_environment_parameter")
 public class EnvironmentParametersEntity extends BrAPIBaseEntity {
 	@Column
-	private String description;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String description;
 	@Column
-	private String parameterName;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String parameterName;
 	@Column
-	private String parameterPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String parameterPUI;
 	@Column
-	private String unit;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String unit;
 	@Column
-	private String unitPUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String unitPUI;
 	@Column
-	private String value;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String value;
 	@Column
-	private String valuePUI;
+	@JdbcType(LongVarcharJdbcType.class)
+    private String valuePUI;
 	@ManyToOne
 	private StudyEntity study;
 
