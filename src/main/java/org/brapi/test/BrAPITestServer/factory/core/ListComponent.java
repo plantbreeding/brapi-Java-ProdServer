@@ -1,12 +1,11 @@
 package org.brapi.test.BrAPITestServer.factory.core;
 
 import io.swagger.model.Metadata;
-import io.swagger.model.core.BatchTypes;
+import io.swagger.model.core.BatchDeleteTypes;
 import io.swagger.model.core.ListSearchRequest;
 import io.swagger.model.core.ListSummary;
 import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
-import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.service.core.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,8 +28,8 @@ public class ListComponent implements BrAPIComponent<ListSummary, ListSearchRequ
     }
 
     @Override
-    public BatchTypes getBatchType() {
-        return BatchTypes.LISTS;
+    public BatchDeleteTypes getBatchDeleteType() {
+        return BatchDeleteTypes.LISTS;
     }
 
 
@@ -40,12 +39,12 @@ public class ListComponent implements BrAPIComponent<ListSummary, ListSearchRequ
     }
 
     @Override
-    public void deleteBatchData(List<String> dbIds) {
+    public void deleteBatchDeleteData(List<String> dbIds) {
         listService.deleteListBatch(dbIds);
     }
 
     @Override
-    public void softDeleteBatchData(List<String> dbIds) {
+    public void softDeleteBatchDeleteData(List<String> dbIds) {
         listService.softDeleteListBatch(dbIds);
     }
 }

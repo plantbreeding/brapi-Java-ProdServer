@@ -7,7 +7,7 @@ import io.swagger.model.Metadata;
 
 import java.util.Objects;
 
-public class BatchesSingleResponse implements BrAPIResponse<BatchDetails> {
+public class BatchDeletesSingleResponse implements BrAPIResponse<BatchDeleteDetails> {
 	@JsonProperty("@context")
 	private Context _atContext = null;
 
@@ -15,14 +15,14 @@ public class BatchesSingleResponse implements BrAPIResponse<BatchDetails> {
 	private Metadata metadata = null;
 
 	@JsonProperty("result")
-	private BatchDetails result = null;
+	private BatchDeleteDetails result = null;
 
-	public BatchesSingleResponse() {
+	public BatchDeletesSingleResponse() {
 		this._atContext = new Context();
 		this._atContext.add("context");
 	}
 
-	public BatchesSingleResponse metadata(Metadata metadata) {
+	public BatchDeletesSingleResponse metadata(Metadata metadata) {
 		this.metadata = metadata;
 		return this;
 	}
@@ -35,16 +35,16 @@ public class BatchesSingleResponse implements BrAPIResponse<BatchDetails> {
 		this.metadata = metadata;
 	}
 
-	public BatchesSingleResponse result(BatchDetails result) {
+	public BatchDeletesSingleResponse result(BatchDeleteDetails result) {
 		this.result = result;
 		return this;
 	}
 
-	public BatchDetails getResult() {
+	public BatchDeleteDetails getResult() {
 		return result;
 	}
 
-	public void setResult(BatchDetails result) {
+	public void setResult(BatchDeleteDetails result) {
 		this.result = result;
 	}
 
@@ -61,10 +61,10 @@ public class BatchesSingleResponse implements BrAPIResponse<BatchDetails> {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		BatchesSingleResponse BatchesSingleResponse = (BatchesSingleResponse) o;
-		return Objects.equals(this._atContext, BatchesSingleResponse._atContext)
-				&& Objects.equals(this.metadata, BatchesSingleResponse.metadata)
-				&& Objects.equals(this.result, BatchesSingleResponse.result);
+		BatchDeletesSingleResponse BatchDeletesSingleResponse = (BatchDeletesSingleResponse) o;
+		return Objects.equals(this._atContext, BatchDeletesSingleResponse._atContext)
+				&& Objects.equals(this.metadata, BatchDeletesSingleResponse.metadata)
+				&& Objects.equals(this.result, BatchDeletesSingleResponse.result);
 	}
 
 	@Override

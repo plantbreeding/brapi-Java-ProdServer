@@ -1,10 +1,10 @@
 package org.brapi.test.BrAPITestServer.controller.core;
 
+import io.swagger.api.core.BatchDeletesApi;
 import io.swagger.model.BrAPIResponse;
 import io.swagger.model.Metadata;
 import io.swagger.model.SearchRequest;
 import io.swagger.model.core.*;
-import io.swagger.api.core.BatchesApi;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
@@ -31,9 +31,9 @@ import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
 @Controller
-public class BatchesApiController extends BrAPIController implements BatchesApi {
+public class BatchDeletesApiController extends BrAPIController implements BatchDeletesApi {
 
-	private static final Logger log = LoggerFactory.getLogger(BatchesApiController.class);
+	private static final Logger log = LoggerFactory.getLogger(BatchDeletesApiController.class);
 
 	private final HttpServletRequest request;
 	private final BatchService batchService;
@@ -41,7 +41,7 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 	private final BrAPIComponentFactory componentFactory;
 
 	@Autowired
-	public BatchesApiController(BatchService batchService, SearchService searchService, BrAPIComponentFactory componentFactory, HttpServletRequest request) {
+	public BatchDeletesApiController(BatchService batchService, SearchService searchService, BrAPIComponentFactory componentFactory, HttpServletRequest request) {
 		this.batchService = batchService;
 		this.searchService = searchService;
 		this.componentFactory = componentFactory;
@@ -50,66 +50,66 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<BatchesSingleResponse> batchesBatchDbIdGet(
-			@PathVariable("batchDbId") String batchDbId,
+	public ResponseEntity<BatchDeletesSingleResponse> batchDeletesBatchDbIdGet(
+			@PathVariable("batchDeleteDbId") String batchDeleteDbId,
 			@RequestHeader(value = "Authorization", required = false) String authorization)
 			throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_ANONYMOUS", "ROLE_USER");
 		validateAcceptHeader(request);
-		BatchDetails data = batchService.getBatch(batchDbId);
-		return responseOK(new BatchesSingleResponse(), data);
+		BatchDeleteDetails data = batchService.getBatch(batchDeleteDbId);
+		return responseOK(new BatchDeletesSingleResponse(), data);
 	}
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<BatchResponse> batchesBatchDbIdItemsPost(
-			@PathVariable("batchDbId") String batchDbId,
+	public ResponseEntity<BatchDeleteResponse> batchDeletesBatchDbIdItemsPost(
+			@PathVariable("batchDeleteDbId") String batchDeleteDbId,
 			@Valid @RequestBody ArrayList<String> body,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
-		return batchesBatchDbIdDataPost(batchDbId, body, authorization);
+		return batchDeletesBatchDbIdDataPost(batchDeleteDbId, body, authorization);
 	}
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<BatchResponse> batchesBatchDbIdDataPost(
-			@PathVariable("batchDbId") String batchDbId,
+	public ResponseEntity<BatchDeleteResponse> batchDeletesBatchDbIdDataPost(
+			@PathVariable("batchDeleteDbId") String batchDeleteDbId,
 			@Valid @RequestBody ArrayList<String> body,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
-		BatchDetails data = batchService.updateBatchItems(batchDbId, body);
-		return responseOK(new BatchResponse(), data);
+		BatchDeleteDetails data = batchService.updateBatchItems(batchDeleteDbId, body);
+		return responseOK(new BatchDeleteResponse(), data);
 	}
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<BatchesSingleResponse> batchesBatchDbIdPut(
-			@PathVariable("batchDbId") String batchDbId,
-			@Valid @RequestBody BatchNewRequest body,
+	public ResponseEntity<BatchDeletesSingleResponse> batchDeletesBatchDbIdPut(
+			@PathVariable("batchDeleteDbId") String batchDeleteDbId,
+			@Valid @RequestBody BatchDeleteNewRequest body,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
-		BatchDetails data = batchService.updateBatch(batchDbId, body);
-		return responseOK(new BatchesSingleResponse(), data);
+		BatchDeleteDetails data = batchService.updateBatch(batchDeleteDbId, body);
+		return responseOK(new BatchDeletesSingleResponse(), data);
 	}
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<? extends BrAPIResponse> batchesPost(@Valid @RequestBody BatchSearchRequest body,
-			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
+	public ResponseEntity<? extends BrAPIResponse> batchDeletesPost(@Valid @RequestBody BatchDeleteSearchRequest body,
+																	@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
 		Metadata metadata = generateMetaDataTemplate(body);
-		BatchTypes batchType = body.getBatchType();
+		BatchDeleteTypes batchType = body.getBatchDeleteType();
 		BrAPIComponent component = componentFactory.getComponent(batchType);
 
 		// Return the searchDbId with a 202 if the search is too in-depth with several parameters
@@ -124,15 +124,15 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 
 		// Create a new batch for the requested entites
 		List<String> entityDbIds = component.collectDbIds(entities);
-		BatchNewRequest newBatchRequest = (BatchNewRequest) new BatchNewRequest().data(entityDbIds).batchType(body.getBatchType());
-		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
+		BatchDeleteNewRequest newBatchRequest = (BatchDeleteNewRequest) new BatchDeleteNewRequest().data(entityDbIds).batchDeleteType(body.getBatchDeleteType());
+		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDeleteDbId();
 
 		return responseOK(newBatchDbID, entityDbIds, metadata);
 	}
 
 	@CrossOrigin
 	@Override
-	public ResponseEntity<? extends BrAPIResponse> searchBatchesSearchResultsDbIdGet(
+	public ResponseEntity<? extends BrAPIResponse> searchBatchDeletesSearchResultsDbIdGet(
 			@PathVariable("searchResultsDbId") String searchResultsDbId,
 			@Valid @RequestParam(value = "page", required = false) Integer page,
 			@Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
@@ -149,8 +149,8 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 			responseAccepted(searchResultsDbId);
 		}
 
-		BatchSearchRequest body = request.getParameters(BatchSearchRequest.class);
-		BatchTypes batchType = body.getBatchType();
+		BatchDeleteSearchRequest body = request.getParameters(BatchDeleteSearchRequest.class);
+		BatchDeleteTypes batchType = body.getBatchDeleteType();
 		BrAPIComponent component = componentFactory.getComponent(batchType);
 
 		// Fetch requested BrAPI entities
@@ -159,31 +159,31 @@ public class BatchesApiController extends BrAPIController implements BatchesApi 
 
 		// Create a new batch for the requested entites
 		List<String> entityDbIds = component.collectDbIds(entities);
-		BatchNewRequest newBatchRequest = new BatchNewRequest().data(entityDbIds);
-		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDbId();
+		BatchDeleteNewRequest newBatchRequest = new BatchDeleteNewRequest().data(entityDbIds);
+		String newBatchDbID = batchService.saveNewBatch(Arrays.asList(newBatchRequest)).get(0).getBatchDeleteDbId();
 
 		return responseOK(newBatchDbID, entityDbIds, metadata);
 	}
 
 	@CrossOrigin
-	public ResponseEntity<BatchesSingleResponse> batchesBatchDbIdDelete(
-			@PathVariable("batchDbId") String batchDbId,
+	public ResponseEntity<BatchDeletesSingleResponse> batchDeletesBatchDbIdDelete(
+			@PathVariable("batchDeleteDbId") String batchDeleteDbId,
 			@Valid @RequestParam(value = "hardDelete", defaultValue = "false" ,required = false) boolean hardDelete,
 			@RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException {
 
 		log.debug("Request: " + request.getRequestURI());
 		validateSecurityContext(request, "ROLE_USER");
 		validateAcceptHeader(request);
-		BatchDetails batch = batchService.getBatch(batchDbId);
-		BatchTypes batchType = batch.getBatchType();
+		BatchDeleteDetails batch = batchService.getBatch(batchDeleteDbId);
+		BatchDeleteTypes batchType = batch.getBatchDeleteType();
 		BrAPIComponent component = componentFactory.getComponent(batchType);
 		if (hardDelete) {
-			component.deleteBatchData(batch.getData());
-			batchService.deleteBatch(batchDbId);
+			component.deleteBatchDeleteData(batch.getData());
+			batchService.deleteBatch(batchDeleteDbId);
 			return responseNoContent();
 		}
-		component.softDeleteBatchData(batch.getData());
-		batchService.deleteBatch(batchDbId);
+		component.softDeleteBatchDeleteData(batch.getData());
+		batchService.deleteBatch(batchDeleteDbId);
 		return responseNoContent();
 	}
 }

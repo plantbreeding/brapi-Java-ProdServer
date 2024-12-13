@@ -15,17 +15,17 @@ import jakarta.validation.Valid;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchDetails extends BatchSummary implements BrAPIResponseResult<String> {
+public class BatchDeleteDetails extends BatchDeleteSummary implements BrAPIResponseResult<String> {
   @JsonProperty("data")
   @Valid
   private List<String> data = null;
 
-  public BatchDetails data(List<String> data) {
+  public BatchDeleteDetails data(List<String> data) {
     this.data = data;
     return this;
   }
 
-  public BatchDetails addDataItem(String dataItem) {
+  public BatchDeleteDetails addDataItem(String dataItem) {
     if (this.data == null) {
       this.data = new ArrayList<String>();
     }
@@ -56,7 +56,7 @@ public class BatchDetails extends BatchSummary implements BrAPIResponseResult<St
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BatchDetails batchDetails = (BatchDetails) o;
+    BatchDeleteDetails batchDetails = (BatchDeleteDetails) o;
     return Objects.equals(this.data, batchDetails.data) &&
         super.equals(o);
   }

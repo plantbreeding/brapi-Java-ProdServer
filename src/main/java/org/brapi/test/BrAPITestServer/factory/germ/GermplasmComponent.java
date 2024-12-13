@@ -1,12 +1,11 @@
 package org.brapi.test.BrAPITestServer.factory.germ;
 
 import io.swagger.model.Metadata;
-import io.swagger.model.core.BatchTypes;
+import io.swagger.model.core.BatchDeleteTypes;
 import io.swagger.model.germ.Germplasm;
 import io.swagger.model.germ.GermplasmSearchRequest;
 import jakarta.validation.Valid;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
-import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.service.germ.GermplasmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,8 +28,8 @@ public class GermplasmComponent implements BrAPIComponent<Germplasm, GermplasmSe
     }
 
     @Override
-    public BatchTypes getBatchType() {
-        return BatchTypes.GERMPLASM;
+    public BatchDeleteTypes getBatchDeleteType() {
+        return BatchDeleteTypes.GERMPLASM;
     }
 
 
@@ -40,12 +39,12 @@ public class GermplasmComponent implements BrAPIComponent<Germplasm, GermplasmSe
     }
 
     @Override
-    public void deleteBatchData(List<String> dbIds) {
+    public void deleteBatchDeleteData(List<String> dbIds) {
 
     }
 
     @Override
-    public void softDeleteBatchData(List<String> dbIds) {
+    public void softDeleteBatchDeleteData(List<String> dbIds) {
 
     }
 }

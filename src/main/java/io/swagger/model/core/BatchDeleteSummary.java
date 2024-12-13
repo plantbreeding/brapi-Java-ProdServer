@@ -3,46 +3,35 @@ package io.swagger.model.core;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
-import jakarta.validation.Valid;
 
 /**
- * BatchNewRequest
+ * BatchSummary
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchNewRequest extends BatchBaseFields  {
-  @JsonProperty("data")
-  @Valid
-  private List<String> data = null;
+public class BatchDeleteSummary extends BatchDeleteBaseFields {
+  @JsonProperty("batchDeleteDbId")
+  private String batchDeleteDbId = null;
 
-  public BatchNewRequest data(List<String> data) {
-    this.data = data;
-    return this;
-  }
-
-  public BatchNewRequest addDataItem(String dataItem) {
-    if (this.data == null) {
-      this.data = new ArrayList<String>();
-    }
-    this.data.add(dataItem);
+  public BatchDeleteSummary batchDbId(String batchDbId) {
+    this.batchDeleteDbId = batchDbId;
     return this;
   }
 
   /**
-   * The batch of DbIds contained in this batch
-   * @return data
+   * The unique identifier for a Batch
+   * @return batchDbId
   **/
-  @ApiModelProperty(example = "[\"758a78c0\",\"2c78f9ee\"]", value = "The batch of DbIds contained in this batch")
-  
-    public List<String> getData() {
-    return data;
+  @ApiModelProperty(example = "6f621cfa", required = true, value = "The unique identifier for a Batch")
+      
+
+    public String getBatchDeleteDbId() {
+    return batchDeleteDbId;
   }
 
-  public void setData(List<String> data) {
-    this.data = data;
+  public void setBatchDeleteDbId(String batchDeleteDbId) {
+    this.batchDeleteDbId = batchDeleteDbId;
   }
 
 
@@ -54,22 +43,22 @@ public class BatchNewRequest extends BatchBaseFields  {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BatchNewRequest batchNewRequest = (BatchNewRequest) o;
-    return Objects.equals(this.data, batchNewRequest.data) &&
+    BatchDeleteSummary batchSummary = (BatchDeleteSummary) o;
+    return Objects.equals(this.batchDeleteDbId, batchSummary.batchDeleteDbId) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, super.hashCode());
+    return Objects.hash(batchDeleteDbId, super.hashCode());
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BatchNewRequest {\n");
+    sb.append("class BatchSummary {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    batchDbId: ").append(toIndentedString(batchDeleteDbId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

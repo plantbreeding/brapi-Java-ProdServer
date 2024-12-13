@@ -24,104 +24,104 @@ import jakarta.validation.Valid;
 import java.util.ArrayList;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-@Api(value = "batches", description = "the batches API")
-public interface BatchesApi {
+@Api(value = "batchDeletes", description = "the batch deletes API")
+public interface BatchDeletesApi {
 
-    @ApiOperation(value = "Get the details of a specific Batch", nickname = "batchesBatchDbIdGet", notes = "Get a specific generic batches", response = BatchesSingleResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesSingleResponse.class),
+    @ApiOperation(value = "Get the details of a specific Batch Delete", nickname = "batchDeletesBatchDbIdGet", notes = "Get a specific generic batch delete", response = BatchDeletesSingleResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeletesSingleResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class),
             @ApiResponse(code = 404, message = "Not Found", response = String.class) })
-    @RequestMapping(value = "/batches/{batchDbId}", produces = { "application/json" }, method = RequestMethod.GET)
-    ResponseEntity<BatchesSingleResponse> batchesBatchDbIdGet(
-            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDbId") String batchDbId,
+    @RequestMapping(value = "/batchDeletes/{batchDeleteDbId}", produces = { "application/json" }, method = RequestMethod.GET)
+    ResponseEntity<BatchDeletesSingleResponse> batchDeletesBatchDbIdGet(
+            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDeletDbId") String batchDbId,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Add Items to a specific Batch", nickname = "batchesBatchDbIdItemsPost", notes = "Add new data to a specific generic batches", response = BatchResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchResponse.class),
+    @ApiOperation(value = "Add Items to a specific Batch Delete", nickname = "batchDeletesBatchDbIdItemsPost", notes = "Add new data to a specific generic batch delete", response = BatchDeleteResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeleteResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class),
             @ApiResponse(code = 404, message = "Not Found", response = String.class) })
-    @RequestMapping(value = "/batches/{batchDbId}/items", produces = { "application/json" }, consumes = {
+    @RequestMapping(value = "/batchDeletes/{batchDeleteDbId}/items", produces = { "application/json" }, consumes = {
             "application/json" }, method = RequestMethod.POST)
-    ResponseEntity<BatchResponse> batchesBatchDbIdItemsPost(
-            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDbId") String batchDbId,
+    ResponseEntity<BatchDeleteResponse> batchDeletesBatchDbIdItemsPost(
+            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDeleteDbId") String batchDeleteDbId,
             @ApiParam(value = "") @Valid @RequestBody ArrayList<String> body,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Add Items to a specific Batch", nickname = "batchesBatchDbIdDataPost", notes = "Add new data to a specific generic batches", response = BatchResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchResponse.class),
+    @ApiOperation(value = "Add Items to a specific Batch Delete", nickname = "batchDeletesBatchDbIdDataPost", notes = "Add new data to a specific generic batch delete", response = BatchDeleteResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeleteResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class),
             @ApiResponse(code = 404, message = "Not Found", response = String.class) })
-    @RequestMapping(value = "/batches/{batchDbId}/data", produces = { "application/json" }, consumes = {
+    @RequestMapping(value = "/batchDeletes/{batchDeleteDbId}/data", produces = { "application/json" }, consumes = {
             "application/json" }, method = RequestMethod.POST)
-    ResponseEntity<BatchResponse> batchesBatchDbIdDataPost(
-            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDbId") String batchDbId,
+    ResponseEntity<BatchDeleteResponse> batchDeletesBatchDbIdDataPost(
+            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDeleteDbId") String batchDbId,
             @ApiParam(value = "") @Valid @RequestBody ArrayList<String> body,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Update an existing generic batch", nickname = "batchesBatchDbIdPut", notes = "Update an existing generic batch", response = BatchesSingleResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesSingleResponse.class),
+    @ApiOperation(value = "Update an existing generic batch delete", nickname = "batchDeletesBatchDbIdPut", notes = "Update an existing generic batch delete", response = BatchDeletesSingleResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeletesSingleResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class),
             @ApiResponse(code = 404, message = "Not Found", response = String.class) })
-    @RequestMapping(value = "/batches/{batchDbId}", produces = { "application/json" }, consumes = {
+    @RequestMapping(value = "/batchDeletes/{batchDeleteDbId}", produces = { "application/json" }, consumes = {
             "application/json" }, method = RequestMethod.PUT)
-    ResponseEntity<BatchesSingleResponse> batchesBatchDbIdPut(
-            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDbId") String batchDbId,
-            @ApiParam(value = "") @Valid @RequestBody BatchNewRequest body,
+    ResponseEntity<BatchDeletesSingleResponse> batchDeletesBatchDbIdPut(
+            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDeleteDbId") String batchDbId,
+            @ApiParam(value = "") @Valid @RequestBody BatchDeleteNewRequest body,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Create a New Batch", nickname = "batchesPost", notes = "Create a new batch", response = BatchesListResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesListResponse.class),
+    @ApiOperation(value = "Create a New Batch Delete", nickname = "batchDeletesPost", notes = "Create a new batch delete", response = BatchDeletesListResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeletesListResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class) })
-    @RequestMapping(value = "/batches", produces = { "application/json" }, consumes = {
+    @RequestMapping(value = "/batchDeletes", produces = { "application/json" }, consumes = {
             "application/json" }, method = RequestMethod.POST)
-    ResponseEntity<? extends BrAPIResponse> batchesPost(@ApiParam(value = "") @Valid @RequestBody BatchSearchRequest body,
-            @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
+    ResponseEntity<? extends BrAPIResponse> batchDeletesPost(@ApiParam(value = "") @Valid @RequestBody BatchDeleteSearchRequest body,
+                                                             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;
 
-    @ApiOperation(value = "Get the results of a Batch search request", nickname = "searchBatchesSearchResultsDbIdGet", notes = "Advanced searching for the batch resource. See Search Services for additional implementation details.", response = BatchesListResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesListResponse.class),
+    @ApiOperation(value = "Get the results of a Batch Delete search request", nickname = "searchBatchDeletesSearchResultsDbIdGet", notes = "Advanced searching for the batch delete resource. See Search Services for additional implementation details.", response = BatchDeletesListResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeletesListResponse.class),
             @ApiResponse(code = 202, message = "Accepted", response = Model202AcceptedSearchResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class) })
-    @RequestMapping(value = "/search/batches/{searchResultsDbId}", produces = {
+    @RequestMapping(value = "/search/batchDeletes/{searchResultsDbId}", produces = {
             "application/json" }, method = RequestMethod.GET)
-    ResponseEntity<? extends BrAPIResponse> searchBatchesSearchResultsDbIdGet(
+    ResponseEntity<? extends BrAPIResponse> searchBatchDeletesSearchResultsDbIdGet(
             @ApiParam(value = "Permanent unique identifier which references the search results", required = true) @PathVariable("searchResultsDbId") String searchResultsDbId,
             @ApiParam(value = "page") @Valid @RequestParam(value = "page", required = false) Integer page,
             @ApiParam(value = "pageSize") @Valid @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization) throws BrAPIServerException;
 
-    @ApiOperation(value = "Delete a specific Batch", nickname = "batchesBatchDbIdDelete", notes = "Delete a specific generic batch", response = BatchesSingleResponse.class, authorizations = {
-            @Authorization(value = "AuthorizationToken") }, tags = { "Batches", })
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchesSingleResponse.class),
+    @ApiOperation(value = "Delete a specific Batch Delete", nickname = "batchDeletesBatchDbIdDelete", notes = "Delete a specific generic batch delete", response = BatchDeletesSingleResponse.class, authorizations = {
+            @Authorization(value = "AuthorizationToken") }, tags = { "BatchDeletes", })
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = BatchDeletesSingleResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = String.class),
             @ApiResponse(code = 403, message = "Forbidden", response = String.class),
             @ApiResponse(code = 404, message = "Not Found", response = String.class) })
-    @RequestMapping(value = "/batches/{batchDbId}", produces = { "application/json" }, method = RequestMethod.DELETE)
-    ResponseEntity<BatchesSingleResponse> batchesBatchDbIdDelete(
-            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDbId") String batchDbId,
+    @RequestMapping(value = "/batchDeletes/{batchDeleteDbId}", produces = { "application/json" }, method = RequestMethod.DELETE)
+    ResponseEntity<BatchDeletesSingleResponse> batchDeletesBatchDbIdDelete(
+            @ApiParam(value = "The unique ID of this generic batch", required = true) @PathVariable("batchDeleteDbId") String batchDbId,
             @ApiParam(value = "hard") @Valid @RequestParam(value = "hardDelete", defaultValue = "false", required = false) boolean hardDelete,
             @ApiParam(value = "HTTP HEADER - Token used for Authorization   <strong> Bearer {token_string} </strong>") @RequestHeader(value = "Authorization", required = false) String authorization)
             throws BrAPIServerException;

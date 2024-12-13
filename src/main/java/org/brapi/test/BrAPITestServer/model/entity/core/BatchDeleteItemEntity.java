@@ -5,18 +5,18 @@ import javax.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 
 @Entity
-@Table(name = "batch_item")
-public class BatchItemEntity extends BrAPIBaseEntity {
+@Table(name = "batch_delete_item")
+public class BatchDeleteItemEntity extends BrAPIBaseEntity {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private BatchEntity batch;
+	private BatchDeleteEntity batchDelete;
 	@Column
 	private String item;
 	
-	public BatchEntity getBatch() {
-		return batch;
+	public BatchDeleteEntity getBatchDelete() {
+		return batchDelete;
 	}
-	public void setBatch(BatchEntity batch) {
-		this.batch = batch;
+	public void setBatchDelete(BatchDeleteEntity batch) {
+		this.batchDelete = batch;
 	}
 	public String getItem() {
 		return item;
