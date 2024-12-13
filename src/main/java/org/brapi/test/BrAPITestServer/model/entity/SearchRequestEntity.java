@@ -2,10 +2,10 @@ package org.brapi.test.BrAPITestServer.model.entity;
 
 import java.io.IOException;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.springframework.http.HttpStatus;
