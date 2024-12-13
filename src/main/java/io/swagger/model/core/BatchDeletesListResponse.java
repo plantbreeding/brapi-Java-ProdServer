@@ -1,19 +1,21 @@
 package io.swagger.model.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.BrAPIResponse;
 import io.swagger.model.Context;
 import io.swagger.model.Metadata;
+import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.Objects;
 
 /**
- * BatchResponse
+ * BatchessBatchResponse
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchResponse implements BrAPIResponse<BatchDetails> {
+public class BatchDeletesListResponse implements BrAPIResponse<BatchDeletesListResponseResult> {
 	@JsonProperty("@context")
 	private Context _atContext = null;
 
@@ -21,18 +23,31 @@ public class BatchResponse implements BrAPIResponse<BatchDetails> {
 	private Metadata metadata = null;
 
 	@JsonProperty("result")
-	private BatchDetails result = null;
+	private BatchDeletesListResponseResult result = null;
 
-	public BatchResponse() {
+	public BatchDeletesListResponse() {
 		this._atContext = new Context();
 		this._atContext.add("context");
 	}
+	
 
-	public BatchResponse metadata(Metadata metadata) {
+	public void set_atContext(Context _atContext) {
+		this._atContext = _atContext;
+	}
+	public BatchDeletesListResponse metadata(Metadata metadata) {
 		this.metadata = metadata;
 		return this;
 	}
 
+	/**
+	 * Get metadata
+	 * 
+	 * @return metadata
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	
+
+	@Valid
 	public Metadata getMetadata() {
 		return metadata;
 	}
@@ -41,22 +56,26 @@ public class BatchResponse implements BrAPIResponse<BatchDetails> {
 		this.metadata = metadata;
 	}
 
-	public BatchResponse result(BatchDetails result) {
+	public BatchDeletesListResponse result(BatchDeletesListResponseResult result) {
 		this.result = result;
 		return this;
 	}
 
-	public BatchDetails getResult() {
+	/**
+	 * Get result
+	 * 
+	 * @return result
+	 **/
+	@ApiModelProperty(required = true, value = "")
+	
+
+	@Valid
+	public BatchDeletesListResponseResult getResult() {
 		return result;
 	}
 
-	public void setResult(BatchDetails result) {
+	public void setResult(BatchDeletesListResponseResult result) {
 		this.result = result;
-	}
-
-	@Override
-	public void set_atContext(Context _atContext) {
-		this._atContext = _atContext;
 	}
 
 	@Override
@@ -67,10 +86,10 @@ public class BatchResponse implements BrAPIResponse<BatchDetails> {
 		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
-		BatchResponse BatchResponse = (BatchResponse) o;
-		return Objects.equals(this._atContext, BatchResponse._atContext)
-				&& Objects.equals(this.metadata, BatchResponse.metadata)
-				&& Objects.equals(this.result, BatchResponse.result);
+		BatchDeletesListResponse BatchDeletesListResponse = (BatchDeletesListResponse) o;
+		return Objects.equals(this._atContext, BatchDeletesListResponse._atContext)
+				&& Objects.equals(this.metadata, BatchDeletesListResponse.metadata)
+				&& Objects.equals(this.result, BatchDeletesListResponse.result);
 	}
 
 	@Override
@@ -81,7 +100,7 @@ public class BatchResponse implements BrAPIResponse<BatchDetails> {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class BatchResponse {\n");
+		sb.append("class BatchesBatchResponse {\n");
 
 		sb.append("    _atContext: ").append(toIndentedString(_atContext)).append("\n");
 		sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
@@ -100,5 +119,4 @@ public class BatchResponse implements BrAPIResponse<BatchDetails> {
 		}
 		return o.toString().replace("\n", "\n    ");
 	}
-
 }

@@ -1,11 +1,10 @@
 package org.brapi.test.BrAPITestServer.factory.geno;
 
 import io.swagger.model.Metadata;
-import io.swagger.model.core.BatchTypes;
+import io.swagger.model.core.BatchDeleteTypes;
 import io.swagger.model.geno.Sample;
 import io.swagger.model.geno.SampleSearchRequest;
 import org.brapi.test.BrAPITestServer.factory.BrAPIComponent;
-import org.brapi.test.BrAPITestServer.model.entity.SearchRequestEntity;
 import org.brapi.test.BrAPITestServer.service.geno.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,8 +27,8 @@ public class SampleComponent implements BrAPIComponent<Sample, SampleSearchReque
     }
 
     @Override
-    public BatchTypes getBatchType() {
-        return BatchTypes.SAMPLES;
+    public BatchDeleteTypes getBatchDeleteType() {
+        return BatchDeleteTypes.SAMPLES;
     }
 
 
@@ -39,12 +38,12 @@ public class SampleComponent implements BrAPIComponent<Sample, SampleSearchReque
     }
 
     @Override
-    public void deleteBatchData(List<String> dbIds) {
+    public void deleteBatchDeleteData(List<String> dbIds) {
         sampleService.deleteSampleBatch(dbIds);
     }
 
     @Override
-    public void softDeleteBatchData(List<String> dbIds) {
+    public void softDeleteBatchDeleteData(List<String> dbIds) {
         sampleService.softDeleteSampleBatch(dbIds);
     }
 }

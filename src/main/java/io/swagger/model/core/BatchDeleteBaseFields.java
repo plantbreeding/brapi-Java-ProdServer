@@ -14,7 +14,7 @@ import jakarta.validation.Valid;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchBaseFields implements BatchBaseFieldsInterface  {
+public class BatchDeleteBaseFields implements BatchDeleteBaseFieldsInterface {
   @JsonProperty("additionalInfo")
   @Valid
   private Object additionalInfo = null;
@@ -28,28 +28,28 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   @JsonProperty("externalReferences")
   private ExternalReferences externalReferences = null;
 
-  @JsonProperty("batchDescription")
-  private String batchDescription = null;
+  @JsonProperty("batchDeleteDescription")
+  private String batchDeleteDescription = null;
 
-  @JsonProperty("batchName")
-  private String batchName = null;
+  @JsonProperty("batchDeleteName")
+  private String batchDeleteName = null;
 
-  @JsonProperty("batchOwnerName")
-  private String batchOwnerName = null;
+  @JsonProperty("batchDeleteOwnerName")
+  private String batchDeleteOwnerName = null;
 
-  @JsonProperty("batchOwnerPersonDbId")
-  private String batchOwnerPersonDbId = null;
+  @JsonProperty("batchDeleteOwnerPersonDbId")
+  private String batchDeleteOwnerPersonDbId = null;
 
-  @JsonProperty("batchSize")
-  private Integer batchSize = null;
+  @JsonProperty("batchDeleteSize")
+  private Integer batchDeleteSize = null;
 
-  @JsonProperty("batchSource")
-  private String batchSource = null;
+  @JsonProperty("batchDeleteSource")
+  private String batchDeleteSource = null;
 
-  @JsonProperty("batchType")
-  private BatchTypes batchType = null;
+  @JsonProperty("batchDeleteType")
+  private BatchDeleteTypes batchDeleteType = null;
 
-  public BatchBaseFields additionalInfo(Object additionalInfo) {
+  public BatchDeleteBaseFields additionalInfo(Object additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -69,7 +69,7 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
     this.additionalInfo = additionalInfo;
   }
 
-  public BatchBaseFields dateCreated(OffsetDateTime dateCreated) {
+  public BatchDeleteBaseFields dateCreated(OffsetDateTime dateCreated) {
     this.dateCreated = dateCreated;
     return this;
   }
@@ -89,7 +89,7 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
     this.dateCreated = dateCreated;
   }
 
-  public BatchBaseFields dateModified(OffsetDateTime dateModified) {
+  public BatchDeleteBaseFields dateModified(OffsetDateTime dateModified) {
     this.dateModified = dateModified;
     return this;
   }
@@ -109,7 +109,7 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
     this.dateModified = dateModified;
   }
 
-  public BatchBaseFields externalReferences(ExternalReferences externalReferences) {
+  public BatchDeleteBaseFields externalReferences(ExternalReferences externalReferences) {
     this.externalReferences = externalReferences;
     return this;
   }
@@ -129,8 +129,8 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
     this.externalReferences = externalReferences;
   }
 
-  public BatchBaseFields batchDescription(String batchDescription) {
-    this.batchDescription = batchDescription;
+  public BatchDeleteBaseFields batchDeleteDescription(String batchDeleteDescription) {
+    this.batchDeleteDescription = batchDeleteDescription;
     return this;
   }
 
@@ -140,16 +140,16 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   **/
   @ApiModelProperty(example = "This is a batch of germplasm I would like to investigate next season", value = "Description of a Batch")
   
-    public String getBatchDescription() {
-    return batchDescription;
+    public String getBatchDeleteDescription() {
+    return batchDeleteDescription;
   }
 
-  public void setBatchDescription(String batchDescription) {
-    this.batchDescription = batchDescription;
+  public void setBatchDeleteDescription(String batchDeleteDescription) {
+    this.batchDeleteDescription = batchDeleteDescription;
   }
 
-  public BatchBaseFields batchName(String batchName) {
-    this.batchName = batchName;
+  public BatchDeleteBaseFields batchDeleteName(String batchDeleteName) {
+    this.batchDeleteName = batchDeleteName;
     return this;
   }
 
@@ -159,16 +159,16 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   **/
   @ApiModelProperty(example = "MyGermplasm_Sept_2020", value = "Human readable name of a Batch")
   
-    public String getBatchName() {
-    return batchName;
+    public String getBatchDeleteName() {
+    return batchDeleteName;
   }
 
-  public void setBatchName(String batchName) {
-    this.batchName = batchName;
+  public void setBatchDeleteName(String batchDeleteName) {
+    this.batchDeleteName = batchDeleteName;
   }
 
-  public BatchBaseFields batchOwnerName(String batchOwnerName) {
-    this.batchOwnerName = batchOwnerName;
+  public BatchDeleteBaseFields batchDeleteOwnerName(String batchDeleteOwnerName) {
+    this.batchDeleteOwnerName = batchDeleteOwnerName;
     return this;
   }
 
@@ -178,16 +178,16 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   **/
   @ApiModelProperty(example = "Bob Robertson", value = "Human readable name of a Batch Owner. (usually a user or person)")
   
-    public String getBatchOwnerName() {
-    return batchOwnerName;
+    public String getBatchDeleteOwnerName() {
+    return batchDeleteOwnerName;
   }
 
-  public void setBatchOwnerName(String batchOwnerName) {
-    this.batchOwnerName = batchOwnerName;
+  public void setBatchDeleteOwnerName(String batchDeleteOwnerName) {
+    this.batchDeleteOwnerName = batchDeleteOwnerName;
   }
 
-  public BatchBaseFields batchOwnerPersonDbId(String batchOwnerPersonDbId) {
-    this.batchOwnerPersonDbId = batchOwnerPersonDbId;
+  public BatchDeleteBaseFields batchDeleteOwnerPersonDbId(String batchDeleteOwnerPersonDbId) {
+    this.batchDeleteOwnerPersonDbId = batchDeleteOwnerPersonDbId;
     return this;
   }
 
@@ -197,16 +197,16 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   **/
   @ApiModelProperty(example = "58db0628", value = "The unique identifier for a Batch Owner. (usually a user or person)")
   
-    public String getBatchOwnerPersonDbId() {
-    return batchOwnerPersonDbId;
+    public String getBatchDeleteOwnerPersonDbId() {
+    return batchDeleteOwnerPersonDbId;
   }
 
-  public void setBatchOwnerPersonDbId(String batchOwnerPersonDbId) {
-    this.batchOwnerPersonDbId = batchOwnerPersonDbId;
+  public void setBatchDeleteOwnerPersonDbId(String batchDeleteOwnerPersonDbId) {
+    this.batchDeleteOwnerPersonDbId = batchDeleteOwnerPersonDbId;
   }
 
-  public BatchBaseFields batchSize(Integer batchSize) {
-    this.batchSize = batchSize;
+  public BatchDeleteBaseFields batchDeleteSize(Integer batchDeleteSize) {
+    this.batchDeleteSize = batchDeleteSize;
     return this;
   }
 
@@ -216,16 +216,16 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   **/
   @ApiModelProperty(example = "53", value = "The number of elements in a Batch")
   
-    public Integer getBatchSize() {
-    return batchSize;
+    public Integer getBatchDeleteSize() {
+    return batchDeleteSize;
   }
 
-  public void setBatchSize(Integer batchSize) {
-    this.batchSize = batchSize;
+  public void setBatchDeleteSize(Integer batchDeleteSize) {
+    this.batchDeleteSize = batchDeleteSize;
   }
 
-  public BatchBaseFields batchSource(String batchSource) {
-    this.batchSource = batchSource;
+  public BatchDeleteBaseFields batchDeleteSource(String batchDeleteSource) {
+    this.batchDeleteSource = batchDeleteSource;
     return this;
   }
 
@@ -235,16 +235,16 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
   **/
   @ApiModelProperty(example = "GeneBank Repository 1.3", value = "The description of where a Batch originated from")
   
-    public String getBatchSource() {
-    return batchSource;
+    public String getBatchDeleteSource() {
+    return batchDeleteSource;
   }
 
-  public void setBatchSource(String batchSource) {
-    this.batchSource = batchSource;
+  public void setBatchDeleteSource(String batchDeleteSource) {
+    this.batchDeleteSource = batchDeleteSource;
   }
 
-  public BatchBaseFields batchType(BatchTypes batchType) {
-    this.batchType = batchType;
+  public BatchDeleteBaseFields batchDeleteType(BatchDeleteTypes batchDeleteType) {
+    this.batchDeleteType = batchDeleteType;
     return this;
   }
 
@@ -256,12 +256,12 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
       
 
     @Valid
-    public BatchTypes getBatchType() {
-    return batchType;
+    public BatchDeleteTypes getBatchDeleteType() {
+    return batchDeleteType;
   }
 
-  public void setBatchType(BatchTypes batchType) {
-    this.batchType = batchType;
+  public void setBatchDeleteType(BatchDeleteTypes batchDeleteType) {
+    this.batchDeleteType = batchDeleteType;
   }
 
 
@@ -273,23 +273,23 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BatchBaseFields batchBaseFields = (BatchBaseFields) o;
+    BatchDeleteBaseFields batchBaseFields = (BatchDeleteBaseFields) o;
     return Objects.equals(this.additionalInfo, batchBaseFields.additionalInfo) &&
         Objects.equals(this.dateCreated, batchBaseFields.dateCreated) &&
         Objects.equals(this.dateModified, batchBaseFields.dateModified) &&
         Objects.equals(this.externalReferences, batchBaseFields.externalReferences) &&
-        Objects.equals(this.batchDescription, batchBaseFields.batchDescription) &&
-        Objects.equals(this.batchName, batchBaseFields.batchName) &&
-        Objects.equals(this.batchOwnerName, batchBaseFields.batchOwnerName) &&
-        Objects.equals(this.batchOwnerPersonDbId, batchBaseFields.batchOwnerPersonDbId) &&
-        Objects.equals(this.batchSize, batchBaseFields.batchSize) &&
-        Objects.equals(this.batchSource, batchBaseFields.batchSource) &&
-        Objects.equals(this.batchType, batchBaseFields.batchType);
+        Objects.equals(this.batchDeleteDescription, batchBaseFields.batchDeleteDescription) &&
+        Objects.equals(this.batchDeleteName, batchBaseFields.batchDeleteName) &&
+        Objects.equals(this.batchDeleteOwnerName, batchBaseFields.batchDeleteOwnerName) &&
+        Objects.equals(this.batchDeleteOwnerPersonDbId, batchBaseFields.batchDeleteOwnerPersonDbId) &&
+        Objects.equals(this.batchDeleteSize, batchBaseFields.batchDeleteSize) &&
+        Objects.equals(this.batchDeleteSource, batchBaseFields.batchDeleteSource) &&
+        Objects.equals(this.batchDeleteType, batchBaseFields.batchDeleteType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(additionalInfo, dateCreated, dateModified, externalReferences, batchDescription, batchName, batchOwnerName, batchOwnerPersonDbId, batchSize, batchSource, batchType);
+    return Objects.hash(additionalInfo, dateCreated, dateModified, externalReferences, batchDeleteDescription, batchDeleteName, batchDeleteOwnerName, batchDeleteOwnerPersonDbId, batchDeleteSize, batchDeleteSource, batchDeleteType);
   }
 
   @Override
@@ -301,13 +301,13 @@ public class BatchBaseFields implements BatchBaseFieldsInterface  {
     sb.append("    dateCreated: ").append(toIndentedString(dateCreated)).append("\n");
     sb.append("    dateModified: ").append(toIndentedString(dateModified)).append("\n");
     sb.append("    externalReferences: ").append(toIndentedString(externalReferences)).append("\n");
-    sb.append("    batchDescription: ").append(toIndentedString(batchDescription)).append("\n");
-    sb.append("    batchName: ").append(toIndentedString(batchName)).append("\n");
-    sb.append("    batchOwnerName: ").append(toIndentedString(batchOwnerName)).append("\n");
-    sb.append("    batchOwnerPersonDbId: ").append(toIndentedString(batchOwnerPersonDbId)).append("\n");
-    sb.append("    batchSize: ").append(toIndentedString(batchSize)).append("\n");
-    sb.append("    batchSource: ").append(toIndentedString(batchSource)).append("\n");
-    sb.append("    batchType: ").append(toIndentedString(batchType)).append("\n");
+    sb.append("    batchDescription: ").append(toIndentedString(batchDeleteDescription)).append("\n");
+    sb.append("    batchName: ").append(toIndentedString(batchDeleteName)).append("\n");
+    sb.append("    batchOwnerName: ").append(toIndentedString(batchDeleteOwnerName)).append("\n");
+    sb.append("    batchOwnerPersonDbId: ").append(toIndentedString(batchDeleteOwnerPersonDbId)).append("\n");
+    sb.append("    batchSize: ").append(toIndentedString(batchDeleteSize)).append("\n");
+    sb.append("    batchSource: ").append(toIndentedString(batchDeleteSource)).append("\n");
+    sb.append("    batchType: ").append(toIndentedString(batchDeleteType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

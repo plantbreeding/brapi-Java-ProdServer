@@ -15,26 +15,26 @@ import java.util.Objects;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-20T16:31:52.030Z[GMT]")
-public class BatchesListResponseResult<T> implements BrAPIResponseResult<T>  {
+public class BatchDeletesListResponseResult<T> implements BrAPIResponseResult<T>  {
 
-  @JsonProperty("batchDbId")
+  @JsonProperty("batchDeleteDbId")
   @Valid
-  private String batchDbId = null;
+  private String batchDeleteDbId = null;
 
   @JsonProperty("data")
   @Valid
   private List<T> data = new ArrayList<>();
 
-  public BatchesListResponseResult<T> batchDbId(String batchDbId) {
-      this.batchDbId = batchDbId;
+  public BatchDeletesListResponseResult<T> batchDbId(String batchDbId) {
+      this.batchDeleteDbId = batchDbId;
       return this;
   }
-  public BatchesListResponseResult<T> data(List<T> data) {
+  public BatchDeletesListResponseResult<T> data(List<T> data) {
     this.data = data;
     return this;
   }
 
-  public BatchesListResponseResult addDataItem(T dataItem) {
+  public BatchDeletesListResponseResult addDataItem(T dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -54,9 +54,9 @@ public class BatchesListResponseResult<T> implements BrAPIResponseResult<T>  {
     this.data = data;
   }
 
-  public String getBatchDbId() { return batchDbId; }
+  public String getBatchDeleteDbId() { return batchDeleteDbId; }
 
-  public void setBatchDbId(String batchDbId) { this.batchDbId = batchDbId; }
+  public void setBatchDeleteDbId(String batchDeleteDbId) { this.batchDeleteDbId = batchDeleteDbId; }
 
   @Override
   public boolean equals(Object o) {
@@ -66,8 +66,8 @@ public class BatchesListResponseResult<T> implements BrAPIResponseResult<T>  {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BatchesListResponseResult BatchesListResponseResult = (BatchesListResponseResult) o;
-    return Objects.equals(this.data, BatchesListResponseResult.data);
+    BatchDeletesListResponseResult BatchDeletesListResponseResult = (BatchDeletesListResponseResult) o;
+    return Objects.equals(this.data, BatchDeletesListResponseResult.data);
   }
 
   @Override

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Gets or Sets ListTypes
  */
-public enum BatchTypes {
+public enum BatchDeleteTypes {
   GERMPLASM("germplasm"),
   LISTS("lists"),
   TRIALS("trials"),
@@ -16,7 +16,7 @@ public enum BatchTypes {
 
   private final String value;
 
-  BatchTypes(String value) {
+  BatchDeleteTypes(String value) {
     this.value = value;
   }
 
@@ -27,8 +27,8 @@ public enum BatchTypes {
   }
 
   @JsonCreator
-  public static BatchTypes fromValue(String text) {
-    for (BatchTypes b : BatchTypes.values()) {
+  public static BatchDeleteTypes fromValue(String text) {
+    for (BatchDeleteTypes b : BatchDeleteTypes.values()) {
       if (String.valueOf(b.value).equals(text)) {
         return b;
       }

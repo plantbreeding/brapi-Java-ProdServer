@@ -38,11 +38,11 @@ public class ListService {
 
 	public List<ListSummary> findBatchDeleteLists(String batchDeleteDbId, Metadata metadata) throws BrAPIServerException {
 		// Get the batch delete
-		BatchDetails details = batchService.getBatch(batchDeleteDbId);
+		BatchDeleteDetails details = batchService.getBatch(batchDeleteDbId);
 
 		// Can't process if the batch does not reference lists
-		if (!BatchTypes.LISTS.equals(details.getBatchType())) {
-			throw new BatchDeleteWrongTypeException(BatchTypes.LISTS, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
+		if (!BatchDeleteTypes.LISTS.equals(details.getBatchDeleteType())) {
+			throw new BatchDeleteWrongTypeException(BatchDeleteTypes.LISTS, details.getBatchDeleteType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
 		}
 
 		// Check if the batch is empty

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Map.Entry;
 
-import io.swagger.model.core.BatchDetails;
-import io.swagger.model.core.BatchTypes;
+import io.swagger.model.core.BatchDeleteDetails;
+import io.swagger.model.core.BatchDeleteTypes;
 import jakarta.validation.Valid;
 
 import org.brapi.test.BrAPITestServer.exceptions.BatchDeleteWrongTypeException;
@@ -66,11 +66,11 @@ public class SampleService {
 
 	public List<Sample> findBatchDeleteSamples(String batchDeleteDbId, Metadata metadata) throws BrAPIServerException {
 		// Get the batch delete
-		BatchDetails details = batchService.getBatch(batchDeleteDbId);
+		BatchDeleteDetails details = batchService.getBatch(batchDeleteDbId);
 
 		// Can't process if the batch does not reference samples
-		if (!BatchTypes.SAMPLES.equals(details.getBatchType())) {
-			throw new BatchDeleteWrongTypeException(BatchTypes.SAMPLES, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
+		if (!BatchDeleteTypes.SAMPLES.equals(details.getBatchDeleteType())) {
+			throw new BatchDeleteWrongTypeException(BatchDeleteTypes.SAMPLES, details.getBatchDeleteType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
 		}
 
 		// Check if the batch is empty

@@ -7,12 +7,12 @@ import io.swagger.model.SearchRequest;
 import io.swagger.model.geno.SampleSearchRequest;
 import io.swagger.model.germ.GermplasmSearchRequest;
 
-public class BatchSearchRequest extends SearchRequest {
-	@JsonProperty("batchType")
-	private BatchTypes batchType = null;
+public class BatchDeleteSearchRequest extends SearchRequest {
+	@JsonProperty("batchDeleteType")
+	private BatchDeleteTypes batchDeleteType = null;
 
 	@JsonProperty("search")
-	@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "batchType")
+	@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXTERNAL_PROPERTY, property = "batchDeleteType")
 	@JsonSubTypes({
 			@JsonSubTypes.Type(value = GermplasmSearchRequest.class, name = "germplasm"),
 			@JsonSubTypes.Type(value = ListSearchRequest.class, name = "lists"),
@@ -21,17 +21,17 @@ public class BatchSearchRequest extends SearchRequest {
 	})
 	private SearchRequest searchRequest = null;
 
-	public BatchSearchRequest batchType(BatchTypes batchType) {
-		this.batchType = batchType;
+	public BatchDeleteSearchRequest batchDeleteType(BatchDeleteTypes batchDeleteType) {
+		this.batchDeleteType = batchDeleteType;
 		return this;
 	}
 
-	public BatchTypes getBatchType() {
-		return batchType;
+	public BatchDeleteTypes getBatchDeleteType() {
+		return batchDeleteType;
 	}
 
-	public void setBatchType(BatchTypes batchType) {
-		this.batchType = batchType;
+	public void setBatchDeleteType(BatchDeleteTypes batchDeleteType) {
+		this.batchDeleteType = batchDeleteType;
 	}
 
 	public SearchRequest getSearchRequest() {

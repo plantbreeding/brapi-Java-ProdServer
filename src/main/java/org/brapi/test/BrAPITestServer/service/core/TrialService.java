@@ -49,11 +49,11 @@ public class TrialService {
 
 	public List<Trial> findBatchDeleteTrials(String batchDeleteDbId, Metadata metadata) throws BrAPIServerException {
 		// Get the batch delete
-		BatchDetails details = batchService.getBatch(batchDeleteDbId);
+		BatchDeleteDetails details = batchService.getBatch(batchDeleteDbId);
 
 		// Can't process if the batch does not reference trials
-		if (!BatchTypes.TRIALS.equals(details.getBatchType())) {
-			throw new BatchDeleteWrongTypeException(BatchTypes.TRIALS, details.getBatchType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
+		if (!BatchDeleteTypes.TRIALS.equals(details.getBatchDeleteType())) {
+			throw new BatchDeleteWrongTypeException(BatchDeleteTypes.TRIALS, details.getBatchDeleteType(), batchDeleteDbId, HttpStatus.BAD_REQUEST);
 		}
 
 		// Check if the batch is empty
