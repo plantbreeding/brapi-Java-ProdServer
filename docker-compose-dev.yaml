@@ -16,8 +16,6 @@ services:
       POSTGRES_USER: brapi
       POSTGRES_PASSWORD: password
     volumes:
-      - brapi-data:/var/lib/postgresql/data
+      - /var/lib/postgresql/data
     ports:
       - "5433:5432"
-volumes:
-  brapi-data:
