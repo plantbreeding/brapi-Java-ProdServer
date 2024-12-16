@@ -2,9 +2,10 @@ package org.brapi.test.BrAPITestServer.model.entity.core;
 
 import java.util.Date;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "trial_dataset_authorship")

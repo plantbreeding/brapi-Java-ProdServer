@@ -13,10 +13,10 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,9 +40,9 @@ public class BrapiTestServerJWTAuthFilter extends BasicAuthenticationFilter {
 	private static final Logger log = LoggerFactory.getLogger(BrapiTestServerJWTAuthFilter.class);
 	private static final List<String> ADMIN_IDS = Arrays.asList("dummyAdmin", "ps664@cornell.edu");
 
-	private final String oidcDiscoveryUrl;
-	private final String issuerUrl;
-	private final boolean authEnabled;
+	private String oidcDiscoveryUrl;
+	private String issuerUrl;
+	private boolean authEnabled;
 
 	public BrapiTestServerJWTAuthFilter(AuthenticationManager authManager,
 										String oidcDiscoveryUrl,

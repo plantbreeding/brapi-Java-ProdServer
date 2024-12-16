@@ -1,7 +1,6 @@
 package org.brapi.test.BrAPITestServer.model.entity.core;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 
 @Entity
@@ -32,5 +31,4 @@ public class PublicationEntity extends BrAPIBaseEntity {
 	public void setTrial(TrialEntity trial) {
 		this.trial = trial;
 	}
-	
 }

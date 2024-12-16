@@ -1,9 +1,6 @@
 package org.brapi.test.BrAPITestServer.model.entity.pheno;
 
-import java.util.List;
-
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
 import org.brapi.test.BrAPITestServer.model.entity.core.ProgramEntity;
@@ -12,6 +9,8 @@ import org.brapi.test.BrAPITestServer.model.entity.core.TrialEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.CrossEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.GermplasmEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.SeedLotEntity;
+
+import java.util.List;
 
 @Entity
 @Table(name = "observation_unit")

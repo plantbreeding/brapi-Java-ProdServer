@@ -1,10 +1,20 @@
 package org.brapi.test.BrAPITestServer.repository;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.ExternalReferenceEntity;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
-import org.hibernate.jpa.QueryHints;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +23,7 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.io.Serializable;
 import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serializable>
 		extends SimpleJpaRepository<T, ID> implements BrAPIRepository<T, ID> {
@@ -112,7 +116,6 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 
 	private List<T> getPagedContent(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
 		TypedQuery<T> query = entityManager.createQuery(searchQuery.getQuery(), searchQuery.getClazz());
-		query.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
 
 		for (Entry<String, Object> entry : searchQuery.getParams().entrySet()) {
 			query.setParameter(entry.getKey(), entry.getValue());
