@@ -1,11 +1,14 @@
 services:
+  # Update this image with whatever image you have access to
+  brapi-java-server-v1:
+    image: brapicoordinatorselby/brapi-java-server:v1
+    depends_on:
+      - postgres
+    volumes:
+      - /home/jenkins/brapi.org/brapi-test-server/properties/v1/application.properties:/home/brapi/properties/application.properties
   brapi-java-server-v2:
     # Update this image with whatever image you have access to
-    image: brapicoordinatorselby/brapi-java-server:latest
-    ports:
-      - "8080:8080"
-      # Expose DEBUG port
-      - "5005:5005"
+    image: brapicoordinatorselby/brapi-java-server:v2
     depends_on:
       - postgres
     volumes:
