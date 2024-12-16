@@ -14,8 +14,8 @@
 --
 
 CREATE TABLE additional_info (
-    id text NOT NULL,
-    key text,
+    id varchar(255) NOT NULL,
+    key varchar(255),
     value bytea
 );
 
@@ -41,14 +41,14 @@ CREATE TABLE allele (
 --
 
 CREATE TABLE allele_call (
-    id text NOT NULL,
-    auth_user_id text,
-    genotype text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    genotype varchar(255),
     genotype_likelihood double precision,
-    phase_set text,
+    phase_set varchar(255),
     read_depth integer,
-    call_set_id text,
-    variant_id text
+    call_set_id varchar(255),
+    variant_id varchar(255)
 );
 
 
@@ -58,8 +58,8 @@ CREATE TABLE allele_call (
 --
 
 CREATE TABLE allele_call_additional_info (
-    call_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    call_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -69,8 +69,8 @@ CREATE TABLE allele_call_additional_info (
 --
 
 CREATE TABLE allele_call_external_references (
-    call_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    call_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -94,11 +94,11 @@ CREATE TABLE allele_matrix (
 --
 
 CREATE TABLE breeding_method (
-    id text NOT NULL,
-    auth_user_id text,
-    abbreviation text,
-    description text,
-    name text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    abbreviation varchar(255),
+    description varchar(255),
+    name varchar(255)
 );
 
 
@@ -108,8 +108,8 @@ CREATE TABLE breeding_method (
 --
 
 CREATE TABLE breeding_method_additional_info (
-    breeding_method_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    breeding_method_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -119,8 +119,8 @@ CREATE TABLE breeding_method_additional_info (
 --
 
 CREATE TABLE breeding_method_external_references (
-    breeding_method_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    breeding_method_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -130,12 +130,12 @@ CREATE TABLE breeding_method_external_references (
 --
 
 CREATE TABLE callset (
-    id text NOT NULL,
-    auth_user_id text,
-    call_set_name text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    call_set_name varchar(255),
     created timestamp without time zone,
     updated timestamp without time zone,
-    sample_id text
+    sample_id varchar(255)
 );
 
 
@@ -145,8 +145,8 @@ CREATE TABLE callset (
 --
 
 CREATE TABLE callset_additional_info (
-    call_set_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    call_set_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -156,8 +156,8 @@ CREATE TABLE callset_additional_info (
 --
 
 CREATE TABLE callset_external_references (
-    call_set_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    call_set_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -167,8 +167,8 @@ CREATE TABLE callset_external_references (
 --
 
 CREATE TABLE callset_variant_sets (
-    call_sets_id text NOT NULL,
-    variant_sets_id text NOT NULL
+    call_sets_id varchar(255) NOT NULL,
+    variant_sets_id varchar(255) NOT NULL
 );
 
 
@@ -178,14 +178,14 @@ CREATE TABLE callset_variant_sets (
 --
 
 CREATE TABLE contact (
-    id text NOT NULL,
-    email text,
-    institute_name text,
-    name text,
-    orcid text,
-    study_db_id text,
-    trial_db_id text,
-    type text
+    id varchar(255) NOT NULL,
+    email varchar(255),
+    institute_name varchar(255),
+    name varchar(255),
+    orcid varchar(255),
+    study_db_id varchar(255),
+    trial_db_id varchar(255),
+    type varchar(255)
 );
 
 
@@ -195,11 +195,11 @@ CREATE TABLE contact (
 --
 
 CREATE TABLE coordinate (
-    id text NOT NULL,
+    id varchar(255) NOT NULL,
     altitude numeric(9,6),
     latitude numeric(9,6),
     longitude numeric(9,6),
-    geojson_id text
+    geojson_id varchar(255)
 );
 
 
@@ -209,9 +209,9 @@ CREATE TABLE coordinate (
 --
 
 CREATE TABLE crop (
-    id text NOT NULL,
-    auth_user_id text,
-    crop_name text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    crop_name varchar(255)
 );
 
 
@@ -221,8 +221,8 @@ CREATE TABLE crop (
 --
 
 CREATE TABLE crop_additional_info (
-    crop_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    crop_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -232,8 +232,8 @@ CREATE TABLE crop_additional_info (
 --
 
 CREATE TABLE crop_external_references (
-    crop_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    crop_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -243,14 +243,14 @@ CREATE TABLE crop_external_references (
 --
 
 CREATE TABLE cross_entity (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     cross_type integer,
-    name text,
+    name varchar(255),
     planned boolean,
     status integer,
-    crossing_project_id text,
-    planned_cross_id text
+    crossing_project_id varchar(255),
+    planned_cross_id varchar(255)
 );
 
 
@@ -260,8 +260,8 @@ CREATE TABLE cross_entity (
 --
 
 CREATE TABLE cross_entity_additional_info (
-    cross_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    cross_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -271,8 +271,8 @@ CREATE TABLE cross_entity_additional_info (
 --
 
 CREATE TABLE cross_entity_cross_attributes (
-    cross_entity_id text NOT NULL,
-    cross_attributes text
+    cross_entity_id varchar(255) NOT NULL,
+    cross_attributes varchar(255)
 );
 
 
@@ -282,8 +282,8 @@ CREATE TABLE cross_entity_cross_attributes (
 --
 
 CREATE TABLE cross_entity_external_references (
-    cross_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    cross_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -293,12 +293,12 @@ CREATE TABLE cross_entity_external_references (
 --
 
 CREATE TABLE cross_parent (
-    id text NOT NULL,
+    id varchar(255) NOT NULL,
     parent_type integer,
-    cross_id text,
-    crossing_project_id text,
-    germplasm_id text,
-    observation_unit_id text
+    cross_id varchar(255),
+    crossing_project_id varchar(255),
+    germplasm_id varchar(255),
+    observation_unit_id varchar(255)
 );
 
 
@@ -308,11 +308,11 @@ CREATE TABLE cross_parent (
 --
 
 CREATE TABLE cross_pollination_event (
-    id text NOT NULL,
-    pollination_number text,
+    id varchar(255) NOT NULL,
+    pollination_number varchar(255),
     pollination_successful boolean,
     pollination_time_stamp timestamp without time zone,
-    cross_id text
+    cross_id varchar(255)
 );
 
 
@@ -322,11 +322,11 @@ CREATE TABLE cross_pollination_event (
 --
 
 CREATE TABLE crossing_project (
-    id text NOT NULL,
-    auth_user_id text,
-    description text,
-    name text,
-    program_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    description varchar(255),
+    name varchar(255),
+    program_id varchar(255)
 );
 
 
@@ -336,8 +336,8 @@ CREATE TABLE crossing_project (
 --
 
 CREATE TABLE crossing_project_additional_info (
-    crossing_project_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    crossing_project_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -347,8 +347,8 @@ CREATE TABLE crossing_project_additional_info (
 --
 
 CREATE TABLE crossing_project_external_references (
-    crossing_project_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    crossing_project_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -386,12 +386,12 @@ CREATE TABLE donor (
 --
 
 CREATE TABLE event (
-    id text NOT NULL,
-    auth_user_id text,
-    event_description text,
-    event_type text,
-    event_type_db_id text,
-    study_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    event_description varchar(255),
+    event_type varchar(255),
+    event_type_db_id varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -401,8 +401,8 @@ CREATE TABLE event (
 --
 
 CREATE TABLE event_additional_info (
-    event_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    event_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -412,7 +412,7 @@ CREATE TABLE event_additional_info (
 --
 
 CREATE TABLE event_entity_dates (
-    event_entity_id text NOT NULL,
+    event_entity_id varchar(255) NOT NULL,
     dates timestamp without time zone
 );
 
@@ -423,8 +423,8 @@ CREATE TABLE event_entity_dates (
 --
 
 CREATE TABLE event_external_references (
-    event_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    event_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -434,8 +434,8 @@ CREATE TABLE event_external_references (
 --
 
 CREATE TABLE event_observation_units (
-    event_entity_id text NOT NULL,
-    observation_units_id text NOT NULL
+    event_entity_id varchar(255) NOT NULL,
+    observation_units_id varchar(255) NOT NULL
 );
 
 
@@ -445,16 +445,16 @@ CREATE TABLE event_observation_units (
 --
 
 CREATE TABLE event_param (
-    id text NOT NULL,
-    code text,
-    description text,
-    key text,
-    name text,
-    rdf_value text,
-    units text,
-    value text,
-    value_description text,
-    event_id text
+    id varchar(255) NOT NULL,
+    code varchar(255),
+    description varchar(255),
+    key varchar(255),
+    name varchar(255),
+    rdf_value varchar(255),
+    units varchar(255),
+    value varchar(255),
+    value_description varchar(255),
+    event_id varchar(255)
 );
 
 
@@ -464,8 +464,8 @@ CREATE TABLE event_param (
 --
 
 CREATE TABLE event_parameter_entity_values_by_date (
-    event_parameter_entity_id text NOT NULL,
-    values_by_date text
+    event_parameter_entity_id varchar(255) NOT NULL,
+    values_by_date varchar(255)
 );
 
 
@@ -475,9 +475,9 @@ CREATE TABLE event_parameter_entity_values_by_date (
 --
 
 CREATE TABLE external_reference (
-    id text NOT NULL,
-    external_reference_id text,
-    external_reference_source text
+    id varchar(255) NOT NULL,
+    external_reference_id varchar(255),
+    external_reference_source varchar(255)
 );
 
 
@@ -487,17 +487,17 @@ CREATE TABLE external_reference (
 --
 
 CREATE TABLE genome_map (
-    id text NOT NULL,
-    auth_user_id text,
-    comments text,
-    documentationurl text,
-    map_name text,
-    mappui text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    comments varchar(255),
+    documentationurl varchar(255),
+    map_name varchar(255),
+    mappui varchar(255),
     published_date timestamp without time zone,
-    scientific_name text,
-    type text,
-    unit text,
-    crop_id text
+    scientific_name varchar(255),
+    type varchar(255),
+    unit varchar(255),
+    crop_id varchar(255)
 );
 
 
@@ -507,8 +507,8 @@ CREATE TABLE genome_map (
 --
 
 CREATE TABLE genome_map_additional_info (
-    genome_map_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    genome_map_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -518,8 +518,8 @@ CREATE TABLE genome_map_additional_info (
 --
 
 CREATE TABLE genome_map_external_references (
-    genome_map_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    genome_map_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -529,8 +529,8 @@ CREATE TABLE genome_map_external_references (
 --
 
 CREATE TABLE genome_map_studies (
-    genome_map_entity_id text NOT NULL,
-    studies_id text NOT NULL
+    genome_map_entity_id varchar(255) NOT NULL,
+    studies_id varchar(255) NOT NULL
 );
 
 
@@ -540,8 +540,8 @@ CREATE TABLE genome_map_studies (
 --
 
 CREATE TABLE geojson (
-    id text NOT NULL,
-    type text
+    id varchar(255) NOT NULL,
+    type varchar(255)
 );
 
 
@@ -551,29 +551,29 @@ CREATE TABLE geojson (
 --
 
 CREATE TABLE germplasm (
-    id text NOT NULL,
-    auth_user_id text,
-    accession_number text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    accession_number varchar(255),
     acquisition_date timestamp without time zone,
     acquisition_source_code integer,
     biological_status_of_accession_code integer,
-    collection text,
-    country_of_origin_code text,
-    default_display_name text,
-    documentationurl text,
-    genus text,
-    germplasm_name text,
-    germplasmpui text,
-    germplasm_preprocessing text,
+    collection varchar(255),
+    country_of_origin_code varchar(255),
+    default_display_name varchar(255),
+    documentationurl varchar(255),
+    genus varchar(255),
+    germplasm_name varchar(255),
+    germplasmpui varchar(255),
+    germplasm_preprocessing varchar(255),
     mls_status integer,
-    seed_source text,
-    seed_source_description text,
-    species text,
-    species_authority text,
-    subtaxa text,
-    subtaxa_authority text,
-    breeding_method_id text,
-    crop_id text
+    seed_source varchar(255),
+    seed_source_description varchar(255),
+    species varchar(255),
+    species_authority varchar(255),
+    subtaxa varchar(255),
+    subtaxa_authority varchar(255),
+    breeding_method_id varchar(255),
+    crop_id varchar(255)
 );
 
 
@@ -583,8 +583,8 @@ CREATE TABLE germplasm (
 --
 
 CREATE TABLE germplasm_additional_info (
-    germplasm_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    germplasm_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -605,28 +605,28 @@ CREATE TABLE germplasm_attribute_category (
 --
 
 CREATE TABLE germplasm_attribute_definition (
-    id text NOT NULL,
-    auth_user_id text,
-    default_value text,
-    documentationurl text,
-    growth_stage text,
-    institution text,
-    language text,
-    scientist text,
-    status text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    default_value varchar(255),
+    documentationurl varchar(255),
+    growth_stage varchar(255),
+    institution varchar(255),
+    language varchar(255),
+    scientist varchar(255),
+    status varchar(255),
     submission_timestamp timestamp without time zone,
-    crop_id text,
-    method_id text,
-    ontology_id text,
-    scale_id text,
-    trait_id text,
-    attribute_category text,
-    code text,
-    datatype text,
-    description text,
-    name text,
-    pui text,
-    uri text
+    crop_id varchar(255),
+    method_id varchar(255),
+    ontology_id varchar(255),
+    scale_id varchar(255),
+    trait_id varchar(255),
+    attribute_category varchar(255),
+    code varchar(255),
+    datatype varchar(255),
+    description varchar(255),
+    name varchar(255),
+    pui varchar(255),
+    uri varchar(255)
 );
 
 
@@ -636,12 +636,12 @@ CREATE TABLE germplasm_attribute_definition (
 --
 
 CREATE TABLE germplasm_attribute_value (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     determined_date timestamp without time zone,
-    value text,
-    attribute_id text,
-    germplasm_id text
+    value varchar(255),
+    attribute_id varchar(255),
+    germplasm_id varchar(255)
 );
 
 
@@ -651,8 +651,8 @@ CREATE TABLE germplasm_attribute_value (
 --
 
 CREATE TABLE germplasm_attribute_value_additional_info (
-    germplasm_attribute_value_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    germplasm_attribute_value_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -662,8 +662,8 @@ CREATE TABLE germplasm_attribute_value_additional_info (
 --
 
 CREATE TABLE germplasm_attribute_value_external_references (
-    germplasm_attribute_value_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    germplasm_attribute_value_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -673,13 +673,13 @@ CREATE TABLE germplasm_attribute_value_external_references (
 --
 
 CREATE TABLE germplasm_donor (
-    id text NOT NULL,
-    auth_user_id text,
-    donor_accession_number text,
-    donor_institute_code text,
-    donor_institute_name text,
-    germplasmpui text,
-    germplasm_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    donor_accession_number varchar(255),
+    donor_institute_code varchar(255),
+    donor_institute_name varchar(255),
+    germplasmpui varchar(255),
+    germplasm_id varchar(255)
 );
 
 
@@ -689,8 +689,8 @@ CREATE TABLE germplasm_donor (
 --
 
 CREATE TABLE germplasm_donor_additional_info (
-    donor_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    donor_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -700,8 +700,8 @@ CREATE TABLE germplasm_donor_additional_info (
 --
 
 CREATE TABLE germplasm_donor_external_references (
-    donor_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    donor_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -711,7 +711,7 @@ CREATE TABLE germplasm_donor_external_references (
 --
 
 CREATE TABLE germplasm_entity_type_of_germplasm_storage_code (
-    germplasm_entity_id text NOT NULL,
+    germplasm_entity_id varchar(255) NOT NULL,
     type_of_germplasm_storage_code integer
 );
 
@@ -722,8 +722,8 @@ CREATE TABLE germplasm_entity_type_of_germplasm_storage_code (
 --
 
 CREATE TABLE germplasm_external_references (
-    germplasm_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    germplasm_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -744,12 +744,12 @@ CREATE TABLE germplasm_germplasm_type_storage_code (
 --
 
 CREATE TABLE germplasm_institute (
-    id text NOT NULL,
-    institute_address text,
-    institute_code text,
-    institute_name text,
+    id varchar(255) NOT NULL,
+    institute_address varchar(255),
+    institute_code varchar(255),
+    institute_name varchar(255),
     institute_type integer,
-    germplasm_id text
+    germplasm_id varchar(255)
 );
 
 
@@ -759,10 +759,10 @@ CREATE TABLE germplasm_institute (
 --
 
 CREATE TABLE germplasm_origin (
-    id text NOT NULL,
-    coordinate_uncertainty text,
-    coordinates_id text,
-    germplasm_id text
+    id varchar(255) NOT NULL,
+    coordinate_uncertainty varchar(255),
+    coordinates_id varchar(255),
+    germplasm_id varchar(255)
 );
 
 
@@ -772,8 +772,8 @@ CREATE TABLE germplasm_origin (
 --
 
 CREATE TABLE germplasm_search_results (
-    germplasm_entity_id text NOT NULL,
-    search_results_id text NOT NULL
+    germplasm_entity_id varchar(255) NOT NULL,
+    search_results_id varchar(255) NOT NULL
 );
 
 
@@ -783,10 +783,10 @@ CREATE TABLE germplasm_search_results (
 --
 
 CREATE TABLE germplasm_synonym (
-    id text NOT NULL,
-    synonym text,
-    type text,
-    germplasm_id text
+    id varchar(255) NOT NULL,
+    synonym varchar(255),
+    type varchar(255),
+    germplasm_id varchar(255)
 );
 
 
@@ -796,10 +796,10 @@ CREATE TABLE germplasm_synonym (
 --
 
 CREATE TABLE germplasm_taxon (
-    id text NOT NULL,
-    source_name text,
-    taxon_id text,
-    germplasm_id text
+    id varchar(255) NOT NULL,
+    source_name varchar(255),
+    taxon_id varchar(255),
+    germplasm_id varchar(255)
 );
 
 
@@ -833,21 +833,21 @@ CREATE SEQUENCE hibernate_sequence
 --
 
 CREATE TABLE image (
-    id text NOT NULL,
-    auth_user_id text,
-    copyright text,
-    description text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    copyright varchar(255),
+    description varchar(255),
     image_data bytea,
-    image_file_name text,
+    image_file_name varchar(255),
     image_file_size integer,
     image_height integer,
-    imagemimetype text,
-    imageurl text,
+    imagemimetype varchar(255),
+    imageurl varchar(255),
     image_width integer,
-    name text,
+    name varchar(255),
     time_stamp timestamp without time zone,
-    coordinates_id text,
-    observation_unit_id text
+    coordinates_id varchar(255),
+    observation_unit_id varchar(255)
 );
 
 
@@ -857,8 +857,8 @@ CREATE TABLE image (
 --
 
 CREATE TABLE image_additional_info (
-    image_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    image_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -879,8 +879,8 @@ CREATE TABLE image_entity_additional_info (
 --
 
 CREATE TABLE image_entity_descriptive_ontology_terms (
-    image_entity_id text NOT NULL,
-    descriptive_ontology_terms text
+    image_entity_id varchar(255) NOT NULL,
+    descriptive_ontology_terms varchar(255)
 );
 
 
@@ -890,8 +890,8 @@ CREATE TABLE image_entity_descriptive_ontology_terms (
 --
 
 CREATE TABLE image_external_references (
-    image_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    image_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -901,8 +901,8 @@ CREATE TABLE image_external_references (
 --
 
 CREATE TABLE image_observations (
-    image_entity_id text NOT NULL,
-    observations_id text NOT NULL
+    image_entity_id varchar(255) NOT NULL,
+    observations_id varchar(255) NOT NULL
 );
 
 
@@ -912,11 +912,11 @@ CREATE TABLE image_observations (
 --
 
 CREATE TABLE linkage_group (
-    id text NOT NULL,
-    auth_user_id text,
-    linkage_group_name text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    linkage_group_name varchar(255),
     max_marker_position integer,
-    genome_map_id text
+    genome_map_id varchar(255)
 );
 
 
@@ -926,8 +926,8 @@ CREATE TABLE linkage_group (
 --
 
 CREATE TABLE linkage_group_additional_info (
-    linkage_group_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    linkage_group_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -937,8 +937,8 @@ CREATE TABLE linkage_group_additional_info (
 --
 
 CREATE TABLE linkage_group_external_references (
-    linkage_group_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    linkage_group_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -948,16 +948,16 @@ CREATE TABLE linkage_group_external_references (
 --
 
 CREATE TABLE list (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     date_created timestamp without time zone,
     date_modified timestamp without time zone,
-    description text,
-    list_name text,
-    list_owner_name text,
-    list_source text,
+    description varchar(255),
+    list_name varchar(255),
+    list_owner_name varchar(255),
+    list_source varchar(255),
     list_type integer,
-    list_owner_person_id text
+    list_owner_person_id varchar(255)
 );
 
 
@@ -967,8 +967,8 @@ CREATE TABLE list (
 --
 
 CREATE TABLE list_additional_info (
-    list_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    list_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -978,8 +978,8 @@ CREATE TABLE list_additional_info (
 --
 
 CREATE TABLE list_external_references (
-    list_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    list_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -989,9 +989,9 @@ CREATE TABLE list_external_references (
 --
 
 CREATE TABLE list_item (
-    id text NOT NULL,
-    item text,
-    list_id text
+    id varchar(255) NOT NULL,
+    item varchar(255),
+    list_id varchar(255)
 );
 
 
@@ -1001,27 +1001,27 @@ CREATE TABLE list_item (
 --
 
 CREATE TABLE location (
-    id text NOT NULL,
-    auth_user_id text,
-    abbreviation text,
-    coordinate_description text,
-    coordinate_uncertainty text,
-    country_code text,
-    country_name text,
-    documentationurl text,
-    environment_type text,
-    exposure text,
-    institute_address text,
-    institute_name text,
-    location_name text,
-    location_type text,
-    site_status text,
-    slope text,
-    topography text,
-    coordinates_id text,
-    crop_id text,
-    parent_location_id text,
-    program_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    abbreviation varchar(255),
+    coordinate_description varchar(255),
+    coordinate_uncertainty varchar(255),
+    country_code varchar(255),
+    country_name varchar(255),
+    documentationurl varchar(255),
+    environment_type varchar(255),
+    exposure varchar(255),
+    institute_address varchar(255),
+    institute_name varchar(255),
+    location_name varchar(255),
+    location_type varchar(255),
+    site_status varchar(255),
+    slope varchar(255),
+    topography varchar(255),
+    coordinates_id varchar(255),
+    crop_id varchar(255),
+    parent_location_id varchar(255),
+    program_id varchar(255)
 );
 
 
@@ -1031,8 +1031,8 @@ CREATE TABLE location (
 --
 
 CREATE TABLE location_additional_info (
-    location_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    location_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1042,8 +1042,8 @@ CREATE TABLE location_additional_info (
 --
 
 CREATE TABLE location_external_references (
-    location_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    location_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1089,11 +1089,11 @@ CREATE TABLE marker_marker_analysis_method (
 --
 
 CREATE TABLE marker_position (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     "position" integer,
-    linkage_group_id text,
-    variant_id text
+    linkage_group_id varchar(255),
+    variant_id varchar(255)
 );
 
 
@@ -1103,8 +1103,8 @@ CREATE TABLE marker_position (
 --
 
 CREATE TABLE marker_position_additional_info (
-    marker_position_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    marker_position_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1114,8 +1114,8 @@ CREATE TABLE marker_position_additional_info (
 --
 
 CREATE TABLE marker_position_external_references (
-    marker_position_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    marker_position_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1165,15 +1165,15 @@ CREATE TABLE marker_synonym (
 --
 
 CREATE TABLE method (
-    id text NOT NULL,
-    auth_user_id text,
-    description text,
-    formula text,
-    method_class text,
-    methodpui text,
-    name text,
-    reference text,
-    ontology_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    description varchar(255),
+    formula varchar(255),
+    method_class varchar(255),
+    methodpui varchar(255),
+    name varchar(255),
+    reference varchar(255),
+    ontology_id varchar(255)
 );
 
 
@@ -1183,8 +1183,8 @@ CREATE TABLE method (
 --
 
 CREATE TABLE method_additional_info (
-    method_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    method_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1194,8 +1194,8 @@ CREATE TABLE method_additional_info (
 --
 
 CREATE TABLE method_external_references (
-    method_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    method_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1205,8 +1205,8 @@ CREATE TABLE method_external_references (
 --
 
 CREATE TABLE method_ontology_reference (
-    method_entity_id text NOT NULL,
-    ontology_reference_id text NOT NULL
+    method_entity_id varchar(255) NOT NULL,
+    ontology_reference_id varchar(255) NOT NULL
 );
 
 
@@ -1216,20 +1216,20 @@ CREATE TABLE method_ontology_reference (
 --
 
 CREATE TABLE observation (
-    id text NOT NULL,
-    auth_user_id text,
-    collector text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    collector varchar(255),
     observation_time_stamp timestamp without time zone,
-    uploaded_by text,
-    value text,
-    crop_id text,
-    geo_coordinates_id text,
-    observation_unit_id text,
-    observation_variable_id text,
-    program_id text,
-    season_id text,
-    study_id text,
-    trial_id text
+    uploaded_by varchar(255),
+    value varchar(255),
+    crop_id varchar(255),
+    geo_coordinates_id varchar(255),
+    observation_unit_id varchar(255),
+    observation_variable_id varchar(255),
+    program_id varchar(255),
+    season_id varchar(255),
+    study_id varchar(255),
+    trial_id varchar(255)
 );
 
 
@@ -1239,8 +1239,8 @@ CREATE TABLE observation (
 --
 
 CREATE TABLE observation_additional_info (
-    observation_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    observation_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1250,8 +1250,8 @@ CREATE TABLE observation_additional_info (
 --
 
 CREATE TABLE observation_external_references (
-    observation_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    observation_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1261,17 +1261,17 @@ CREATE TABLE observation_external_references (
 --
 
 CREATE TABLE observation_unit (
-    id text NOT NULL,
-    auth_user_id text,
-    observation_unit_name text,
-    observation_unitpui text,
-    crop_id text,
-    cross_id text,
-    germplasm_id text,
-    program_id text,
-    seed_lot_id text,
-    study_id text,
-    trial_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    observation_unit_name varchar(255),
+    observation_unitpui varchar(255),
+    crop_id varchar(255),
+    cross_id varchar(255),
+    germplasm_id varchar(255),
+    program_id varchar(255),
+    seed_lot_id varchar(255),
+    study_id varchar(255),
+    trial_id varchar(255)
 );
 
 
@@ -1281,8 +1281,8 @@ CREATE TABLE observation_unit (
 --
 
 CREATE TABLE observation_unit_additional_info (
-    observation_unit_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    observation_unit_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1292,8 +1292,8 @@ CREATE TABLE observation_unit_additional_info (
 --
 
 CREATE TABLE observation_unit_external_references (
-    observation_unit_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    observation_unit_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1303,12 +1303,12 @@ CREATE TABLE observation_unit_external_references (
 --
 
 CREATE TABLE observation_unit_level (
-    id text NOT NULL,
-    level_code text,
+    id varchar(255) NOT NULL,
+    level_code varchar(255),
     level_name integer,
     level_order integer,
-    observation_unit_id text,
-    position_id text
+    observation_unit_id varchar(255),
+    position_id varchar(255)
 );
 
 
@@ -1318,17 +1318,17 @@ CREATE TABLE observation_unit_level (
 --
 
 CREATE TABLE observation_unit_position (
-    id text NOT NULL,
+    id varchar(255) NOT NULL,
     entry_type integer,
-    level_code text,
+    level_code varchar(255),
     level_name integer,
     level_order integer,
-    position_coordinatex text,
+    position_coordinatex varchar(255),
     position_coordinatextype integer,
-    position_coordinatey text,
+    position_coordinatey varchar(255),
     position_coordinateytype integer,
-    geo_coordinates_id text,
-    observation_unit_id text
+    geo_coordinates_id varchar(255),
+    observation_unit_id varchar(255)
 );
 
 
@@ -1338,10 +1338,10 @@ CREATE TABLE observation_unit_position (
 --
 
 CREATE TABLE observation_unit_treatment (
-    id text NOT NULL,
-    factor text,
-    modality text,
-    observation_unit_id text
+    id varchar(255) NOT NULL,
+    factor varchar(255),
+    modality varchar(255),
+    observation_unit_id varchar(255)
 );
 
 
@@ -1364,23 +1364,23 @@ CREATE TABLE observation_unit_xref (
 --
 
 CREATE TABLE observation_variable (
-    id text NOT NULL,
-    auth_user_id text,
-    default_value text,
-    documentationurl text,
-    growth_stage text,
-    institution text,
-    language text,
-    scientist text,
-    status text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    default_value varchar(255),
+    documentationurl varchar(255),
+    growth_stage varchar(255),
+    institution varchar(255),
+    language varchar(255),
+    scientist varchar(255),
+    status varchar(255),
     submission_timestamp timestamp without time zone,
-    crop_id text,
-    method_id text,
-    ontology_id text,
-    scale_id text,
-    trait_id text,
-    name text,
-    pui text
+    crop_id varchar(255),
+    method_id varchar(255),
+    ontology_id varchar(255),
+    scale_id varchar(255),
+    trait_id varchar(255),
+    name varchar(255),
+    pui varchar(255)
 );
 
 
@@ -1414,15 +1414,15 @@ CREATE TABLE observation_variable_synonym (
 --
 
 CREATE TABLE ontology (
-    id text NOT NULL,
-    auth_user_id text,
-    authors text,
-    copyright text,
-    description text,
-    documentationurl text,
-    licence text,
-    ontology_name text,
-    version text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    authors varchar(255),
+    copyright varchar(255),
+    description varchar(255),
+    documentationurl varchar(255),
+    licence varchar(255),
+    ontology_name varchar(255),
+    version varchar(255)
 );
 
 
@@ -1432,8 +1432,8 @@ CREATE TABLE ontology (
 --
 
 CREATE TABLE ontology_additional_info (
-    ontology_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    ontology_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1443,8 +1443,8 @@ CREATE TABLE ontology_additional_info (
 --
 
 CREATE TABLE ontology_entity_documentation_links (
-    ontology_entity_id text NOT NULL,
-    documentation_links text
+    ontology_entity_id varchar(255) NOT NULL,
+    documentation_links varchar(255)
 );
 
 
@@ -1454,8 +1454,8 @@ CREATE TABLE ontology_entity_documentation_links (
 --
 
 CREATE TABLE ontology_external_references (
-    ontology_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    ontology_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1465,8 +1465,8 @@ CREATE TABLE ontology_external_references (
 --
 
 CREATE TABLE ontology_ref (
-    id text NOT NULL,
-    url text,
+    id varchar(255) NOT NULL,
+    url varchar(255),
     type integer
 );
 
@@ -1497,12 +1497,12 @@ CREATE TABLE pedigree (
 --
 
 CREATE TABLE pedigree_edge (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     edge_type integer,
     parent_type integer,
-    connceted_node_id text,
-    this_node_id text
+    connceted_node_id varchar(255),
+    this_node_id varchar(255)
 );
 
 
@@ -1512,8 +1512,8 @@ CREATE TABLE pedigree_edge (
 --
 
 CREATE TABLE pedigree_edge_additional_info (
-    pedigree_edge_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    pedigree_edge_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1523,8 +1523,8 @@ CREATE TABLE pedigree_edge_additional_info (
 --
 
 CREATE TABLE pedigree_edge_external_references (
-    pedigree_edge_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    pedigree_edge_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1534,13 +1534,13 @@ CREATE TABLE pedigree_edge_external_references (
 --
 
 CREATE TABLE pedigree_node (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     crossing_year integer,
-    family_code text,
-    pedigree_string text,
-    crossing_project_id text,
-    germplasm_id text
+    family_code varchar(255),
+    pedigree_string varchar(255),
+    crossing_project_id varchar(255),
+    germplasm_id varchar(255)
 );
 
 
@@ -1550,8 +1550,8 @@ CREATE TABLE pedigree_node (
 --
 
 CREATE TABLE pedigree_node_additional_info (
-    pedigree_node_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    pedigree_node_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1561,8 +1561,8 @@ CREATE TABLE pedigree_node_additional_info (
 --
 
 CREATE TABLE pedigree_node_external_references (
-    pedigree_node_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    pedigree_node_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1572,17 +1572,17 @@ CREATE TABLE pedigree_node_external_references (
 --
 
 CREATE TABLE person (
-    id text NOT NULL,
-    auth_user_id text,
-    description text,
-    email_address text,
-    first_name text,
-    institute_name text,
-    last_name text,
-    mailing_address text,
-    middle_name text,
-    phone_number text,
-    userid text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    description varchar(255),
+    email_address varchar(255),
+    first_name varchar(255),
+    institute_name varchar(255),
+    last_name varchar(255),
+    mailing_address varchar(255),
+    middle_name varchar(255),
+    phone_number varchar(255),
+    userid varchar(255)
 );
 
 
@@ -1592,8 +1592,8 @@ CREATE TABLE person (
 --
 
 CREATE TABLE person_additional_info (
-    person_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    person_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1603,8 +1603,8 @@ CREATE TABLE person_additional_info (
 --
 
 CREATE TABLE person_external_references (
-    person_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    person_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1614,20 +1614,20 @@ CREATE TABLE person_external_references (
 --
 
 CREATE TABLE plate (
-    id text NOT NULL,
-    auth_user_id text,
-    client_plate_barcode text,
-    client_plate_db_id text,
-    plate_barcode text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    client_plate_barcode varchar(255),
+    client_plate_db_id varchar(255),
+    plate_barcode varchar(255),
     plate_format integer,
-    plate_name text,
+    plate_name varchar(255),
     sample_submission_format integer,
     sample_type integer,
     status_time_stamp timestamp without time zone,
-    program_id text,
-    study_id text,
-    submission_id text,
-    trial_id text
+    program_id varchar(255),
+    study_id varchar(255),
+    submission_id varchar(255),
+    trial_id varchar(255)
 );
 
 
@@ -1637,8 +1637,8 @@ CREATE TABLE plate (
 --
 
 CREATE TABLE plate_additional_info (
-    plate_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    plate_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1648,8 +1648,8 @@ CREATE TABLE plate_additional_info (
 --
 
 CREATE TABLE plate_external_references (
-    plate_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    plate_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1659,12 +1659,12 @@ CREATE TABLE plate_external_references (
 --
 
 CREATE TABLE plate_submission (
-    id text NOT NULL,
-    auth_user_id text,
-    client_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    client_id varchar(255),
     number_of_samples integer,
     sample_type integer,
-    order_id text
+    order_id varchar(255)
 );
 
 
@@ -1674,8 +1674,8 @@ CREATE TABLE plate_submission (
 --
 
 CREATE TABLE plate_submission_additional_info (
-    vendor_plate_submission_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    vendor_plate_submission_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1685,8 +1685,8 @@ CREATE TABLE plate_submission_additional_info (
 --
 
 CREATE TABLE plate_submission_external_references (
-    vendor_plate_submission_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    vendor_plate_submission_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1696,16 +1696,16 @@ CREATE TABLE plate_submission_external_references (
 --
 
 CREATE TABLE program (
-    id text NOT NULL,
-    auth_user_id text,
-    abbreviation text,
-    documentationurl text,
-    funding_information text,
-    name text,
-    objective text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    abbreviation varchar(255),
+    documentationurl varchar(255),
+    funding_information varchar(255),
+    name varchar(255),
+    objective varchar(255),
     program_type integer,
-    crop_id text,
-    lead_person_id text
+    crop_id varchar(255),
+    lead_person_id varchar(255)
 );
 
 
@@ -1715,8 +1715,8 @@ CREATE TABLE program (
 --
 
 CREATE TABLE program_additional_info (
-    program_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    program_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1726,8 +1726,8 @@ CREATE TABLE program_additional_info (
 --
 
 CREATE TABLE program_external_references (
-    program_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    program_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1737,13 +1737,13 @@ CREATE TABLE program_external_references (
 --
 
 CREATE TABLE reference (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     length integer,
-    md5checksum text,
-    reference_name text,
+    md5checksum varchar(255),
+    reference_name varchar(255),
     source_divergence numeric(19,2),
-    reference_set_id text
+    reference_set_id varchar(255)
 );
 
 
@@ -1753,8 +1753,8 @@ CREATE TABLE reference (
 --
 
 CREATE TABLE reference_additional_info (
-    reference_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    reference_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1764,11 +1764,11 @@ CREATE TABLE reference_additional_info (
 --
 
 CREATE TABLE reference_bases (
-    id text NOT NULL,
-    auth_user_id text,
-    bases text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    bases varchar(2048),
     page_number integer,
-    reference_id text
+    reference_id varchar(255)
 );
 
 
@@ -1778,8 +1778,8 @@ CREATE TABLE reference_bases (
 --
 
 CREATE TABLE reference_bases_additional_info (
-    reference_bases_page_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    reference_bases_page_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1789,8 +1789,8 @@ CREATE TABLE reference_bases_additional_info (
 --
 
 CREATE TABLE reference_bases_external_references (
-    reference_bases_page_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    reference_bases_page_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1800,8 +1800,8 @@ CREATE TABLE reference_bases_external_references (
 --
 
 CREATE TABLE reference_external_references (
-    reference_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    reference_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1811,17 +1811,17 @@ CREATE TABLE reference_external_references (
 --
 
 CREATE TABLE reference_set (
-    id text NOT NULL,
-    auth_user_id text,
-    assemblypui text,
-    description text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    assemblypui varchar(255),
+    description varchar(255),
     is_derived boolean,
-    md5checksum text,
-    reference_set_name text,
-    sourceuri text,
-    species_ontology_term text,
-    species_ontology_termuri text,
-    source_germplasm_id text
+    md5checksum varchar(255),
+    reference_set_name varchar(255),
+    sourceuri varchar(255),
+    species_ontology_term varchar(255),
+    species_ontology_termuri varchar(255),
+    source_germplasm_id varchar(255)
 );
 
 
@@ -1831,8 +1831,8 @@ CREATE TABLE reference_set (
 --
 
 CREATE TABLE reference_set_additional_info (
-    reference_set_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    reference_set_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1842,8 +1842,8 @@ CREATE TABLE reference_set_additional_info (
 --
 
 CREATE TABLE reference_set_external_references (
-    reference_set_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    reference_set_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1853,28 +1853,28 @@ CREATE TABLE reference_set_external_references (
 --
 
 CREATE TABLE sample (
-    id text NOT NULL,
-    auth_user_id text,
-    concentration text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    concentration varchar(255),
     plate_column integer,
-    plate_row text,
-    sample_barcode text,
-    sample_description text,
-    sample_group_db_id text,
-    sample_name text,
-    samplepui text,
+    plate_row varchar(255),
+    sample_barcode varchar(255),
+    sample_description varchar(255),
+    sample_group_db_id varchar(255),
+    sample_name varchar(255),
+    samplepui varchar(255),
     sample_timestamp timestamp without time zone,
-    sample_type text,
-    taken_by text,
-    tissue_type text,
-    volume text,
-    well text,
-    observation_unit_id text,
-    plate_id text,
-    program_id text,
-    study_id text,
-    taxon_id_id text,
-    trial_id text
+    sample_type varchar(255),
+    taken_by varchar(255),
+    tissue_type varchar(255),
+    volume varchar(255),
+    well varchar(255),
+    observation_unit_id varchar(255),
+    plate_id varchar(255),
+    program_id varchar(255),
+    study_id varchar(255),
+    taxon_id_id varchar(255),
+    trial_id varchar(255)
 );
 
 
@@ -1884,8 +1884,8 @@ CREATE TABLE sample (
 --
 
 CREATE TABLE sample_additional_info (
-    sample_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    sample_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1895,8 +1895,8 @@ CREATE TABLE sample_additional_info (
 --
 
 CREATE TABLE sample_external_references (
-    sample_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    sample_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1906,16 +1906,16 @@ CREATE TABLE sample_external_references (
 --
 
 CREATE TABLE scale (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     data_type integer,
     decimal_places integer,
-    scale_name text,
-    scalepui text,
-    units text,
-    valid_value_max text,
-    valid_value_min text,
-    ontology_id text
+    scale_name varchar(255),
+    scalepui varchar(255),
+    units varchar(255),
+    valid_value_max varchar(255),
+    valid_value_min varchar(255),
+    ontology_id varchar(255)
 );
 
 
@@ -1925,8 +1925,8 @@ CREATE TABLE scale (
 --
 
 CREATE TABLE scale_additional_info (
-    scale_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    scale_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -1947,8 +1947,8 @@ CREATE TABLE scale_entity_valid_value_categories (
 --
 
 CREATE TABLE scale_external_references (
-    scale_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    scale_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -1958,8 +1958,8 @@ CREATE TABLE scale_external_references (
 --
 
 CREATE TABLE scale_ontology_reference (
-    scale_entity_id text NOT NULL,
-    ontology_reference_id text NOT NULL
+    scale_entity_id varchar(255) NOT NULL,
+    ontology_reference_id varchar(255) NOT NULL
 );
 
 
@@ -1969,10 +1969,10 @@ CREATE TABLE scale_ontology_reference (
 --
 
 CREATE TABLE scale_valid_value_category (
-    id text NOT NULL,
-    label text,
-    value text,
-    scale_id text
+    id varchar(255) NOT NULL,
+    label varchar(255),
+    value varchar(255),
+    scale_id varchar(255)
 );
 
 
@@ -1982,8 +1982,8 @@ CREATE TABLE scale_valid_value_category (
 --
 
 CREATE TABLE search (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     parameters text,
     request_type integer,
     response_countdown integer
@@ -1996,8 +1996,8 @@ CREATE TABLE search (
 --
 
 CREATE TABLE search_additional_info (
-    search_request_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    search_request_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2007,8 +2007,8 @@ CREATE TABLE search_additional_info (
 --
 
 CREATE TABLE search_external_references (
-    search_request_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    search_request_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2018,9 +2018,9 @@ CREATE TABLE search_external_references (
 --
 
 CREATE TABLE season (
-    id text NOT NULL,
-    auth_user_id text,
-    season text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    season varchar(255),
     year integer
 );
 
@@ -2031,8 +2031,8 @@ CREATE TABLE season (
 --
 
 CREATE TABLE season_additional_info (
-    season_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    season_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2042,8 +2042,8 @@ CREATE TABLE season_additional_info (
 --
 
 CREATE TABLE season_external_references (
-    season_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    season_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2053,18 +2053,18 @@ CREATE TABLE season_external_references (
 --
 
 CREATE TABLE seed_lot (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     amount numeric(19,2),
     created_date timestamp without time zone,
-    description text,
+    description varchar(255),
     last_updated timestamp without time zone,
-    name text,
-    source_collection text,
-    storage_location text,
-    units text,
-    location_id text,
-    program_id text
+    name varchar(255),
+    source_collection varchar(255),
+    storage_location varchar(255),
+    units varchar(255),
+    location_id varchar(255),
+    program_id varchar(255)
 );
 
 
@@ -2074,8 +2074,8 @@ CREATE TABLE seed_lot (
 --
 
 CREATE TABLE seed_lot_additional_info (
-    seed_lot_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    seed_lot_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2085,11 +2085,11 @@ CREATE TABLE seed_lot_additional_info (
 --
 
 CREATE TABLE seed_lot_content_mixture (
-    id text NOT NULL,
+    id varchar(255) NOT NULL,
     mixture_percentage integer,
-    cross_id text,
-    germplasm_id text,
-    seed_lot_id text
+    cross_id varchar(255),
+    germplasm_id varchar(255),
+    seed_lot_id varchar(255)
 );
 
 
@@ -2099,8 +2099,8 @@ CREATE TABLE seed_lot_content_mixture (
 --
 
 CREATE TABLE seed_lot_external_references (
-    seed_lot_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    seed_lot_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2110,14 +2110,14 @@ CREATE TABLE seed_lot_external_references (
 --
 
 CREATE TABLE seed_lot_transaction (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     amount numeric(19,2),
-    description text,
+    description varchar(255),
     "timestamp" timestamp without time zone,
-    units text,
-    from_seed_lot_id text,
-    to_seed_lot_id text
+    units varchar(255),
+    from_seed_lot_id varchar(255),
+    to_seed_lot_id varchar(255)
 );
 
 
@@ -2127,8 +2127,8 @@ CREATE TABLE seed_lot_transaction (
 --
 
 CREATE TABLE seed_lot_transaction_additional_info (
-    seed_lot_transaction_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    seed_lot_transaction_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2138,8 +2138,8 @@ CREATE TABLE seed_lot_transaction_additional_info (
 --
 
 CREATE TABLE seed_lot_transaction_external_references (
-    seed_lot_transaction_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    seed_lot_transaction_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2149,24 +2149,24 @@ CREATE TABLE seed_lot_transaction_external_references (
 --
 
 CREATE TABLE study (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     active boolean,
-    cultural_practices text,
-    documentationurl text,
+    cultural_practices varchar(255),
+    documentationurl varchar(255),
     end_date timestamp without time zone,
-    license text,
-    observation_units_description text,
+    license varchar(255),
+    observation_units_description varchar(255),
     start_date timestamp without time zone,
-    study_code text,
-    study_description text,
-    study_name text,
-    studypui text,
-    study_type text,
-    crop_id text,
-    location_id text,
-    program_id text,
-    trial_id text
+    study_code varchar(255),
+    study_description varchar(255),
+    study_name varchar(255),
+    studypui varchar(255),
+    study_type varchar(255),
+    crop_id varchar(255),
+    location_id varchar(255),
+    program_id varchar(255),
+    trial_id varchar(255)
 );
 
 
@@ -2176,8 +2176,8 @@ CREATE TABLE study (
 --
 
 CREATE TABLE study_additional_info (
-    study_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    study_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2187,8 +2187,8 @@ CREATE TABLE study_additional_info (
 --
 
 CREATE TABLE study_contact (
-    study_db_id text NOT NULL,
-    person_db_id text NOT NULL
+    study_db_id varchar(255) NOT NULL,
+    person_db_id varchar(255) NOT NULL
 );
 
 
@@ -2198,16 +2198,16 @@ CREATE TABLE study_contact (
 --
 
 CREATE TABLE study_data_link (
-    id text NOT NULL,
-    data_format text,
-    description text,
-    file_format text,
-    name text,
-    provenance text,
-    scientific_type text,
-    url text,
-    version text,
-    study_id text
+    id varchar(255) NOT NULL,
+    data_format varchar(255),
+    description varchar(255),
+    file_format varchar(255),
+    name varchar(255),
+    provenance varchar(255),
+    scientific_type varchar(255),
+    url varchar(255),
+    version varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -2217,15 +2217,15 @@ CREATE TABLE study_data_link (
 --
 
 CREATE TABLE study_environment_parameter (
-    id text NOT NULL,
-    description text,
-    parameter_name text,
-    parameterpui text,
-    unit text,
-    unitpui text,
-    value text,
-    valuepui text,
-    study_id text
+    id varchar(255) NOT NULL,
+    description varchar(255),
+    parameter_name varchar(255),
+    parameterpui varchar(255),
+    unit varchar(255),
+    unitpui varchar(255),
+    value varchar(255),
+    valuepui varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -2235,10 +2235,10 @@ CREATE TABLE study_environment_parameter (
 --
 
 CREATE TABLE study_experimental_design (
-    id text NOT NULL,
-    pui text,
-    description text,
-    study_id text
+    id varchar(255) NOT NULL,
+    pui varchar(255),
+    description varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -2248,8 +2248,8 @@ CREATE TABLE study_experimental_design (
 --
 
 CREATE TABLE study_external_references (
-    study_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    study_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2259,10 +2259,10 @@ CREATE TABLE study_external_references (
 --
 
 CREATE TABLE study_growth_facility (
-    id text NOT NULL,
-    pui text,
-    description text,
-    study_id text
+    id varchar(255) NOT NULL,
+    pui varchar(255),
+    description varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -2272,10 +2272,10 @@ CREATE TABLE study_growth_facility (
 --
 
 CREATE TABLE study_last_update (
-    id text NOT NULL,
+    id varchar(255) NOT NULL,
     "timestamp" timestamp without time zone,
-    version text,
-    study_id text
+    version varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -2296,10 +2296,10 @@ CREATE TABLE study_marker_profile (
 --
 
 CREATE TABLE study_observation_level (
-    id text NOT NULL,
-    level_name text,
+    id varchar(255) NOT NULL,
+    level_name varchar(255),
     level_order integer,
-    study_id text
+    study_id varchar(255)
 );
 
 
@@ -2309,8 +2309,8 @@ CREATE TABLE study_observation_level (
 --
 
 CREATE TABLE study_season (
-    study_db_id text NOT NULL,
-    season_db_id text NOT NULL
+    study_db_id varchar(255) NOT NULL,
+    season_db_id varchar(255) NOT NULL
 );
 
 
@@ -2332,8 +2332,8 @@ CREATE TABLE study_type (
 --
 
 CREATE TABLE study_variable (
-    study_db_id text NOT NULL,
-    variable_db_id text NOT NULL
+    study_db_id varchar(255) NOT NULL,
+    variable_db_id varchar(255) NOT NULL
 );
 
 
@@ -2355,19 +2355,19 @@ CREATE TABLE taxon (
 --
 
 CREATE TABLE trait (
-    id text NOT NULL,
-    auth_user_id text,
-    attribute text,
-    attributepui text,
-    entity text,
-    entitypui text,
-    main_abbreviation text,
-    status text,
-    trait_class text,
-    trait_description text,
-    trait_name text,
-    traitpui text,
-    ontology_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    attribute varchar(255),
+    attributepui varchar(255),
+    entity varchar(255),
+    entitypui varchar(255),
+    main_abbreviation varchar(255),
+    status varchar(255),
+    trait_class varchar(255),
+    trait_description varchar(255),
+    trait_name varchar(255),
+    traitpui varchar(255),
+    ontology_id varchar(255)
 );
 
 
@@ -2377,9 +2377,9 @@ CREATE TABLE trait (
 --
 
 CREATE TABLE trait_abbreviation (
-    id text NOT NULL,
-    abbreviation text,
-    trait_id text
+    id varchar(255) NOT NULL,
+    abbreviation varchar(255),
+    trait_id varchar(255)
 );
 
 
@@ -2389,8 +2389,8 @@ CREATE TABLE trait_abbreviation (
 --
 
 CREATE TABLE trait_additional_info (
-    trait_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    trait_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2400,8 +2400,8 @@ CREATE TABLE trait_additional_info (
 --
 
 CREATE TABLE trait_entity_alternative_abbreviations (
-    trait_entity_id text NOT NULL,
-    alternative_abbreviations text
+    trait_entity_id varchar(255) NOT NULL,
+    alternative_abbreviations varchar(255)
 );
 
 
@@ -2411,8 +2411,8 @@ CREATE TABLE trait_entity_alternative_abbreviations (
 --
 
 CREATE TABLE trait_entity_synonyms (
-    trait_entity_id text NOT NULL,
-    synonyms text
+    trait_entity_id varchar(255) NOT NULL,
+    synonyms varchar(255)
 );
 
 
@@ -2422,8 +2422,8 @@ CREATE TABLE trait_entity_synonyms (
 --
 
 CREATE TABLE trait_external_references (
-    trait_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    trait_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2433,8 +2433,8 @@ CREATE TABLE trait_external_references (
 --
 
 CREATE TABLE trait_ontology_reference (
-    trait_entity_id text NOT NULL,
-    ontology_reference_id text NOT NULL
+    trait_entity_id varchar(255) NOT NULL,
+    ontology_reference_id varchar(255) NOT NULL
 );
 
 
@@ -2444,9 +2444,9 @@ CREATE TABLE trait_ontology_reference (
 --
 
 CREATE TABLE trait_synonym (
-    id text NOT NULL,
-    synonym text,
-    trait_id text
+    id varchar(255) NOT NULL,
+    synonym varchar(255),
+    trait_id varchar(255)
 );
 
 
@@ -2469,17 +2469,17 @@ CREATE TABLE treatment (
 --
 
 CREATE TABLE trial (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     active boolean,
-    documentationurl text,
+    documentationurl varchar(255),
     end_date timestamp without time zone,
     start_date timestamp without time zone,
-    trial_description text,
-    trial_name text,
-    trialpui text,
-    crop_id text,
-    program_id text
+    trial_description varchar(255),
+    trial_name varchar(255),
+    trialpui varchar(255),
+    crop_id varchar(255),
+    program_id varchar(255)
 );
 
 
@@ -2489,8 +2489,8 @@ CREATE TABLE trial (
 --
 
 CREATE TABLE trial_additional_info (
-    trial_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    trial_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2500,8 +2500,8 @@ CREATE TABLE trial_additional_info (
 --
 
 CREATE TABLE trial_contact (
-    trial_db_id text NOT NULL,
-    person_db_id text NOT NULL
+    trial_db_id varchar(255) NOT NULL,
+    person_db_id varchar(255) NOT NULL
 );
 
 
@@ -2511,12 +2511,12 @@ CREATE TABLE trial_contact (
 --
 
 CREATE TABLE trial_dataset_authorship (
-    id text NOT NULL,
-    datasetpui text,
-    license text,
+    id varchar(255) NOT NULL,
+    datasetpui varchar(255),
+    license varchar(255),
     public_release_date timestamp without time zone,
     submission_date timestamp without time zone,
-    trial_id text
+    trial_id varchar(255)
 );
 
 
@@ -2526,8 +2526,8 @@ CREATE TABLE trial_dataset_authorship (
 --
 
 CREATE TABLE trial_external_references (
-    trial_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    trial_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2537,10 +2537,10 @@ CREATE TABLE trial_external_references (
 --
 
 CREATE TABLE trial_publication (
-    id text NOT NULL,
-    publicationpui text,
-    publication_reference text,
-    trial_id text
+    id varchar(255) NOT NULL,
+    publicationpui varchar(255),
+    publication_reference varchar(255),
+    trial_id varchar(255)
 );
 
 
@@ -2550,21 +2550,21 @@ CREATE TABLE trial_publication (
 --
 
 CREATE TABLE variable_base_entity (
-    id text NOT NULL,
-    auth_user_id text,
-    default_value text,
-    documentationurl text,
-    growth_stage text,
-    institution text,
-    language text,
-    scientist text,
-    status text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    default_value varchar(255),
+    documentationurl varchar(255),
+    growth_stage varchar(255),
+    institution varchar(255),
+    language varchar(255),
+    scientist varchar(255),
+    status varchar(255),
     submission_timestamp timestamp without time zone,
-    crop_id text,
-    method_id text,
-    ontology_id text,
-    scale_id text,
-    trait_id text
+    crop_id varchar(255),
+    method_id varchar(255),
+    ontology_id varchar(255),
+    scale_id varchar(255),
+    trait_id varchar(255)
 );
 
 
@@ -2574,8 +2574,8 @@ CREATE TABLE variable_base_entity (
 --
 
 CREATE TABLE variable_base_entity_additional_info (
-    variable_base_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    variable_base_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2585,8 +2585,8 @@ CREATE TABLE variable_base_entity_additional_info (
 --
 
 CREATE TABLE variable_base_entity_context_of_use (
-    variable_base_entity_id text NOT NULL,
-    context_of_use text
+    variable_base_entity_id varchar(255) NOT NULL,
+    context_of_use varchar(255)
 );
 
 
@@ -2596,8 +2596,8 @@ CREATE TABLE variable_base_entity_context_of_use (
 --
 
 CREATE TABLE variable_base_entity_external_references (
-    variable_base_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    variable_base_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2607,8 +2607,8 @@ CREATE TABLE variable_base_entity_external_references (
 --
 
 CREATE TABLE variable_base_entity_ontology_reference (
-    variable_base_entity_id text NOT NULL,
-    ontology_reference_id text NOT NULL
+    variable_base_entity_id varchar(255) NOT NULL,
+    ontology_reference_id varchar(255) NOT NULL
 );
 
 
@@ -2618,8 +2618,8 @@ CREATE TABLE variable_base_entity_ontology_reference (
 --
 
 CREATE TABLE variable_base_entity_synonyms (
-    variable_base_entity_id text NOT NULL,
-    synonyms text
+    variable_base_entity_id varchar(255) NOT NULL,
+    synonyms varchar(255)
 );
 
 
@@ -2629,20 +2629,20 @@ CREATE TABLE variable_base_entity_synonyms (
 --
 
 CREATE TABLE variant (
-    id text NOT NULL,
-    auth_user_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
     created timestamp without time zone,
     variant_end integer,
     filters_applied boolean,
     filters_passed boolean,
-    reference_bases text,
+    reference_bases varchar(255),
     variant_start integer,
     svlen integer,
     updated timestamp without time zone,
-    variant_name text,
-    variant_type text,
-    reference_set_id text,
-    variant_set_id text
+    variant_name varchar(255),
+    variant_type varchar(255),
+    reference_set_id varchar(255),
+    variant_set_id varchar(255)
 );
 
 
@@ -2652,8 +2652,8 @@ CREATE TABLE variant (
 --
 
 CREATE TABLE variant_additional_info (
-    variant_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    variant_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2663,8 +2663,8 @@ CREATE TABLE variant_additional_info (
 --
 
 CREATE TABLE variant_entity_alternate_bases (
-    variant_entity_id text NOT NULL,
-    alternate_bases text
+    variant_entity_id varchar(255) NOT NULL,
+    alternate_bases varchar(255)
 );
 
 
@@ -2674,7 +2674,7 @@ CREATE TABLE variant_entity_alternate_bases (
 --
 
 CREATE TABLE variant_entity_ciend (
-    variant_entity_id text NOT NULL,
+    variant_entity_id varchar(255) NOT NULL,
     ciend integer
 );
 
@@ -2685,7 +2685,7 @@ CREATE TABLE variant_entity_ciend (
 --
 
 CREATE TABLE variant_entity_cipos (
-    variant_entity_id text NOT NULL,
+    variant_entity_id varchar(255) NOT NULL,
     cipos integer
 );
 
@@ -2696,8 +2696,8 @@ CREATE TABLE variant_entity_cipos (
 --
 
 CREATE TABLE variant_entity_filters_failed (
-    variant_entity_id text NOT NULL,
-    filters_failed text
+    variant_entity_id varchar(255) NOT NULL,
+    filters_failed varchar(255)
 );
 
 
@@ -2707,8 +2707,8 @@ CREATE TABLE variant_entity_filters_failed (
 --
 
 CREATE TABLE variant_external_references (
-    variant_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    variant_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2718,8 +2718,8 @@ CREATE TABLE variant_external_references (
 --
 
 CREATE TABLE variant_set_analysis_entity_software (
-    variant_set_analysis_entity_id text NOT NULL,
-    software text
+    variant_set_analysis_entity_id varchar(255) NOT NULL,
+    software varchar(255)
 );
 
 
@@ -2729,11 +2729,11 @@ CREATE TABLE variant_set_analysis_entity_software (
 --
 
 CREATE TABLE variantset (
-    id text NOT NULL,
-    auth_user_id text,
-    variant_set_name text,
-    reference_set_id text,
-    study_id text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    variant_set_name varchar(255),
+    reference_set_id varchar(255),
+    study_id varchar(255)
 );
 
 
@@ -2743,8 +2743,8 @@ CREATE TABLE variantset (
 --
 
 CREATE TABLE variantset_additional_info (
-    variant_set_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    variant_set_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2754,13 +2754,13 @@ CREATE TABLE variantset_additional_info (
 --
 
 CREATE TABLE variantset_analysis (
-    id text NOT NULL,
-    analysis_name text,
+    id varchar(255) NOT NULL,
+    analysis_name varchar(255),
     created timestamp without time zone,
-    description text,
-    type text,
+    description varchar(255),
+    type varchar(255),
     updated timestamp without time zone,
-    variant_set_id text
+    variant_set_id varchar(255)
 );
 
 
@@ -2770,8 +2770,8 @@ CREATE TABLE variantset_analysis (
 --
 
 CREATE TABLE variantset_external_references (
-    variant_set_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    variant_set_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2781,15 +2781,15 @@ CREATE TABLE variantset_external_references (
 --
 
 CREATE TABLE variantset_format (
-    id text NOT NULL,
+    id varchar(255) NOT NULL,
     data_format integer,
     expand_homozygotes boolean,
     file_format integer,
-    fileurl text,
-    sep_phased text,
-    sep_unphased text,
-    unknown_string text,
-    variant_set_id text
+    fileurl varchar(255),
+    sep_phased varchar(255),
+    sep_unphased varchar(255),
+    unknown_string varchar(255),
+    variant_set_id varchar(255)
 );
 
 
@@ -2799,12 +2799,12 @@ CREATE TABLE variantset_format (
 --
 
 CREATE TABLE vendor_file (
-    id text NOT NULL,
-    url text,
-    file_type text,
-    filename text,
-    md5sum text,
-    order_id text
+    id varchar(255) NOT NULL,
+    url varchar(255),
+    file_type varchar(255),
+    filename varchar(255),
+    md5sum varchar(255),
+    order_id varchar(255)
 );
 
 
@@ -2814,8 +2814,8 @@ CREATE TABLE vendor_file (
 --
 
 CREATE TABLE vendor_file_sample (
-    verndor_file_dbid text NOT NULL,
-    sample_dbid text NOT NULL
+    verndor_file_dbid varchar(255) NOT NULL,
+    sample_dbid varchar(255) NOT NULL
 );
 
 
@@ -2825,10 +2825,10 @@ CREATE TABLE vendor_file_sample (
 --
 
 CREATE TABLE vendor_order (
-    id text NOT NULL,
-    auth_user_id text,
-    client_plate_barcode text,
-    client_plate_db_id text,
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    client_plate_barcode varchar(255),
+    client_plate_db_id varchar(255),
     sample_type integer,
     status integer,
     status_time_stamp timestamp without time zone
@@ -2841,8 +2841,8 @@ CREATE TABLE vendor_order (
 --
 
 CREATE TABLE vendor_order_additional_info (
-    vendor_order_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    vendor_order_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2852,9 +2852,9 @@ CREATE TABLE vendor_order_additional_info (
 --
 
 CREATE TABLE vendor_order_entity_required_service_info (
-    vendor_order_entity_id text NOT NULL,
-    required_service_info text,
-    required_service_info_key text NOT NULL
+    vendor_order_entity_id varchar(255) NOT NULL,
+    required_service_info varchar(255),
+    required_service_info_key varchar(255) NOT NULL
 );
 
 
@@ -2864,8 +2864,8 @@ CREATE TABLE vendor_order_entity_required_service_info (
 --
 
 CREATE TABLE vendor_order_entity_service_ids (
-    vendor_order_entity_id text NOT NULL,
-    service_ids text
+    vendor_order_entity_id varchar(255) NOT NULL,
+    service_ids varchar(255)
 );
 
 
@@ -2875,8 +2875,8 @@ CREATE TABLE vendor_order_entity_service_ids (
 --
 
 CREATE TABLE vendor_order_external_references (
-    vendor_order_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    vendor_order_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2886,17 +2886,17 @@ CREATE TABLE vendor_order_external_references (
 --
 
 CREATE TABLE vendor_spec (
-    id text NOT NULL,
-    auth_user_id text,
-    contact_name text,
-    vendor_address text,
-    vendor_city text,
-    vendor_country text,
-    vendor_description text,
-    vendor_email text,
-    vendor_name text,
-    vendor_phone text,
-    vendorurl text
+    id varchar(255) NOT NULL,
+    auth_user_id varchar(255),
+    contact_name varchar(255),
+    vendor_address varchar(255),
+    vendor_city varchar(255),
+    vendor_country varchar(255),
+    vendor_description varchar(255),
+    vendor_email varchar(255),
+    vendor_name varchar(255),
+    vendor_phone varchar(255),
+    vendorurl varchar(255)
 );
 
 
@@ -2906,8 +2906,8 @@ CREATE TABLE vendor_spec (
 --
 
 CREATE TABLE vendor_spec_additional_info (
-    vendor_spec_entity_id text NOT NULL,
-    additional_info_id text NOT NULL
+    vendor_spec_entity_id varchar(255) NOT NULL,
+    additional_info_id varchar(255) NOT NULL
 );
 
 
@@ -2917,11 +2917,11 @@ CREATE TABLE vendor_spec_additional_info (
 --
 
 CREATE TABLE vendor_spec_deliverable (
-    id text NOT NULL,
-    description text,
-    format text,
-    name text,
-    vendor_spec_platform_db_id text
+    id varchar(255) NOT NULL,
+    description varchar(255),
+    format varchar(255),
+    name varchar(255),
+    vendor_spec_platform_db_id varchar(255)
 );
 
 
@@ -2931,8 +2931,8 @@ CREATE TABLE vendor_spec_deliverable (
 --
 
 CREATE TABLE vendor_spec_external_references (
-    vendor_spec_entity_id text NOT NULL,
-    external_references_id text NOT NULL
+    vendor_spec_entity_id varchar(255) NOT NULL,
+    external_references_id varchar(255) NOT NULL
 );
 
 
@@ -2942,9 +2942,9 @@ CREATE TABLE vendor_spec_external_references (
 --
 
 CREATE TABLE vendor_spec_input_format (
-    id text NOT NULL,
-    input_format text,
-    vendor_spec_standard_requirement_db_id text
+    id varchar(255) NOT NULL,
+    input_format varchar(255),
+    vendor_spec_standard_requirement_db_id varchar(255)
 );
 
 
@@ -2954,21 +2954,21 @@ CREATE TABLE vendor_spec_input_format (
 --
 
 CREATE TABLE vendor_spec_platform (
-    id text NOT NULL,
-    contact_email text,
-    contact_name text,
-    contact_phone text,
-    platform_description text,
-    platform_name text,
-    platformurl text,
-    shipping_address text,
-    specific_requirements text,
-    taxonomy_id_system_name text,
-    taxonomy_id_systemuri text,
-    tissue_id_system_name text,
-    tissue_id_systemuri text,
-    vendor_spec_db_id text,
-    standard_requirements_id text
+    id varchar(255) NOT NULL,
+    contact_email varchar(255),
+    contact_name varchar(255),
+    contact_phone varchar(255),
+    platform_description varchar(255),
+    platform_name varchar(255),
+    platformurl varchar(255),
+    shipping_address varchar(255),
+    specific_requirements varchar(255),
+    taxonomy_id_system_name varchar(255),
+    taxonomy_id_systemuri varchar(255),
+    tissue_id_system_name varchar(255),
+    tissue_id_systemuri varchar(255),
+    vendor_spec_db_id varchar(255),
+    standard_requirements_id varchar(255)
 );
 
 
@@ -2978,15 +2978,15 @@ CREATE TABLE vendor_spec_platform (
 --
 
 CREATE TABLE vendor_spec_requirement (
-    id text NOT NULL,
-    input_format_details text,
-    max_concentration text,
-    max_volume text,
-    min_concentration text,
-    min_sample_number text,
-    min_volume text,
-    plate_orientation text,
-    sample_type_details text
+    id varchar(255) NOT NULL,
+    input_format_details varchar(255),
+    max_concentration varchar(255),
+    max_volume varchar(255),
+    min_concentration varchar(255),
+    min_sample_number varchar(255),
+    min_volume varchar(255),
+    plate_orientation varchar(255),
+    sample_type_details varchar(255)
 );
 
 
@@ -2996,9 +2996,9 @@ CREATE TABLE vendor_spec_requirement (
 --
 
 CREATE TABLE vendor_spec_sample_type (
-    id text NOT NULL,
-    sample_type text,
-    vendor_spec_standard_requirement_db_id text
+    id varchar(255) NOT NULL,
+    sample_type varchar(255),
+    vendor_spec_standard_requirement_db_id varchar(255)
 );
 
 
@@ -3008,10 +3008,10 @@ CREATE TABLE vendor_spec_sample_type (
 --
 
 CREATE TABLE vendor_spec_status (
-    id text NOT NULL,
-    status_description text,
-    status_name text,
-    vendor_spec_platform_db_id text
+    id varchar(255) NOT NULL,
+    status_description varchar(255),
+    status_name varchar(255),
+    vendor_spec_platform_db_id varchar(255)
 );
 
 
@@ -3021,9 +3021,9 @@ CREATE TABLE vendor_spec_status (
 --
 
 CREATE TABLE vendor_spec_well_position (
-    id text NOT NULL,
-    "position" text,
-    vendor_spec_standard_requirement_db_id text
+    id varchar(255) NOT NULL,
+    "position" varchar(255),
+    vendor_spec_standard_requirement_db_id varchar(255)
 );
 
 

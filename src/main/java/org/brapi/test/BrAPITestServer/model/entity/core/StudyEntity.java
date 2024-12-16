@@ -1,314 +1,304 @@
 package org.brapi.test.BrAPITestServer.model.entity.core;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationVariableEntity;
 
+import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "study")
 public class StudyEntity extends BrAPIPrimaryEntity {
 
-	@Column
-	private boolean active;
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "study_contact", joinColumns = {
-			@JoinColumn(name = "study_db_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "person_db_id", referencedColumnName = "id") })
-	private List<PersonEntity> contacts;
-	@Column
-	private String culturalPractices;
-	@OneToMany(mappedBy = "study")
-	private List<DataLinkEntity> dataLinks;
-	@Column
-	private String documentationURL;
-	@Column
-	private Date endDate;
-	@OneToMany(mappedBy = "study")
-	private List<EnvironmentParametersEntity> environmentParameters;
-	@OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-	private ExperimentalDesignEntity experimentalDesign;
-	@OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-	private GrowthFacilityEntity growthFacility;
-	@OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
-	private StudyLastUpdateEntity lastUpdate;
-	@Column
-	private String license;
-	@OneToOne
-	private LocationEntity location;
-	@OneToMany(mappedBy = "study")
-	private List<ObservationLevelEntity> observationLevels;
-	@Column
-	private String observationUnitsDescription;
-	@ManyToMany
-	@JoinTable(name = "study_season", joinColumns = {
-			@JoinColumn(name = "study_db_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "season_db_id", referencedColumnName = "id") })
-	private List<SeasonEntity> seasons;
-	@ManyToMany
-	@JoinTable(name = "study_variable", joinColumns = {
-			@JoinColumn(name = "study_db_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "variable_db_id", referencedColumnName = "id") })
-	private List<ObservationVariableEntity> observationVariables;
-	@Column
-	private Date startDate;
-	@Column
-	private String studyCode;
-	@Column
-	private String studyDescription;
-	@Column
-	private String studyName;
-	@Column
-	private String studyPUI;
-	@Column
-	private String studyType;
-	
-	@ManyToOne
-	private CropEntity crop;
-	@ManyToOne
-	private ProgramEntity program;
-	@ManyToOne
-	private TrialEntity trial;
+    @Column
+    private boolean active;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "study_contact", joinColumns = {
+            @JoinColumn(name = "study_db_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "person_db_id", referencedColumnName = "id")})
+    private List<PersonEntity> contacts;
+    @Column
+    private String culturalPractices;
+    @OneToMany(mappedBy = "study")
+    private List<DataLinkEntity> dataLinks;
+    @Column
+    private String documentationURL;
+    @Column
+    private Date endDate;
+    @OneToMany(mappedBy = "study")
+    private List<EnvironmentParametersEntity> environmentParameters;
+    @OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ExperimentalDesignEntity experimentalDesign;
+    @OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private GrowthFacilityEntity growthFacility;
+    @OneToOne(mappedBy = "study", cascade = CascadeType.ALL, orphanRemoval = true)
+    private StudyLastUpdateEntity lastUpdate;
+    @Column
+    private String license;
+    @OneToOne
+    private LocationEntity location;
+    @OneToMany(mappedBy = "study")
+    private List<ObservationLevelEntity> observationLevels;
+    @Column
+    private String observationUnitsDescription;
+    @ManyToMany
+    @JoinTable(name = "study_season", joinColumns = {
+            @JoinColumn(name = "study_db_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "season_db_id", referencedColumnName = "id")})
+    private List<SeasonEntity> seasons;
+    @ManyToMany
+    @JoinTable(name = "study_variable", joinColumns = {
+            @JoinColumn(name = "study_db_id", referencedColumnName = "id")}, inverseJoinColumns = {
+            @JoinColumn(name = "variable_db_id", referencedColumnName = "id")})
+    private List<ObservationVariableEntity> observationVariables;
+    @Column
+    private Date startDate;
+    @Column
+    private String studyCode;
+    @Column
+    private String studyDescription;
+    @Column
+    private String studyName;
+    @Column
+    private String studyPUI;
+    @Column
+    private String studyType;
 
-	@OneToMany(mappedBy="study")
-	private List<ObservationUnitEntity> observationUnits;
-	@OneToMany(mappedBy="study")
-	private List<ObservationEntity> observations;
+    @ManyToOne
+    private CropEntity crop;
+    @ManyToOne
+    private ProgramEntity program;
+    @ManyToOne
+    private TrialEntity trial;
 
-	
-	public List<ObservationVariableEntity> getObservationVariables() {
-		return observationVariables;
-	}
+    @OneToMany(mappedBy = "study")
+    private List<ObservationUnitEntity> observationUnits;
+    @OneToMany(mappedBy = "study")
+    private List<ObservationEntity> observations;
 
-	public void setObservationVariables(List<ObservationVariableEntity> observationVariables) {
-		this.observationVariables = observationVariables;
-	}
 
-	public CropEntity getCrop() {
-		return crop;
-	}
+    public List<ObservationVariableEntity> getObservationVariables() {
+        return observationVariables;
+    }
 
-	public void setCrop(CropEntity crop) {
-		this.crop = crop;
-	}
+    public void setObservationVariables(List<ObservationVariableEntity> observationVariables) {
+        this.observationVariables = observationVariables;
+    }
 
-	public ProgramEntity getProgram() {
-		return program;
-	}
+    public CropEntity getCrop() {
+        return crop;
+    }
 
-	public void setProgram(ProgramEntity program) {
-		this.program = program;
-		if (program.getCrop() != null)
-			setCrop(program.getCrop());
-	}
+    public void setCrop(CropEntity crop) {
+        this.crop = crop;
+    }
 
-	public List<ObservationUnitEntity> getObservationUnits() {
-		return observationUnits;
-	}
+    public ProgramEntity getProgram() {
+        return program;
+    }
 
-	public void setObservationUnits(List<ObservationUnitEntity> observationUnits) {
-		this.observationUnits = observationUnits;
-	}
+    public void setProgram(ProgramEntity program) {
+        this.program = program;
+        if (program.getCrop() != null)
+            setCrop(program.getCrop());
+    }
 
-	public List<ObservationEntity> getObservations() {
-		return observations;
-	}
+    public List<ObservationUnitEntity> getObservationUnits() {
+        return observationUnits;
+    }
 
-	public void setObservations(List<ObservationEntity> observations) {
-		this.observations = observations;
-	}
+    public void setObservationUnits(List<ObservationUnitEntity> observationUnits) {
+        this.observationUnits = observationUnits;
+    }
 
-	public boolean isActive() {
-		return active;
-	}
+    public List<ObservationEntity> getObservations() {
+        return observations;
+    }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+    public void setObservations(List<ObservationEntity> observations) {
+        this.observations = observations;
+    }
 
-	public List<PersonEntity> getContacts() {
-		return contacts;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public void setContacts(List<PersonEntity> contacts) {
-		this.contacts = contacts;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public String getCulturalPractices() {
-		return culturalPractices;
-	}
+    public List<PersonEntity> getContacts() {
+        return contacts;
+    }
 
-	public void setCulturalPractices(String culturalPractices) {
-		this.culturalPractices = culturalPractices;
-	}
+    public void setContacts(List<PersonEntity> contacts) {
+        this.contacts = contacts;
+    }
 
-	public List<DataLinkEntity> getDataLinks() {
-		return dataLinks;
-	}
+    public String getCulturalPractices() {
+        return culturalPractices;
+    }
 
-	public void setDataLinks(List<DataLinkEntity> dataLinks) {
-		this.dataLinks = dataLinks;
-	}
+    public void setCulturalPractices(String culturalPractices) {
+        this.culturalPractices = culturalPractices;
+    }
 
-	public String getDocumentationURL() {
-		return documentationURL;
-	}
+    public List<DataLinkEntity> getDataLinks() {
+        return dataLinks;
+    }
 
-	public void setDocumentationURL(String documentationURL) {
-		this.documentationURL = documentationURL;
-	}
+    public void setDataLinks(List<DataLinkEntity> dataLinks) {
+        this.dataLinks = dataLinks;
+    }
 
-	public Date getEndDate() {
-		return endDate;
-	}
+    public String getDocumentationURL() {
+        return documentationURL;
+    }
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+    public void setDocumentationURL(String documentationURL) {
+        this.documentationURL = documentationURL;
+    }
 
-	public List<EnvironmentParametersEntity> getEnvironmentParameters() {
-		return environmentParameters;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	public void setEnvironmentParameters(List<EnvironmentParametersEntity> environmentParameters) {
-		this.environmentParameters = environmentParameters;
-	}
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	public ExperimentalDesignEntity getExperimentalDesign() {
-		return experimentalDesign;
-	}
+    public List<EnvironmentParametersEntity> getEnvironmentParameters() {
+        return environmentParameters;
+    }
 
-	public void setExperimentalDesign(ExperimentalDesignEntity experimentalDesign) {
-		this.experimentalDesign = experimentalDesign;
-	}
+    public void setEnvironmentParameters(List<EnvironmentParametersEntity> environmentParameters) {
+        this.environmentParameters = environmentParameters;
+    }
 
-	public GrowthFacilityEntity getGrowthFacility() {
-		return growthFacility;
-	}
+    public ExperimentalDesignEntity getExperimentalDesign() {
+        return experimentalDesign;
+    }
 
-	public void setGrowthFacility(GrowthFacilityEntity growthFacility) {
-		this.growthFacility = growthFacility;
-	}
+    public void setExperimentalDesign(ExperimentalDesignEntity experimentalDesign) {
+        this.experimentalDesign = experimentalDesign;
+    }
 
-	public StudyLastUpdateEntity getLastUpdate() {
-		return lastUpdate;
-	}
+    public GrowthFacilityEntity getGrowthFacility() {
+        return growthFacility;
+    }
 
-	public void setLastUpdate(StudyLastUpdateEntity lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
+    public void setGrowthFacility(GrowthFacilityEntity growthFacility) {
+        this.growthFacility = growthFacility;
+    }
 
-	public String getLicense() {
-		return license;
-	}
+    public StudyLastUpdateEntity getLastUpdate() {
+        return lastUpdate;
+    }
 
-	public void setLicense(String license) {
-		this.license = license;
-	}
+    public void setLastUpdate(StudyLastUpdateEntity lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
 
-	public LocationEntity getLocation() {
-		return location;
-	}
+    public String getLicense() {
+        return license;
+    }
 
-	public void setLocation(LocationEntity location) {
-		this.location = location;
-	}
+    public void setLicense(String license) {
+        this.license = license;
+    }
 
-	public List<ObservationLevelEntity> getObservationLevels() {
-		return observationLevels;
-	}
+    public LocationEntity getLocation() {
+        return location;
+    }
 
-	public void setObservationLevels(List<ObservationLevelEntity> observationLevels) {
-		this.observationLevels = observationLevels;
-	}
+    public void setLocation(LocationEntity location) {
+        this.location = location;
+    }
 
-	public String getObservationUnitsDescription() {
-		return observationUnitsDescription;
-	}
+    public List<ObservationLevelEntity> getObservationLevels() {
+        return observationLevels;
+    }
 
-	public void setObservationUnitsDescription(String observationUnitsDescription) {
-		this.observationUnitsDescription = observationUnitsDescription;
-	}
+    public void setObservationLevels(List<ObservationLevelEntity> observationLevels) {
+        this.observationLevels = observationLevels;
+    }
 
-	public List<SeasonEntity> getSeasons() {
-		return seasons;
-	}
+    public String getObservationUnitsDescription() {
+        return observationUnitsDescription;
+    }
 
-	public void setSeasons(List<SeasonEntity> seasons) {
-		this.seasons = seasons;
-	}
+    public void setObservationUnitsDescription(String observationUnitsDescription) {
+        this.observationUnitsDescription = observationUnitsDescription;
+    }
 
-	public Date getStartDate() {
-		return startDate;
-	}
+    public List<SeasonEntity> getSeasons() {
+        return seasons;
+    }
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
+    public void setSeasons(List<SeasonEntity> seasons) {
+        this.seasons = seasons;
+    }
 
-	public String getStudyCode() {
-		return studyCode;
-	}
+    public Date getStartDate() {
+        return startDate;
+    }
 
-	public void setStudyCode(String studyCode) {
-		this.studyCode = studyCode;
-	}
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-	public String getStudyDescription() {
-		return studyDescription;
-	}
+    public String getStudyCode() {
+        return studyCode;
+    }
 
-	public void setStudyDescription(String studyDescription) {
-		this.studyDescription = studyDescription;
-	}
+    public void setStudyCode(String studyCode) {
+        this.studyCode = studyCode;
+    }
 
-	public String getStudyName() {
-		return studyName;
-	}
+    public String getStudyDescription() {
+        return studyDescription;
+    }
 
-	public void setStudyName(String studyName) {
-		this.studyName = studyName;
-	}
+    public void setStudyDescription(String studyDescription) {
+        this.studyDescription = studyDescription;
+    }
 
-	public String getStudyPUI() {
-		return studyPUI;
-	}
+    public String getStudyName() {
+        return studyName;
+    }
 
-	public void setStudyPUI(String studyPUI) {
-		this.studyPUI = studyPUI;
-	}
+    public void setStudyName(String studyName) {
+        this.studyName = studyName;
+    }
 
-	public String getStudyType() {
-		return studyType;
-	}
+    public String getStudyPUI() {
+        return studyPUI;
+    }
 
-	public void setStudyType(String studyType) {
-		this.studyType = studyType;
-	}
+    public void setStudyPUI(String studyPUI) {
+        this.studyPUI = studyPUI;
+    }
 
-	public TrialEntity getTrial() {
-		return trial;
-	}
+    public String getStudyType() {
+        return studyType;
+    }
 
-	public void setTrial(TrialEntity trial) {
-		this.trial = trial;
-		if (trial.getProgram() != null)
-			setProgram(trial.getProgram());
-		if (trial.getCrop() != null)
-			setCrop(trial.getCrop());
-	}
+    public void setStudyType(String studyType) {
+        this.studyType = studyType;
+    }
+
+    public TrialEntity getTrial() {
+        return trial;
+    }
+
+    public void setTrial(TrialEntity trial) {
+        this.trial = trial;
+        if (trial.getProgram() != null)
+            setProgram(trial.getProgram());
+        if (trial.getCrop() != null)
+            setCrop(trial.getCrop());
+    }
 }
