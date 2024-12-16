@@ -1,27 +1,27 @@
-version: '3'
-
 services:
+  # Update this image with whatever image you have access to
   brapi-java-server-v1:
     image: brapicoordinatorselby/brapi-java-server:v1
-    restart: unless-stopped
     depends_on:
       - postgres
     volumes:
       - /home/jenkins/brapi.org/brapi-test-server/properties/v1/application.properties:/home/brapi/properties/application.properties
   brapi-java-server-v2:
+    # Update this image with whatever image you have access to
     image: brapicoordinatorselby/brapi-java-server:v2
-    restart: unless-stopped
     depends_on:
       - postgres
     volumes:
+      # Update this path with the path your pipeline tool expects
       - /home/jenkins/brapi.org/brapi-test-server/properties/v2/application.properties:/home/brapi/properties/application.properties
   keycloak-brapi:
+    # Update this image with whatever keycloak image you have access to
     image: brapicoordinatorselby/brapi-keycloak:latest
-    restart: unless-stopped
     entrypoint: /opt/keycloak/bin/kc.sh start --optimized --proxy edge
     depends_on:
       - postgres
     environment:
+      # These vars will change depending on how you have configured your keycloak DB
       - KEYCLOAK_USER
       - KEYCLOAK_PASSWORD
       - KC_HOSTNAME=auth.brapi.org
@@ -31,8 +31,8 @@ services:
       - KC_DB_PASSWORD
   postgres:
     image: postgres:13
-    restart: unless-stopped
     volumes:
+      # Update this path with the path your pipeline tool expects
       - /home/jenkins/brapi.org/brapi-test-server/data:/var/lib/postgresql/data
 networks:
     default:

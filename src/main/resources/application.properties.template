@@ -1,6 +1,7 @@
 server.port = 8080
 server.servlet.context-path=/brapi/v2
 
+
 spring.datasource.url=jdbc:postgresql://EXAMPLE:5432/EXAMPLE
 spring.datasource.username=EXAMPLE
 spring.datasource.password=EXAMPLE
@@ -18,3 +19,4 @@ spring.flyway.baselineOnMigrate=true
 spring.mvc.dispatch-options-request=true
 
 security.oidc_discovery_url=https://example.com/auth/.well-known/openid-configuration
+security.issuer_url=http://example.com/issuerurl
