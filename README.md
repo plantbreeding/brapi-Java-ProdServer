@@ -69,6 +69,10 @@ implementations for you to look at.
 All of these different container configurations utilize the same `Dockerfile`, which positions the jar and exposes
 ports for utilization by the host machine.
 
+#### Volumes
+Before we get into building and running docker, it should be noted the host path for volumes in the compose files need to have either / or \ to denote the 
+file structure depending on which OS your host machine has.
+
 #### Development (No Auth) Implementation
 To speed up getting started with docker, you can forgo an authentication implementation entirely just to get up and running.
 
