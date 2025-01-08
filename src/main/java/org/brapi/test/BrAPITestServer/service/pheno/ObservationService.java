@@ -1,14 +1,8 @@
 package org.brapi.test.BrAPITestServer.service.pheno;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
+import io.swagger.model.Metadata;
+import io.swagger.model.pheno.*;
 import jakarta.validation.Valid;
-
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.SeasonEntity;
@@ -17,32 +11,28 @@ import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationUnitEntity;
 import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationVariableEntity;
 import org.brapi.test.BrAPITestServer.repository.pheno.ObservationRepository;
-import org.brapi.test.BrAPITestServer.service.DateUtility;
-import org.brapi.test.BrAPITestServer.service.GeoJSONUtility;
-import org.brapi.test.BrAPITestServer.service.PagingUtility;
-import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
-import org.brapi.test.BrAPITestServer.service.UpdateUtility;
+import org.brapi.test.BrAPITestServer.service.*;
 import org.brapi.test.BrAPITestServer.service.core.SeasonService;
 import org.brapi.test.BrAPITestServer.service.core.StudyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import io.swagger.model.Metadata;
-import io.swagger.model.pheno.Observation;
-import io.swagger.model.pheno.ObservationNewRequest;
-import io.swagger.model.pheno.ObservationSearchRequest;
-import io.swagger.model.pheno.ObservationTable;
-import io.swagger.model.pheno.ObservationTableHeaderRowEnum;
-import io.swagger.model.pheno.ObservationTableObservationVariables;
-import io.swagger.model.pheno.ObservationUnitHierarchyLevelEnum;
-import io.swagger.model.pheno.ObservationUnitLevel;
-import io.swagger.model.pheno.ObservationUnitLevelRelationship;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ObservationService {
+
+	private static final Logger log = LoggerFactory.getLogger(ObservationService.class);
 
 	private final ObservationRepository observationRepository;
 	private final SeasonService seasonService;
@@ -173,7 +163,9 @@ public class ObservationService {
 
 	public List<Observation> findObservations(@Valid ObservationSearchRequest request, Metadata metadata) {
 		Page<ObservationEntity> page = findObservationEntities(request, metadata);
+		log.debug("converting "+page.getSize()+" entities");
 		List<Observation> observations = page.map(this::convertFromEntity).getContent();
+		log.debug("done converting entities");
 		PagingUtility.calculateMetaData(metadata, page);
 		return observations;
 	}
@@ -182,6 +174,26 @@ public class ObservationService {
 		Pageable pageReq = PagingUtility.getPageRequest(metadata);
 		SearchQueryBuilder<ObservationEntity> searchQuery = new SearchQueryBuilder<ObservationEntity>(
 				ObservationEntity.class);
+		searchQuery.leftJoinFetch("observationVariable", "observationVariable")
+				.leftJoinFetch("*observationVariable.crop", "varCrop")
+				.leftJoinFetch("*observationVariable.method", "varMethod")
+				.leftJoinFetch("*observationVariable.ontology", "varOntology")
+				.leftJoinFetch("*observationVariable.scale", "varScale")
+				.leftJoinFetch("*observationVariable.trait", "varTrait")
+				.leftJoinFetch("season", "season")
+				.leftJoinFetch("program", "program")
+				.leftJoinFetch("trial", "trial")
+				.leftJoinFetch("geoCoordinates", "geoCoordinates")
+				.leftJoinFetch("observationUnit", "observationUnit")
+				.leftJoinFetch("*observationUnit.position", "position")
+				.leftJoinFetch("*position.geoCoordinates", "ouGeoCoordinates")
+				.leftJoinFetch("*observationUnit.germplasm", "ouGermplasm")
+				.leftJoinFetch("*ouGermplasm.pedigree", "pedigree")
+				.leftJoinFetch("*observationUnit.study", "ouStudy")
+				.leftJoinFetch("study", "study")
+				.leftJoinFetch("*study.experimentalDesign", "experimentalDesign")
+				.leftJoinFetch("*study.growthFacility", "growthFacility")
+				.leftJoinFetch("*study.lastUpdate", "lastUpdate");
 		if (request.getObservationLevels() != null) {
 			searchQuery = searchQuery
 					.appendEnumList(
@@ -229,7 +241,13 @@ public class ObservationService {
 				.appendList(request.getStudyDbIds(), "study.id").appendList(request.getStudyNames(), "study.studyName")
 				.appendList(request.getTrialDbIds(), "trial.id").appendList(request.getTrialNames(), "trial.trialName");
 
+		log.debug("starting search");
 		Page<ObservationEntity> page = observationRepository.findAllBySearch(searchQuery, pageReq);
+		log.debug("search complete");
+
+		if(!page.isEmpty()) {
+			observationRepository.fetchXrefs(page, ObservationEntity.class);
+		}
 		return page;
 	}
 
@@ -254,16 +272,16 @@ public class ObservationService {
 	}
 
 	public List<Observation> saveObservations(@Valid List<ObservationNewRequest> requests) throws BrAPIServerException {
-		List<Observation> savedObservations = new ArrayList<>();
-
+		List<ObservationEntity> toSave = new ArrayList<>();
 		for (ObservationNewRequest request : requests) {
 			ObservationEntity entity = new ObservationEntity();
-			updateEntity(entity, request);
-			ObservationEntity savedEntity = observationRepository.save(entity);
-			savedObservations.add(convertFromEntity(savedEntity));
+			updateEntity(entity, request);  // TODO: does updateEntity need to hit the database?
+			toSave.add(entity);
 		}
-
-		return savedObservations;
+		return observationRepository.saveAllAndFlush(toSave)
+				.stream()
+				.map(this::convertFromEntity)
+				.collect(Collectors.toList());
 	}
 
 	public List<Observation> updateObservations(@Valid Map<String, ObservationNewRequest> requests)
@@ -300,6 +318,7 @@ public class ObservationService {
 	}
 
 	public Observation convertFromEntity(ObservationEntity entity) {
+		log.trace("converting obs: " + entity.getId());
 		Observation observation = new Observation();
 		if (entity != null) {
 			UpdateUtility.convertFromEntity(entity, observation);

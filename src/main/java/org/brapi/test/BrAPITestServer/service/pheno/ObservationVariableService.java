@@ -1,25 +1,24 @@
 package org.brapi.test.BrAPITestServer.service.pheno;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 import jakarta.validation.Valid;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
 import org.brapi.test.BrAPITestServer.model.entity.core.CropEntity;
-import org.brapi.test.BrAPITestServer.model.entity.pheno.MethodEntity;
-import org.brapi.test.BrAPITestServer.model.entity.pheno.ObservationVariableEntity;
-import org.brapi.test.BrAPITestServer.model.entity.pheno.ScaleEntity;
-import org.brapi.test.BrAPITestServer.model.entity.pheno.TraitEntity;
-import org.brapi.test.BrAPITestServer.model.entity.pheno.VariableBaseEntity;
+import org.brapi.test.BrAPITestServer.model.entity.pheno.*;
+import org.brapi.test.BrAPITestServer.repository.core.TraitRepository;
+import org.brapi.test.BrAPITestServer.repository.pheno.MethodRepository;
 import org.brapi.test.BrAPITestServer.repository.pheno.ObservationVariableRepository;
+import org.brapi.test.BrAPITestServer.repository.pheno.ScaleRepository;
 import org.brapi.test.BrAPITestServer.service.DateUtility;
 import org.brapi.test.BrAPITestServer.service.PagingUtility;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
 import org.brapi.test.BrAPITestServer.service.UpdateUtility;
 import org.brapi.test.BrAPITestServer.service.core.CropService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +36,12 @@ import io.swagger.model.pheno.VariableBaseClass;
 
 @Service
 public class ObservationVariableService {
+
+	private static final Logger log = LoggerFactory.getLogger(ObservationVariableService.class);
 	private final ObservationVariableRepository observationVariableRepository;
+	private final MethodRepository methodRepository;
+	private final ScaleRepository scaleRepository;
+	private final TraitRepository traitRepository;
 	private final CropService cropService;
 	private final OntologyService ontologyService;
 	private final MethodService methodService;
@@ -46,9 +50,12 @@ public class ObservationVariableService {
 
 	@Autowired
 	public ObservationVariableService(ObservationVariableRepository observationVariableRepository,
-			OntologyService ontologyService, CropService cropService, MethodService methodService,
-			ScaleService scaleService, TraitService traitService) {
+									  OntologyService ontologyService, CropService cropService, MethodService methodService,
+									  ScaleService scaleService, TraitService traitService, MethodRepository methodRepository, ScaleRepository scaleRepository, TraitRepository traitRepository) {
 		this.observationVariableRepository = observationVariableRepository;
+		this.methodRepository = methodRepository;
+		this.scaleRepository = scaleRepository;
+		this.traitRepository = traitRepository;
 		this.ontologyService = ontologyService;
 		this.cropService = cropService;
 		this.methodService = methodService;
@@ -110,6 +117,12 @@ public class ObservationVariableService {
 		Pageable pageReq = PagingUtility.getPageRequest(metadata);
 		SearchQueryBuilder<ObservationVariableEntity> searchQuery = new SearchQueryBuilder<ObservationVariableEntity>(
 				ObservationVariableEntity.class);
+		searchQuery.leftJoinFetch("contextOfUse", "contextOfUse")
+				   .leftJoinFetch("crop", "varCrop")
+				   .leftJoinFetch("method", "varMethod")
+				   .leftJoinFetch("ontology", "varOntology")
+				   .leftJoinFetch("scale", "varScale")
+				   .leftJoinFetch("trait", "varTrait");
 		if (request.getStudyDbId() != null) {
 			searchQuery = searchQuery.join("observations", "observation").appendList(request.getStudyDbId(),
 					"*observation.observationUnit.study.id");
@@ -123,8 +136,14 @@ public class ObservationVariableService {
 				.appendList(request.getTraitDbIds(), "trait.id")
 				.appendEnumList(request.getDataTypes(), "scale.dataType");
 
+		log.debug("Starting variable search");
 		Page<ObservationVariableEntity> page = observationVariableRepository.findAllBySearch(searchQuery, pageReq);
+		log.debug("Variable search complete");
+
+
+		log.debug("converting "+page.getSize()+" entities");
 		List<ObservationVariable> observationVariables = page.map(this::convertFromEntity).getContent();
+		log.debug("done converting entities");
 		PagingUtility.calculateMetaData(metadata, page);
 		return observationVariables;
 	}
@@ -174,6 +193,7 @@ public class ObservationVariableService {
 	}
 
 	private ObservationVariable convertFromEntity(ObservationVariableEntity entity) {
+		log.trace("converting variable: " + entity.getId());
 		ObservationVariable var = new ObservationVariable();
 		convertFromBaseEntity(entity, var);
 		var.setObservationVariableName(entity.getName());
