@@ -1,5 +1,6 @@
 package io.swagger.model.geno;
 
+import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class Call {
 	@JsonProperty("additionalInfo")
-	private Object additionalInfo = null;
+	private Map<String, Object> additionalInfo = null;
 
 	@JsonProperty("callSetDbId")
 	private String callSetDbId = null;
@@ -77,16 +78,16 @@ public class Call {
 		return this;
 	}
 	
-	public Call additionalInfo(Object additionalInfo) {
+	public Call additionalInfo(Map<String, Object> additionalInfo) {
 		this.additionalInfo = additionalInfo;
 		return this;
 	}
 
-	public Object getAdditionalInfo() {
+	public Map<String, Object> getAdditionalInfo() {
 		return additionalInfo;
 	}
 
-	public void setAdditionalInfo(Object additionalInfo) {
+	public void setAdditionalInfo(Map<String, Object> additionalInfo) {
 		this.additionalInfo = additionalInfo;
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class ImageNewRequest   {
   @JsonProperty("additionalInfo")
   @Valid
-  private Object additionalInfo = null;
+  private Map<String, Object> additionalInfo = null;
 
   @JsonProperty("copyright")
   private String copyright = null;
@@ -71,7 +72,7 @@ public class ImageNewRequest   {
   @JsonProperty("observationUnitDbId")
   private String observationUnitDbId = null;
 
-  public ImageNewRequest additionalInfo(Object additionalInfo) {
+  public ImageNewRequest additionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -81,12 +82,11 @@ public class ImageNewRequest   {
    * @return additionalInfo
   **/
   @ApiModelProperty(value = "")
-  
-    public Object getAdditionalInfo() {
+  public Map<String, Object> getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Object additionalInfo) {
+  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

@@ -1,16 +1,17 @@
 package io.swagger.model.core;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 
 import io.swagger.model.ExternalReferences;
 
 public interface BatchDeleteBaseFieldsInterface {
 
-	public BatchDeleteBaseFieldsInterface additionalInfo(Object additionalInfo);
+	public BatchDeleteBaseFieldsInterface additionalInfo(Map<String, Object> additionalInfo);
 
-	public Object getAdditionalInfo();
+	public Map<String, Object> getAdditionalInfo();
 
-	public void setAdditionalInfo(Object additionalInfo);
+	public void setAdditionalInfo(Map<String, Object> additionalInfo);
 
 	public BatchDeleteBaseFieldsInterface dateCreated(OffsetDateTime dateCreated);
 

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -18,7 +19,7 @@ import java.util.Objects;
 public class SampleNewRequest   {
   @JsonProperty("additionalInfo")
   @Valid
-  private Object additionalInfo = null;
+  private Map<String, Object> additionalInfo = null;
 
   @JsonProperty("column")
   private Integer column = null;
@@ -80,7 +81,7 @@ public class SampleNewRequest   {
   @JsonProperty("well")
   private String well = null;
 
-  public SampleNewRequest additionalInfo(Object additionalInfo) {
+  public SampleNewRequest additionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -91,11 +92,11 @@ public class SampleNewRequest   {
   **/
   @ApiModelProperty(value = "Additional arbitrary info")
   
-    public Object getAdditionalInfo() {
+    public Map<String, Object>getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Object additionalInfo) {
+  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

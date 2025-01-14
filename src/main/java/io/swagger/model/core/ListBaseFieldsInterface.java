@@ -1,16 +1,17 @@
 package io.swagger.model.core;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 
 import io.swagger.model.ExternalReferences;
 
 public interface ListBaseFieldsInterface {
 
-	public ListBaseFieldsInterface additionalInfo(Object additionalInfo);
+	public ListBaseFieldsInterface additionalInfo(Map<String, Object> additionalInfo);
 
-	public Object getAdditionalInfo();
+	public Map<String, Object> getAdditionalInfo();
 
-	public void setAdditionalInfo(Object additionalInfo);
+	public void setAdditionalInfo(Map<String, Object> additionalInfo);
 
 	public ListBaseFieldsInterface dateCreated(OffsetDateTime dateCreated);
 
