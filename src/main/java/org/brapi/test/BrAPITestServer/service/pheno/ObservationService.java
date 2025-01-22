@@ -302,7 +302,7 @@ public class ObservationService {
 		if (body.getTotalParameterCount() > 0) {
 			List<ObservationEntity> deletedObservations = findObservationEntities(body, metadata).getContent();
 			observationRepository.deleteAll(deletedObservations);
-			deletedObservationDbIds = deletedObservations.stream().map(obs -> obs.getId()).collect(Collectors.toList());
+			deletedObservationDbIds = deletedObservations.stream().map(obs -> obs.getId().toString()).collect(Collectors.toList());
 		}
 
 		return deletedObservationDbIds;
@@ -318,18 +318,18 @@ public class ObservationService {
 	}
 
 	public Observation convertFromEntity(ObservationEntity entity) {
-		log.trace("converting obs: " + entity.getId());
+		log.trace("converting obs: " + entity.getId().toString());
 		Observation observation = new Observation();
 		if (entity != null) {
 			UpdateUtility.convertFromEntity(entity, observation);
 
 			observation.setCollector(entity.getCollector());
 			observation.setGeoCoordinates(GeoJSONUtility.convertFromEntity(entity.getGeoCoordinates()));
-			observation.setObservationDbId(entity.getId());
+			observation.setObservationDbId(entity.getId().toString());
 			observation.setObservationTimeStamp(DateUtility.toOffsetDateTime(entity.getObservationTimeStamp()));
 
 			if (entity.getObservationVariable() != null) {
-				observation.setObservationVariableDbId(entity.getObservationVariable().getId());
+				observation.setObservationVariableDbId(entity.getObservationVariable().getId().toString());
 				observation.setObservationVariableName(entity.getObservationVariable().getName());
 			}
 			if (entity.getSeason() != null) {
@@ -339,17 +339,17 @@ public class ObservationService {
 			observation.setValue(entity.getValue());
 
 			if (entity.getObservationUnit() != null) {
-				observation.setObservationUnitDbId(entity.getObservationUnit().getId());
+				observation.setObservationUnitDbId(entity.getObservationUnit().getId().toString());
 				observation.setObservationUnitName(entity.getObservationUnit().getObservationUnitName());
 				if (entity.getObservationUnit().getGermplasm() != null) {
-					observation.setGermplasmDbId(entity.getObservationUnit().getGermplasm().getId());
+					observation.setGermplasmDbId(entity.getObservationUnit().getGermplasm().getId().toString());
 					observation.setGermplasmName(entity.getObservationUnit().getGermplasm().getGermplasmName());
 				}
 				if (entity.getObservationUnit().getStudy() != null) {
-					observation.setStudyDbId(entity.getObservationUnit().getStudy().getId());
+					observation.setStudyDbId(entity.getObservationUnit().getStudy().getId().toString());
 				}
 			} else if (entity.getStudy() != null) {
-				observation.setStudyDbId(entity.getStudy().getId());
+				observation.setStudyDbId(entity.getStudy().getId().toString());
 			}
 
 		}
@@ -406,11 +406,11 @@ public class ObservationService {
 						row.add(""); // YEAR
 					}
 
-					row.add(printIfNotNull(study.getId())); // STUDYDBID
+					row.add(printIfNotNull(study.getId().toString())); // STUDYDBID
 					row.add(printIfNotNull(study.getStudyName())); // STUDYNAME
 
 //					if (study.getLocation() != null) {
-//						row.add(printIfNotNull(study.getLocation().getId())); // LOCATIONDBID
+//						row.add(printIfNotNull(study.getLocation().getId().toString())); // LOCATIONDBID
 //						row.add(printIfNotNull(study.getLocation().getLocationName())); // LOCATIONNAME
 //					} else {
 //						row.add(""); // LOCATIONDBID
@@ -426,14 +426,14 @@ public class ObservationService {
 				}
 
 				if (obsUnit.getGermplasm() != null) {
-					row.add(printIfNotNull(obsUnit.getGermplasm().getId())); // GERMPLASMDBID
+					row.add(printIfNotNull(obsUnit.getGermplasm().getId().toString())); // GERMPLASMDBID
 					row.add(printIfNotNull(obsUnit.getGermplasm().getGermplasmName())); // GERMPLASMNAME
 				} else {
 					row.add(""); // GERMPLASMDBID
 					row.add(""); // GERMPLASMNAME
 				}
 
-				row.add(printIfNotNull(obsUnit.getId())); // OBSERVATIONUNITDBID
+				row.add(printIfNotNull(obsUnit.getId().toString())); // OBSERVATIONUNITDBID
 				row.add(printIfNotNull(obsUnit.getObservationUnitName())); // OBSERVATIONUNITNAME
 
 				if (obsUnit.getPosition() != null) {
@@ -463,7 +463,7 @@ public class ObservationService {
 			row.add(printIfNotNull(obs.getObservationTimeStamp())); // OBSERVATIONTIMESTAMP
 
 			for (ObservationVariableEntity var : variables) {
-				if (obs.getObservationVariable() != null && obs.getObservationVariable().getId() == var.getId()) {
+				if (obs.getObservationVariable() != null && obs.getObservationVariable().getId().toString() == var.getId().toString()) {
 					row.add(obs.getValue());
 				} else {
 					row.add("");
@@ -538,7 +538,7 @@ public class ObservationService {
 
 	private ObservationTableObservationVariables convertVariables(ObservationVariableEntity variable) {
 		ObservationTableObservationVariables header = new ObservationTableObservationVariables();
-		header.setObservationVariableDbId(variable.getId());
+		header.setObservationVariableDbId(variable.getId().toString());
 		header.setObservationVariableName(variable.getName());
 		return header;
 	}

@@ -195,7 +195,7 @@ public class GermplasmAttributeService {
 
 		attrib.setAttributeName(entity.getName());
 		attrib.setAttributeCategory(entity.getAttributeCategory());
-		attrib.setAttributeDbId(entity.getId());
+		attrib.setAttributeDbId(entity.getId().toString());
 		attrib.setAttributeDescription(entity.getDescription());
 		attrib.setAttributePUI(entity.getPUI());
 

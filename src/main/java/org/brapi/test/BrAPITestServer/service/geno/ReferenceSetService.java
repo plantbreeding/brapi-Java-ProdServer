@@ -99,7 +99,7 @@ public class ReferenceSetService {
 		refSet.setDescription(entity.getDescription());
 		refSet.setIsDerived(entity.getIsDerived());
 		refSet.setMd5checksum(entity.getMd5checksum());
-		refSet.setReferenceSetDbId(entity.getId());
+		refSet.setReferenceSetDbId(entity.getId().toString());
 		refSet.setReferenceSetName(entity.getReferenceSetName());
 		refSet.setSourceURI(entity.getSourceURI());
 
@@ -116,7 +116,7 @@ public class ReferenceSetService {
 			}
 			refSet.setCommonCropName(entity.getSourceGermplasm().getCrop().getCropName());
 			ReferenceSourceGermplasm sourceGerm = new ReferenceSourceGermplasm();
-			sourceGerm.setGermplasmDbId(entity.getSourceGermplasm().getId());
+			sourceGerm.setGermplasmDbId(entity.getSourceGermplasm().getId().toString());
 			sourceGerm.setGermplasmName(entity.getSourceGermplasm().getGermplasmName());
 			refSet.setSourceGermplasm(Arrays.asList(sourceGerm));
 		}

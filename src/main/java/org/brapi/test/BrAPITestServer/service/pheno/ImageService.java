@@ -176,7 +176,7 @@ public class ImageService {
 		if (body.getTotalParameterCount() > 0) {
 			List<ImageEntity> deletedImages = findImageEntities(body, metadata);
 			imageRepository.deleteAll(deletedImages);
-			deletedImageDbIds = deletedImages.stream().map(image -> image.getId()).collect(Collectors.toList());
+			deletedImageDbIds = deletedImages.stream().map(image -> image.getId().toString()).collect(Collectors.toList());
 		}
 		return deletedImageDbIds;
 	}
@@ -246,7 +246,7 @@ public class ImageService {
 		img.setDescription(entity.getDescription());
 		img.setDescriptiveOntologyTerms(entity.getDescriptiveOntologyTerms());
 		img.setExternalReferences(entity.getExternalReferencesMap());
-		img.setImageDbId(entity.getId());
+		img.setImageDbId(entity.getId().toString());
 		img.setImageFileName(entity.getImageFileName());
 		img.setImageFileSize(entity.getImageFileSize());
 		img.setImageHeight(entity.getImageHeight());
@@ -258,11 +258,11 @@ public class ImageService {
 		img.setMimeType(entity.getImageMIMEType());
 		if (entity.getObservations() != null) {
 			img.setObservationDbIds(entity.getObservations().stream().map(o -> {
-				return o.getId();
+				return o.getId().toString();
 			}).collect(Collectors.toList()));
 		}
 		if (entity.getObservationUnit() != null)
-			img.setObservationUnitDbId(entity.getObservationUnit().getId());
+			img.setObservationUnitDbId(entity.getObservationUnit().getId().toString());
 
 		return img;
 	}
