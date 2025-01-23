@@ -307,7 +307,7 @@ public class GermplasmService {
 	public GermplasmEntity getGermplasmEntity(String germplasmDbId, HttpStatus errorStatus)
 			throws BrAPIServerException {
 		GermplasmEntity germplasm = null;
-		Optional<GermplasmEntity> entityOpt = germplasmRepository.findById(germplasmDbId);
+		Optional<GermplasmEntity> entityOpt = germplasmRepository.findById(UUID.fromString(germplasmDbId));
 		if (entityOpt.isPresent()) {
 			germplasm = entityOpt.get();
 			germplasmRepository.refresh(germplasm);
@@ -481,7 +481,7 @@ public class GermplasmService {
 			TaxonEntity newEntity = new TaxonEntity();
 			newEntity.setGermplasm(entity);
 			newEntity.setSourceName(taxonId.getSourceName());
-			newEntity.setTaxonId(taxonId.getTaxonId());
+			newEntity.setTaxonId(UUID.fromString(taxonId.getTaxonId()));
 			entity.getTaxonIds().add(newEntity);
 		}
 	}
@@ -599,7 +599,7 @@ public class GermplasmService {
 	private TaxonID convertFromEntity(TaxonEntity entity) {
 		TaxonID taxonId = new TaxonID();
 		taxonId.setSourceName(entity.getSourceName());
-		taxonId.setTaxonId(entity.getTaxonId());
+		taxonId.setTaxonId(entity.getTaxonId().toString());
 		return taxonId;
 	}
 

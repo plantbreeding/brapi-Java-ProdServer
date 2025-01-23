@@ -1,9 +1,6 @@
 package org.brapi.test.BrAPITestServer.service.core;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import io.swagger.model.core.*;
@@ -145,7 +142,7 @@ public class TrialService {
 	}
 
 	public TrialEntity getTrialEntity(String trialDbId, HttpStatus errorStatus) throws BrAPIServerException {
-		Optional<TrialEntity> entityOption = trialRepository.findById(trialDbId);
+		Optional<TrialEntity> entityOption = trialRepository.findById(UUID.fromString(trialDbId));
 		TrialEntity entity = null;
 		if (entityOption.isPresent()) {
 			entity = entityOption.get();
@@ -172,7 +169,7 @@ public class TrialService {
 	}
 
 	public void deleteTrialBatch(List<String> trialDbIds) {
-		trialRepository.deleteAllByIdInBatch(trialDbIds);
+		trialRepository.deleteAllByIdInBatch(trialDbIds.stream().map(UUID::fromString).toList());
 	}
 
 	public void softDeleteTrialBatch(List<String> trialDbIds) {
@@ -191,7 +188,7 @@ public class TrialService {
 		softDeleteTrial(trialDbId);
 
 		// Hard delete the trial
-		trialRepository.deleteAllByIdInBatch(Arrays.asList(trialDbId));
+		trialRepository.deleteAllByIdInBatch(List.of(UUID.fromString(trialDbId)));
 	}
 
 	public Trial updateTrial(String trialDbId, TrialNewRequest body) throws BrAPIServerException {

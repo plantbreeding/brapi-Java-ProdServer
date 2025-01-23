@@ -3,6 +3,7 @@ package org.brapi.test.BrAPITestServer.service.core;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
@@ -82,7 +83,7 @@ public class PeopleService {
 		PersonEntity entity = null;
 
 		if (personDbId != null) {
-			Optional<PersonEntity> entityOpt = peopleRepository.findById(personDbId);
+			Optional<PersonEntity> entityOpt = peopleRepository.findById(UUID.fromString(personDbId));
 			if (entityOpt.isPresent()) {
 				entity = entityOpt.get();
 			} else {
@@ -122,7 +123,7 @@ public class PeopleService {
 		entity.setEmailAddress(contact.getEmail());
 		entity.setInstituteName(contact.getInstituteName());
 		parseName(contact.getName(), entity);
-		entity.setUserID(contact.getOrcid());
+		entity.setUserID(UUID.fromString(contact.getOrcid()));
 		entity.setDescription(contact.getType());
 
 		PersonEntity savedEntity = peopleRepository.save(entity);
@@ -165,7 +166,7 @@ public class PeopleService {
 		person.setMiddleName(entity.getMiddleName());
 		person.setPersonDbId(entity.getId().toString());
 		person.setPhoneNumber(entity.getPhoneNumber());
-		person.setUserID(entity.getUserID());
+		person.setUserID(entity.getUserID().toString());
 
 		return person;
 	}
@@ -177,7 +178,7 @@ public class PeopleService {
 		contact.setEmail(entity.getEmailAddress());
 		contact.setInstituteName(entity.getInstituteName());
 		contact.setName(entity.getFullName());
-		contact.setOrcid(entity.getUserID());
+		contact.setOrcid(entity.getUserID().toString());
 		contact.setType(entity.getDescription());
 
 		return contact;
@@ -203,7 +204,7 @@ public class PeopleService {
 		if (request.getPhoneNumber() != null)
 			entity.setPhoneNumber(request.getPhoneNumber());
 		if (request.getUserID() != null)
-			entity.setUserID(request.getUserID());
+			entity.setUserID(UUID.fromString(request.getUserID()));
 	}
 
 }

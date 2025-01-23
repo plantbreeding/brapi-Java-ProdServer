@@ -1,9 +1,6 @@
 package org.brapi.test.BrAPITestServer.service.germ;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import jakarta.validation.Valid;
 
@@ -79,7 +76,7 @@ public class CrossingProjectService {
 	public CrossingProjectEntity getCrossingProjectEntity(String crossingProjectDbId, HttpStatus errorStatus)
 			throws BrAPIServerException {
 		CrossingProjectEntity crossingProject = null;
-		Optional<CrossingProjectEntity> entityOpt = crossingProjectRepository.findById(crossingProjectDbId);
+		Optional<CrossingProjectEntity> entityOpt = crossingProjectRepository.findById(UUID.fromString(crossingProjectDbId));
 		if (entityOpt.isPresent()) {
 			crossingProject = entityOpt.get();
 		} else {

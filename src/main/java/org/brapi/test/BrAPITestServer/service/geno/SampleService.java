@@ -1,10 +1,6 @@
 package org.brapi.test.BrAPITestServer.service.geno;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.Map.Entry;
 
 import io.swagger.model.core.BatchDeleteDetails;
@@ -151,7 +147,7 @@ public class SampleService {
 
 	public SampleEntity getSampleEntity(String sampleDbId, HttpStatus errorStatus) throws BrAPIServerException {
 		SampleEntity sample = null;
-		Optional<SampleEntity> entityOpt = sampleRepository.findById(sampleDbId);
+		Optional<SampleEntity> entityOpt = sampleRepository.findById(UUID.fromString(sampleDbId));
 		if (entityOpt.isPresent()) {
 			sample = entityOpt.get();
 		} else {
@@ -174,7 +170,7 @@ public class SampleService {
 	}
 
 	public void deleteSampleBatch(List<String> sampleDbIds) {
-		sampleRepository.deleteAllByIdInBatch(sampleDbIds);
+		sampleRepository.deleteAllByIdInBatch(sampleDbIds.stream().map(UUID::fromString).toList());
 	}
 
 	public void softDeleteSampleBatch(List<String> sampleDbIds) {
@@ -186,7 +182,7 @@ public class SampleService {
 		softDeleteSample(sampleDbId);
 
 		// Hard delete the sample
-		sampleRepository.deleteAllByIdInBatch(Arrays.asList(sampleDbId));
+		sampleRepository.deleteAllByIdInBatch(List.of(UUID.fromString(sampleDbId)));
 	}
 
 	public void softDeleteSample(String sampleDbId) throws BrAPIServerDbIdNotFoundException {
@@ -260,7 +256,7 @@ public class SampleService {
 		sample.setSampleBarcode(entity.getSampleBarcode());
 		sample.setSampleDbId(entity.getId().toString());
 		sample.setSampleDescription(entity.getSampleDescription());
-		sample.setSampleGroupDbId(entity.getSampleGroupDbId());
+		sample.setSampleGroupDbId(entity.getSampleGroupDbId().toString());
 		sample.setSampleName(entity.getSampleName());
 		sample.setSamplePUI(entity.getSamplePUI());
 		sample.setSampleTimestamp(DateUtility.toOffsetDateTime(entity.getSampleTimestamp()));
@@ -320,7 +316,7 @@ public class SampleService {
 		if (sample.getSampleDescription() != null)
 			entity.setSampleDescription(sample.getSampleDescription());
 		if (sample.getSampleGroupDbId() != null)
-			entity.setSampleGroupDbId(sample.getSampleGroupDbId());
+			entity.setSampleGroupDbId(UUID.fromString(sample.getSampleGroupDbId()));
 		if (sample.getSampleName() != null)
 			entity.setSampleName(sample.getSampleName());
 		if (sample.getSamplePUI() != null)

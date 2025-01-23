@@ -3,6 +3,7 @@ package org.brapi.test.BrAPITestServer.service.geno;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
@@ -78,7 +79,7 @@ public class VariantService {
 
 	public VariantEntity getVariantEntity(String variantDbId, HttpStatus errorStatus) throws BrAPIServerException {
 		VariantEntity variant = null;
-		Optional<VariantEntity> entityOpt = variantRepository.findById(variantDbId);
+		Optional<VariantEntity> entityOpt = variantRepository.findById(UUID.fromString(variantDbId));
 		if (entityOpt.isPresent()) {
 			variant = entityOpt.get();
 		} else {

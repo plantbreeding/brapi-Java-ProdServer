@@ -22,11 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -262,7 +259,7 @@ public class ObservationService {
 	public ObservationEntity getObservationEntity(String observationDbId, HttpStatus errorStatus)
 			throws BrAPIServerException {
 		ObservationEntity observation = null;
-		Optional<ObservationEntity> entityOpt = observationRepository.findById(observationDbId);
+		Optional<ObservationEntity> entityOpt = observationRepository.findById(UUID.fromString(observationDbId));
 		if (entityOpt.isPresent()) {
 			observation = entityOpt.get();
 		} else {

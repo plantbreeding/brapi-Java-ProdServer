@@ -1,10 +1,6 @@
 package org.brapi.test.BrAPITestServer.service.core;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
@@ -165,7 +161,7 @@ public class StudyService {
 	}
 
 	public StudyEntity getStudyEntity(String studyDbId, HttpStatus errorStatus) throws BrAPIServerException {
-		Optional<StudyEntity> entityOption = studyRepository.findById(studyDbId);
+		Optional<StudyEntity> entityOption = studyRepository.findById(UUID.fromString(studyDbId));
 		StudyEntity study = null;
 		if (entityOption.isPresent()) {
 			study = entityOption.get();

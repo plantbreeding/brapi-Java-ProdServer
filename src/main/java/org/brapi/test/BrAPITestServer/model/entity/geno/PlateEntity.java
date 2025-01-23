@@ -11,12 +11,13 @@ import org.brapi.test.BrAPITestServer.model.entity.geno.vendor.VendorPlateSubmis
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "plate")
 public class PlateEntity extends BrAPIPrimaryEntity {
     @Column
-    private String clientPlateDbId;
+    private UUID clientPlateDbId;
     @Column
     private String clientPlateBarcode;
     @Column
@@ -90,10 +91,10 @@ public class PlateEntity extends BrAPIPrimaryEntity {
 	public void setSubmission(VendorPlateSubmissionEntity submission) {
 		this.submission = submission;
 	}
-	public String getClientPlateDbId() {
+	public UUID getClientPlateDbId() {
 		return clientPlateDbId;
 	}
-	public void setClientPlateDbId(String clientPlateDbId) {
+	public void setClientPlateDbId(UUID clientPlateDbId) {
 		this.clientPlateDbId = clientPlateDbId;
 	}
 	public String getClientPlateBarcode() {
