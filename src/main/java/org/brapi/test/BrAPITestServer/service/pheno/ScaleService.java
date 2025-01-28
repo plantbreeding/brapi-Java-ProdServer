@@ -47,7 +47,7 @@ public class ScaleService {
 			searchQuery = searchQuery.join("variables", "variable").appendSingle(observationVariableDbId,
 					"*variable.id");
 		}
-		searchQuery = searchQuery.appendSingle(scaleDbId, "id").withExRefs(externalReferenceID,
+		searchQuery = searchQuery.appendSingle(UUID.fromString(scaleDbId), "id").withExRefs(externalReferenceID,
 				externalReferenceSource);
 		Page<ScaleEntity> scalePage = scaleRepository.findAllBySearch(searchQuery, pageReq);
 		PagingUtility.calculateMetaData(metadata, scalePage);

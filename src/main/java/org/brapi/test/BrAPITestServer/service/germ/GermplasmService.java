@@ -503,12 +503,26 @@ public class GermplasmService {
 	}
 
 	public GermplasmEntity findByUnknownIdentity(String germplasmStr) {
+
+		// First, check to see if the str provided is a real UUID.
+		var tryDBIdLookup = true;
+		try {
+			var germUUID = UUID.fromString(germplasmStr);
+		} catch (IllegalArgumentException e) {
+			tryDBIdLookup = false;
+		}
+
 		List<String> germplasmList = Arrays.asList(germplasmStr);
 		Metadata metadata = new Metadata().pagination(new IndexPagination());
 
 		// germplasmDbId
 		GermplasmSearchRequest request = new GermplasmSearchRequest().germplasmDbIds(germplasmList);
-		Page<GermplasmEntity> page = findGermplasmEntities(request, metadata);
+		Page<GermplasmEntity> page = Page.empty();
+
+		if (tryDBIdLookup) {
+			page = findGermplasmEntities(request, metadata);
+		}
+
 		if (page.hasContent()) {
 			return page.getContent().get(0);
 		}

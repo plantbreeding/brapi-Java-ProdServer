@@ -487,7 +487,7 @@ public class PedigreeService {
 		if (node.getParents() != null) {
 
 			SearchQueryBuilder<PedigreeEdgeEntity> search = new SearchQueryBuilder<PedigreeEdgeEntity>(PedigreeEdgeEntity.class);
-			search.appendSingle(node.getGermplasmDbId(), "conncetedNode.germplasm.id");
+			search.appendSingle(UUID.fromString(node.getGermplasmDbId()), "conncetedNode.germplasm.id");
 			search.appendEnum(PedigreeEdgeEntity.EdgeType.child, "edgeType");
 			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
 			Page<PedigreeEdgeEntity> existingParentEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
@@ -510,7 +510,7 @@ public class PedigreeService {
 		if (node.getProgeny() != null) {
 
 			SearchQueryBuilder<PedigreeEdgeEntity> search = new SearchQueryBuilder<PedigreeEdgeEntity>(PedigreeEdgeEntity.class);
-			search.appendSingle(node.getGermplasmDbId(), "conncetedNode.germplasm.id");
+			search.appendSingle(UUID.fromString(node.getGermplasmDbId()), "conncetedNode.germplasm.id");
 			search.appendEnum(PedigreeEdgeEntity.EdgeType.parent, "edgeType");
 			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
 			Page<PedigreeEdgeEntity> existingProgenyEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
