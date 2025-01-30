@@ -9,7 +9,7 @@ import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 
 @Entity
 @Table(name="season")
-public class SeasonEntity extends BrAPIPrimaryEntity{
+public class SeasonEntity extends BrAPIPrimaryEntity {
 	@Column
 	private String season;
 	@Column

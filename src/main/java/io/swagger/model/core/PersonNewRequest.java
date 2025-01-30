@@ -1,5 +1,6 @@
 package io.swagger.model.core;
 
+import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +19,7 @@ import jakarta.validation.Valid;
 public class PersonNewRequest   {
   @JsonProperty("additionalInfo")
   @Valid
-  private Object additionalInfo = null;
+  private Map<String, Object> additionalInfo = null;
 
   @JsonProperty("description")
   private String description = null;
@@ -47,7 +48,7 @@ public class PersonNewRequest   {
   @JsonProperty("userID")
   private String userID = null;
 
-  public PersonNewRequest additionalInfo(Object additionalInfo) {
+  public PersonNewRequest additionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -58,11 +59,11 @@ public class PersonNewRequest   {
   **/
   @ApiModelProperty(value = "Additional arbitrary info")
   
-    public Object getAdditionalInfo() {
+    public Map<String, Object>getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Object additionalInfo) {
+  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

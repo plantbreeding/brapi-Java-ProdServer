@@ -7,6 +7,7 @@ import org.brapi.test.BrAPITestServer.converter.JsonbConverter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @MappedSuperclass
 public class BrAPIPrimaryEntity extends BrAPIBaseEntity {
@@ -14,7 +15,7 @@ public class BrAPIPrimaryEntity extends BrAPIBaseEntity {
 
 	@Convert(converter= JsonbConverter.class)
 	@Column(columnDefinition="jsonb")
-	private Object additionalInfo;
+	private Map<String, Object> additionalInfo;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(joinColumns = { @JoinColumn(referencedColumnName = "id") }, inverseJoinColumns = {
@@ -32,11 +33,11 @@ public class BrAPIPrimaryEntity extends BrAPIBaseEntity {
 		this.authUserId = authUserId;
 	}
 
-	public Object getAdditionalInfo() {
+	public Map<String, Object> getAdditionalInfo() {
 		return this.additionalInfo;
 	}
 
-	public void setAdditionalInfo(Object info) {
+	public void setAdditionalInfo(Map<String, Object> info) {
 		this.additionalInfo = info;
 	}
 

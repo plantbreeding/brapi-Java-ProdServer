@@ -7,15 +7,16 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.Map;
 
 @Converter(autoApply = false)
-public class JsonbConverter implements AttributeConverter<Object, String> {
+public class JsonbConverter implements AttributeConverter<Map<String, Object>, String> {
 
     private final static ObjectMapper mapper = new ObjectMapper();
     private static final Logger log = LoggerFactory.getLogger(JsonbConverter.class);
 
     @Override
-    public String convertToDatabaseColumn(Object jsonb) {
+    public String convertToDatabaseColumn(Map<String, Object> jsonb) {
         try {
             return mapper.writeValueAsString(jsonb);
         } catch (JsonProcessingException e) {
@@ -24,12 +25,12 @@ public class JsonbConverter implements AttributeConverter<Object, String> {
     }
 
     @Override
-    public Object convertToEntityAttribute(String dbData) {
+    public Map<String, Object> convertToEntityAttribute(String dbData) {
         try {
             if (dbData == null) {
                 return null;
             }
-            return mapper.readValue(dbData, Object.class);
+            return mapper.readValue(dbData, Map.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

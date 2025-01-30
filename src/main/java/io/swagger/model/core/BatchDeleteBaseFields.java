@@ -1,5 +1,6 @@
 package io.swagger.model.core;
 
+import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +18,7 @@ import jakarta.validation.Valid;
 public class BatchDeleteBaseFields implements BatchDeleteBaseFieldsInterface {
   @JsonProperty("additionalInfo")
   @Valid
-  private Object additionalInfo = null;
+  private Map<String, Object> additionalInfo = null;
 
   @JsonProperty("dateCreated")
   private OffsetDateTime dateCreated = null;
@@ -49,7 +50,7 @@ public class BatchDeleteBaseFields implements BatchDeleteBaseFieldsInterface {
   @JsonProperty("batchDeleteType")
   private BatchDeleteTypes batchDeleteType = null;
 
-  public BatchDeleteBaseFields additionalInfo(Object additionalInfo) {
+  public BatchDeleteBaseFields additionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -61,11 +62,11 @@ public class BatchDeleteBaseFields implements BatchDeleteBaseFieldsInterface {
    **/
   @ApiModelProperty(example = "{}", value = "Additional arbitrary info")
   
-    public Object getAdditionalInfo() {
+    public Map<String, Object>getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Object additionalInfo) {
+  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

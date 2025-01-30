@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class VendorSpecification   {
   @JsonProperty("additionalInfo")
   @Valid
-  private Object additionalInfo = null;
+  private Map<String, Object> additionalInfo = null;
 
   @JsonProperty("services")
   @Valid
@@ -26,7 +27,7 @@ public class VendorSpecification   {
   @JsonProperty("vendorContact")
   private VendorContact vendorContact = null;
 
-  public VendorSpecification additionalInfo(Object additionalInfo) {
+  public VendorSpecification additionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -37,11 +38,11 @@ public class VendorSpecification   {
   **/
   @ApiModelProperty(value = "Additional arbitrary information specific to a particular Vendor. Look for the Vendors specific API documentation for more details")
   
-    public Object getAdditionalInfo() {
+    public Map<String, Object>getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Object additionalInfo) {
+  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

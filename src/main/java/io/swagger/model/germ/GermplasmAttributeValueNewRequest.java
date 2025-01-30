@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class GermplasmAttributeValueNewRequest {
 	@JsonProperty("additionalInfo")
 	@Valid
-	private Object additionalInfo = null;
+	private Map<String, Object> additionalInfo = null;
 
 	@JsonProperty("attributeDbId")
 	private String attributeDbId = null;
@@ -40,7 +41,7 @@ public class GermplasmAttributeValueNewRequest {
 	@JsonProperty("value")
 	private String value = null;
 
-	public GermplasmAttributeValueNewRequest additionalInfo(Object additionalInfo) {
+	public GermplasmAttributeValueNewRequest additionalInfo(Map<String, Object> additionalInfo) {
 		this.additionalInfo = additionalInfo;
 		return this;
 	}
@@ -52,11 +53,11 @@ public class GermplasmAttributeValueNewRequest {
 	 **/
 	@ApiModelProperty(value = "Additional arbitrary info")
 
-	public Object getAdditionalInfo() {
+	public Map<String, Object> getAdditionalInfo() {
 		return additionalInfo;
 	}
 
-	public void setAdditionalInfo(Object additionalInfo) {
+	public void setAdditionalInfo(Map<String, Object> additionalInfo) {
 		this.additionalInfo = additionalInfo;
 	}
 
