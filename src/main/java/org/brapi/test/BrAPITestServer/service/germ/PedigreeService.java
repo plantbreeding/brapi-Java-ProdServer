@@ -1,19 +1,13 @@
 package org.brapi.test.BrAPITestServer.service.germ;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.Optional;
-import java.util.Set;
 
 import io.swagger.model.IndexPagination;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerException;
+import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.CrossingProjectEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.GermplasmEntity;
 import org.brapi.test.BrAPITestServer.model.entity.germ.PedigreeEdgeEntity;
@@ -165,7 +159,7 @@ public class PedigreeService {
 
 	public Optional<PedigreeNodeEntity> getPedigreeNode(String germplasmDbId) {
 		Optional<PedigreeNodeEntity> node = Optional.empty();
-		List<PedigreeNodeEntity> nodeList = pedigreeRepository.findByGermplasm_Id(germplasmDbId);
+		List<PedigreeNodeEntity> nodeList = pedigreeRepository.findByGermplasm_Id(UUID.fromString(germplasmDbId));
 		if (nodeList.size() == 1) {
 			node = Optional.of(nodeList.get(0));
 		} else if (nodeList.size() > 1) {
@@ -217,13 +211,13 @@ public class PedigreeService {
 			PedigreeNodeEntity pedigreeEntity = pedigreeEntityOpt.get();
 			result = new ProgenyNode();
 			result.setProgeny(new ArrayList<>());
-			result.setGermplasmDbId(pedigreeEntity.getGermplasm().getId());
+			result.setGermplasmDbId(pedigreeEntity.getGermplasm().getId().toString());
 			result.setGermplasmName(pedigreeEntity.getGermplasm().getGermplasmName());
 
 			for (PedigreeNodeEntity progenyNode : pedigreeEntity.getProgenyNodes()) {
 				ProgenyNodeProgeny progeny = new ProgenyNodeProgeny();
 				progeny.setGermplasmName(progenyNode.getGermplasm().getGermplasmName());
-				progeny.setGermplasmDbId(progenyNode.getGermplasm().getId());
+				progeny.setGermplasmDbId(progenyNode.getGermplasm().getId().toString());
 				if (progenyNode.getParentEdges() != null && !progenyNode.getParentEdges().isEmpty()) {
 					progeny.setParentType(progenyNode.getParentEdges().get(0).getParentType());
 				}
@@ -320,8 +314,8 @@ public class PedigreeService {
 			List<PedigreeNodeEntity> nodeEntities = findPedigreeEntities(searchReq, null);
 
 			for (PedigreeNodeEntity nodeEntity : nodeEntities) {
-				if (nodeEntity.getGermplasm() != null && nodeEntity.getGermplasm().getId() != null) {
-					nodesByGermplasm.put(nodeEntity.getGermplasm().getId(), nodeEntity);
+				if (nodeEntity.getGermplasm() != null && nodeEntity.getGermplasm().getId().toString() != null) {
+					nodesByGermplasm.put(nodeEntity.getGermplasm().getId().toString(), nodeEntity);
 				}
 			}
 		}
@@ -391,16 +385,16 @@ public class PedigreeService {
 			UpdateUtility.convertFromEntity(entity, node);
 			if (entity.getGermplasm() != null) {
 				node.setDefaultDisplayName(entity.getGermplasm().getDefaultDisplayName());
-				node.setGermplasmDbId(entity.getGermplasm().getId());
+				node.setGermplasmDbId(entity.getGermplasm().getId().toString());
 				node.setGermplasmName(entity.getGermplasm().getGermplasmName());
 				node.setGermplasmPUI(entity.getGermplasm().getGermplasmPUI());
 				if (entity.getGermplasm().getBreedingMethod() != null) {
-					node.setBreedingMethodDbId(entity.getGermplasm().getBreedingMethod().getId());
+					node.setBreedingMethodDbId(entity.getGermplasm().getBreedingMethod().getId().toString());
 					node.setBreedingMethodName(entity.getGermplasm().getBreedingMethod().getName());
 				}
 			}
 			if (entity.getCrossingProject() != null) {
-				node.setCrossingProjectDbId(entity.getCrossingProject().getId());
+				node.setCrossingProjectDbId(entity.getCrossingProject().getId().toString());
 			}
 			node.setCrossingYear(entity.getCrossingYear());
 			node.setFamilyCode(entity.getFamilyCode());
@@ -408,7 +402,7 @@ public class PedigreeService {
 			if (entity.getParentEdges() != null && request.isIncludeParents()) {
 				node.setParents(entity.getParentEdges().stream().map(edge -> {
 					PedigreeNodeParents parent = new PedigreeNodeParents();
-					parent.setGermplasmDbId(edge.getConncetedNode().getGermplasm().getId());
+					parent.setGermplasmDbId(edge.getConncetedNode().getGermplasm().getId().toString());
 					parent.setGermplasmName(edge.getConncetedNode().getGermplasm().getGermplasmName());
 					parent.setParentType(edge.getParentType());
 					return parent;
@@ -417,7 +411,7 @@ public class PedigreeService {
 			if (entity.getProgenyEdges() != null && request.isIncludeProgeny()) {
 				node.setProgeny(entity.getProgenyEdges().stream().map(edge -> {
 					PedigreeNodeParents progeny = new PedigreeNodeParents();
-					progeny.setGermplasmDbId(edge.getConncetedNode().getGermplasm().getId());
+					progeny.setGermplasmDbId(edge.getConncetedNode().getGermplasm().getId().toString());
 					progeny.setGermplasmName(edge.getConncetedNode().getGermplasm().getGermplasmName());
 					progeny.setParentType(edge.getParentType());
 					return progeny;
@@ -427,7 +421,7 @@ public class PedigreeService {
 				List<PedigreeNodeEntity> siblingEntities = pedigreeRepository.findPedigreeSiblings(entity);
 				node.setSiblings(siblingEntities.stream().map(sibNode -> {
 					PedigreeNodeSiblings progeny = new PedigreeNodeSiblings();
-					progeny.setGermplasmDbId(sibNode.getGermplasm().getId());
+					progeny.setGermplasmDbId(sibNode.getGermplasm().getId().toString());
 					progeny.setGermplasmName(sibNode.getGermplasm().getGermplasmName());
 					return progeny;
 				}).collect(Collectors.toList()));
@@ -493,14 +487,14 @@ public class PedigreeService {
 		if (node.getParents() != null) {
 
 			SearchQueryBuilder<PedigreeEdgeEntity> search = new SearchQueryBuilder<PedigreeEdgeEntity>(PedigreeEdgeEntity.class);
-			search.appendSingle(node.getGermplasmDbId(), "conncetedNode.germplasm.id");
+			search.appendSingle(UUID.fromString(node.getGermplasmDbId()), "conncetedNode.germplasm.id");
 			search.appendEnum(PedigreeEdgeEntity.EdgeType.child, "edgeType");
 			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
 			Page<PedigreeEdgeEntity> existingParentEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
 
-			List<String> edgeIdsToDelete = new ArrayList<>();
-			edgeIdsToDelete.addAll(entity.getParentEdges().stream().map(e -> e.getId()).collect(Collectors.toList()));
-			edgeIdsToDelete.addAll(existingParentEdges.getContent().stream().map(e -> e.getId()).collect(Collectors.toList()));
+			List<UUID> edgeIdsToDelete = new ArrayList<>();
+			edgeIdsToDelete.addAll(entity.getParentEdges().stream().map(BrAPIBaseEntity::getId).toList());
+			edgeIdsToDelete.addAll(existingParentEdges.getContent().stream().map(BrAPIBaseEntity::getId).toList());
 
 			if (!edgeIdsToDelete.isEmpty()) {
 				pedigreeEdgeRepository.deleteAllByIdInBatch(edgeIdsToDelete);
@@ -516,14 +510,14 @@ public class PedigreeService {
 		if (node.getProgeny() != null) {
 
 			SearchQueryBuilder<PedigreeEdgeEntity> search = new SearchQueryBuilder<PedigreeEdgeEntity>(PedigreeEdgeEntity.class);
-			search.appendSingle(node.getGermplasmDbId(), "conncetedNode.germplasm.id");
+			search.appendSingle(UUID.fromString(node.getGermplasmDbId()), "conncetedNode.germplasm.id");
 			search.appendEnum(PedigreeEdgeEntity.EdgeType.parent, "edgeType");
 			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
 			Page<PedigreeEdgeEntity> existingProgenyEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
 
-			List<String> edgeIdsToDelete = new ArrayList<>();
-			edgeIdsToDelete.addAll(entity.getProgenyEdges().stream().map(e -> e.getId()).collect(Collectors.toList()));
-			edgeIdsToDelete.addAll(existingProgenyEdges.getContent().stream().map(e -> e.getId()).collect(Collectors.toList()));
+			List<UUID> edgeIdsToDelete = new ArrayList<>();
+			edgeIdsToDelete.addAll(entity.getProgenyEdges().stream().map(BrAPIBaseEntity::getId).toList());
+			edgeIdsToDelete.addAll(existingProgenyEdges.getContent().stream().map(BrAPIBaseEntity::getId).toList());
 
 			if (!edgeIdsToDelete.isEmpty()) {
 				pedigreeEdgeRepository.deleteAllByIdInBatch(edgeIdsToDelete);
@@ -566,14 +560,14 @@ public class PedigreeService {
 
 		if (motherOpt.isPresent()) {
 			PedigreeNodeParents mother = new PedigreeNodeParents();
-			mother.setGermplasmDbId(motherOpt.get().getId());
+			mother.setGermplasmDbId(motherOpt.get().getId().toString());
 			mother.setGermplasmName(motherOpt.get().getGermplasmName());
 			mother.setParentType(ParentType.FEMALE);
 			node.addParentsItem(mother);
 		}
 		if (fatherOpt.isPresent()) {
 			PedigreeNodeParents father = new PedigreeNodeParents();
-			father.setGermplasmDbId(fatherOpt.get().getId());
+			father.setGermplasmDbId(fatherOpt.get().getId().toString());
 			father.setGermplasmName(fatherOpt.get().getGermplasmName());
 			father.setParentType(ParentType.MALE);
 			node.addParentsItem(father);

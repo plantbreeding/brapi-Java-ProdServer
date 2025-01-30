@@ -183,7 +183,7 @@ public class ObservationVariableService {
 	public ObservationVariableEntity getObservationVariableEntity(String observationVariableDbId,
 			HttpStatus errorStatus) throws BrAPIServerException {
 		ObservationVariableEntity observationVariable = null;
-		Optional<ObservationVariableEntity> entityOpt = observationVariableRepository.findById(observationVariableDbId);
+		Optional<ObservationVariableEntity> entityOpt = observationVariableRepository.findById(UUID.fromString(observationVariableDbId));
 		if (entityOpt.isPresent()) {
 			observationVariable = entityOpt.get();
 		} else {
@@ -193,11 +193,11 @@ public class ObservationVariableService {
 	}
 
 	private ObservationVariable convertFromEntity(ObservationVariableEntity entity) {
-		log.trace("converting variable: " + entity.getId());
+		log.trace("converting variable: " + entity.getId().toString());
 		ObservationVariable var = new ObservationVariable();
 		convertFromBaseEntity(entity, var);
 		var.setObservationVariableName(entity.getName());
-		var.setObservationVariableDbId(entity.getId());
+		var.setObservationVariableDbId(entity.getId().toString());
 
 		return var;
 	}

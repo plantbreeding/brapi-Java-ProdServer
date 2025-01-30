@@ -1,11 +1,7 @@
 package org.brapi.test.BrAPITestServer.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -89,6 +85,15 @@ public class SearchQueryBuilder<T> {
 	public SearchQueryBuilder<T> appendSingle(String single, String columnName) {
 		String paramName = paramFilter(columnName);
 		if (single != null && !single.isEmpty()) {
+			this.whereClause += "AND " + entityPrefix(columnName) + " = :" + paramName + " ";
+			this.params.put(paramName, single);
+		}
+		return this;
+	}
+
+	public SearchQueryBuilder<T> appendSingle(UUID single, String columnName) {
+		String paramName = paramFilter(columnName);
+		if (single != null) {
 			this.whereClause += "AND " + entityPrefix(columnName) + " = :" + paramName + " ";
 			this.params.put(paramName, single);
 		}
