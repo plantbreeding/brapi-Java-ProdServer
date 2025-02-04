@@ -275,7 +275,7 @@ public class ObservationService {
 			updateEntity(entity, request);  // TODO: does updateEntity need to hit the database?
 			toSave.add(entity);
 		}
-		return observationRepository.saveAllAndFlush(toSave)
+		return observationRepository.saveAll(toSave)
 				.stream()
 				.map(this::convertFromEntity)
 				.collect(Collectors.toList());

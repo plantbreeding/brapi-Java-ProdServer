@@ -35,6 +35,7 @@ import io.swagger.model.germ.PedigreeNodeSiblings;
 import io.swagger.model.germ.PedigreeSearchRequest;
 import io.swagger.model.germ.ProgenyNode;
 import io.swagger.model.germ.ProgenyNodeProgeny;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PedigreeService {
@@ -229,6 +230,7 @@ public class PedigreeService {
 		return result;
 	}
 
+	@Transactional
 	public List<PedigreeNode> savePedigreeNodes(List<PedigreeNode> request) throws BrAPIServerException {
 		Map<String, PedigreeNodeEntity> nodesByGermplasm = getExistingPedigreeNodes(
 				request.stream().map(p -> p.getGermplasmDbId()).collect(Collectors.toList()));
@@ -247,7 +249,7 @@ public class PedigreeService {
 			newEntities.add(entity);
 		}
 		// save all the new nodes without edges
-		pedigreeRepository.saveAllAndFlush(newEntities);
+		pedigreeRepository.saveAll(newEntities);
 
 		Map<String, PedigreeNode> updateRequest = new HashMap<>();
 		for (PedigreeNode newNode : request) {
@@ -259,6 +261,7 @@ public class PedigreeService {
 		return saved;
 	}
 
+	@Transactional
 	public List<PedigreeNode> updatePedigreeNodes(Map<String, PedigreeNode> request) throws BrAPIServerException {
 		Map<String, PedigreeNodeEntity> nodesByGermplasm = getExistingPedigreeNodes(new ArrayList<>(request.keySet()));
 		List<PedigreeNodeEntity> newEntities = new ArrayList<>();
@@ -273,12 +276,13 @@ public class PedigreeService {
 			}
 		}
 
-		List<PedigreeNodeEntity> savedEntities = pedigreeRepository.saveAllAndFlush(newEntities);
+		List<PedigreeNodeEntity> savedEntities = pedigreeRepository.saveAll(newEntities);
 		List<PedigreeNode> saved = convertFromEntities(savedEntities,
 				new PedigreeSearchRequest().includeParents(true).includeProgeny(true).includeSiblings(true));
 		return saved;
 	}
 
+	@Transactional
 	public void updateGermplasmPedigree(List<Germplasm> data) throws BrAPIServerException {
 		List<PedigreeNode> createPedigreeNodes = new ArrayList<>();
 		Map<String, PedigreeNode> updatePedigreeNodes = new HashMap<>();

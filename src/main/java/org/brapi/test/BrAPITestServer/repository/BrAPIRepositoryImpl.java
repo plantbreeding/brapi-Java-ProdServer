@@ -23,6 +23,8 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serializable>

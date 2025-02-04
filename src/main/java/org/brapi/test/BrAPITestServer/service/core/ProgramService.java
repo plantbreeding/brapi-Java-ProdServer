@@ -25,6 +25,7 @@ import io.swagger.model.core.Program;
 import io.swagger.model.core.ProgramNewRequest;
 import io.swagger.model.core.ProgramSearchRequest;
 import io.swagger.model.core.ProgramSearchRequest.ProgramTypesEnum;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProgramService {
@@ -39,6 +40,7 @@ public class ProgramService {
 		this.peopleService = peopleService;
 	}
 
+	@Transactional
 	public List<Program> findPrograms(String commonCropName, String abbreviation, String programName,
 			String programDbId, ProgramTypesEnum programType, String externalReferenceId, String externalReferenceID,
 			String externalReferenceSource, Metadata metadata) throws BrAPIServerException {
@@ -58,6 +60,7 @@ public class ProgramService {
 		return findPrograms(request, metadata);
 	}
 
+	@Transactional
 	public List<Program> findPrograms(ProgramSearchRequest request, Metadata metadata) throws BrAPIServerException {
 		Pageable pageReq = PagingUtility.getPageRequest(metadata);
 		SearchQueryBuilder<ProgramEntity> searchQuery = new SearchQueryBuilder<ProgramEntity>(ProgramEntity.class)
@@ -84,6 +87,7 @@ public class ProgramService {
 		return getProgramEntity(programDbId, HttpStatus.BAD_REQUEST);
 	}
 
+	@Transactional
 	public ProgramEntity getProgramEntity(String programDbId, HttpStatus errorStatus) throws BrAPIServerException {
 		ProgramEntity program = null;
 		Optional<ProgramEntity> entityOpt = programRepository.findById(UUID.fromString(programDbId));
@@ -95,6 +99,7 @@ public class ProgramService {
 		return program;
 	}
 
+	@Transactional
 	public Program updateProgram(String programDbId, ProgramNewRequest body) throws BrAPIServerException {
 		ProgramEntity entity = getProgramEntity(programDbId, HttpStatus.NOT_FOUND);
 		updateEntity(entity, body);
@@ -103,6 +108,7 @@ public class ProgramService {
 		return convertFromEntity(savedEntity);
 	}
 
+	@Transactional
 	public List<Program> savePrograms(List<ProgramNewRequest> body) throws BrAPIServerException {
 		List<Program> savedPrograms = new ArrayList<>();
 
@@ -139,6 +145,7 @@ public class ProgramService {
 		return program;
 	}
 
+	@Transactional
 	private void updateEntity(ProgramEntity entity, ProgramNewRequest request) throws BrAPIServerException {
 		entity = UpdateUtility.updateEntity(request, entity);
 

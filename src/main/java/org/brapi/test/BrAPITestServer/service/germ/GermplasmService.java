@@ -36,6 +36,7 @@ import io.swagger.model.IndexPagination;
 import io.swagger.model.Metadata;
 import io.swagger.model.germ.GermplasmMCPD.AcquisitionSourceCodeEnum;
 import io.swagger.model.germ.GermplasmMCPD.MlsStatusEnum;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GermplasmService {
@@ -191,7 +192,8 @@ public class GermplasmService {
 		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(
 				GermplasmEntity.class);
 		searchQuery.leftJoinFetch("attributes", "attributes")
-				   .appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
+				.leftJoinFetch("pedigree", "pedigree")
+				.appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
 
 		Page<GermplasmEntity> attributes = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
@@ -205,7 +207,8 @@ public class GermplasmService {
 		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(
 				GermplasmEntity.class);
 		searchQuery.leftJoinFetch("donors", "donors")
-				   .appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
+				.leftJoinFetch("pedigree", "pedigree")
+				.appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
 
 		Page<GermplasmEntity> donors = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
@@ -219,7 +222,8 @@ public class GermplasmService {
 		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(
 				GermplasmEntity.class);
 		searchQuery.leftJoinFetch("germplasmOrigin", "germplasmOrigin")
-				   .appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
+				.leftJoinFetch("pedigree", "pedigree")
+				.appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
 
 		Page<GermplasmEntity> origins = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
@@ -233,7 +237,8 @@ public class GermplasmService {
 		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(
 				GermplasmEntity.class);
 		searchQuery.leftJoinFetch("institutes", "institutes")
-				   .appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
+				.leftJoinFetch("pedigree", "pedigree")
+				.appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
 
 		Page<GermplasmEntity> institutes = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
@@ -247,7 +252,8 @@ public class GermplasmService {
 		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(
 				GermplasmEntity.class);
 		searchQuery.leftJoinFetch("taxonIds", "taxonIds")
-				   .appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
+				.leftJoinFetch("pedigree", "pedigree")
+				.appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
 
 		Page<GermplasmEntity> taxonIds = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
@@ -261,7 +267,8 @@ public class GermplasmService {
 		SearchQueryBuilder<GermplasmEntity> searchQuery = new SearchQueryBuilder<GermplasmEntity>(
 				GermplasmEntity.class);
 		searchQuery.leftJoinFetch("typeOfGermplasmStorageCode", "typeOfGermplasmStorageCode")
-				   .appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
+				.leftJoinFetch("pedigree", "pedigree")
+				.appendList(page.stream().map(ge -> ge.getId().toString()).collect(Collectors.toList()), "id");
 
 		Page<GermplasmEntity> storageCodes = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
@@ -284,7 +291,7 @@ public class GermplasmService {
 
 		Page<GermplasmEntity> pedigree = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
-		Map<String, PedigreeNodeEntity> pedigreeByGerm = new HashMap<>();
+ 		Map<String, PedigreeNodeEntity> pedigreeByGerm = new HashMap<>();
 		pedigree.forEach(germ -> pedigreeByGerm.put(germ.getId().toString(), germ.getPedigree()));
 
 		page.forEach(germ -> {
@@ -304,6 +311,7 @@ public class GermplasmService {
 		return getGermplasmEntity(germplasmDbId, HttpStatus.BAD_REQUEST);
 	}
 
+	@Transactional
 	public GermplasmEntity getGermplasmEntity(String germplasmDbId, HttpStatus errorStatus)
 			throws BrAPIServerException {
 		GermplasmEntity germplasm = null;
@@ -326,6 +334,7 @@ public class GermplasmService {
 		return convertFromEntity(savedEntity);
 	}
 
+	@Transactional
 	public List<Germplasm> saveGermplasm(@Valid List<GermplasmNewRequest> body) throws BrAPIServerException {
 		List<GermplasmEntity> toSave = new ArrayList<>();
 		for (GermplasmNewRequest germplasm : body) {
@@ -334,7 +343,7 @@ public class GermplasmService {
 			toSave.add(entity);
 		}
 		// Save batch.
-		return germplasmRepository.saveAllAndFlush(toSave)
+		return germplasmRepository.saveAll(toSave)
 				.stream()
 				.map(this::convertFromEntity)
 				.collect(Collectors.toList());
