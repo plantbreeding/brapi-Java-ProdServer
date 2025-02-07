@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.ExternalReferences;
 
@@ -25,7 +26,7 @@ public class TrialNewRequest   {
 
   @JsonProperty("additionalInfo")
   @Valid
-  private Map<String, Object> additionalInfo = null;
+  private JsonNode additionalInfo = null;
 
   @JsonProperty("commonCropName")
   private String commonCropName = null;
@@ -88,7 +89,7 @@ public class TrialNewRequest   {
     this.active = active;
   }
 
-  public TrialNewRequest additionalInfo(Map<String, Object> additionalInfo) {
+  public TrialNewRequest additionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -99,11 +100,11 @@ public class TrialNewRequest   {
   **/
   @ApiModelProperty(value = "Additional arbitrary info")
   
-    public Map<String, Object>getAdditionalInfo() {
+    public JsonNode getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
+  public void setAdditionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

@@ -3,15 +3,16 @@ package io.swagger.model.core;
 import java.time.OffsetDateTime;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.model.ExternalReferences;
 
 public interface ListBaseFieldsInterface {
 
-	public ListBaseFieldsInterface additionalInfo(Map<String, Object> additionalInfo);
+	public ListBaseFieldsInterface additionalInfo(JsonNode additionalInfo);
 
-	public Map<String, Object> getAdditionalInfo();
+	public JsonNode getAdditionalInfo();
 
-	public void setAdditionalInfo(Map<String, Object> additionalInfo);
+	public void setAdditionalInfo(JsonNode additionalInfo);
 
 	public ListBaseFieldsInterface dateCreated(OffsetDateTime dateCreated);
 

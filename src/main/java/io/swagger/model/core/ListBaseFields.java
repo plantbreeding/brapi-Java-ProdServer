@@ -3,6 +3,7 @@ package io.swagger.model.core;
 import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.ExternalReferences;
 
@@ -18,7 +19,7 @@ import jakarta.validation.Valid;
 public class ListBaseFields implements ListBaseFieldsInterface  {
   @JsonProperty("additionalInfo")
   @Valid
-  private Map<String, Object> additionalInfo = null;
+  private JsonNode additionalInfo = null;
 
   @JsonProperty("dateCreated")
   private OffsetDateTime dateCreated = null;
@@ -50,7 +51,7 @@ public class ListBaseFields implements ListBaseFieldsInterface  {
   @JsonProperty("listType")
   private ListTypes listType = null;
 
-  public ListBaseFields additionalInfo(Map<String, Object> additionalInfo) {
+  public ListBaseFields additionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -62,11 +63,11 @@ public class ListBaseFields implements ListBaseFieldsInterface  {
    **/
   @ApiModelProperty(example = "{}", value = "Additional arbitrary info")
   
-    public Map<String, Object>getAdditionalInfo() {
+    public JsonNode getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
+  public void setAdditionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

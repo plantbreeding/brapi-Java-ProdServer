@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-import org.brapi.test.BrAPITestServer.model.entity.BrAPIBaseEntity;
 import org.brapi.test.BrAPITestServer.model.entity.BrAPIPrimaryEntity;
 import org.brapi.test.BrAPITestServer.model.entity.ExternalReferenceEntity;
 import org.brapi.test.BrAPITestServer.service.SearchQueryBuilder;
+import org.brapi.test.BrAPITestServer.service.SecurityUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,6 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -49,7 +48,7 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 	public Optional<T> findById(ID id) {
 		Optional<T> response = super.findById(id);
 		if (response.isPresent()) {
-			UUID userId = getCurrentUserId();
+			UUID userId = SecurityUtils.getCurrentUserId();
 			if (!(null == response.get().getAuthUserId()
 					|| userId.equals(response.get().getAuthUserId())
 					|| UUID.fromString("AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA").equals(response.get().getAuthUserId()))) {
@@ -60,17 +59,16 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 	}
 
 	public <S extends T> S save(S entity) {
-		entity.setAuthUserId(getCurrentUserId());
+		entity.setAuthUserId(SecurityUtils.getCurrentUserId());
 		return super.save(entity);
 	}
-
 	public <S extends T> List<S> saveAll(Iterable<S> entities) {
 		for (S entity : entities) {
-			entity.setAuthUserId(getCurrentUserId());
+			entity.setAuthUserId(SecurityUtils.getCurrentUserId());
 		}
 		return super.saveAll(entities);
 	}
-	
+
 	public <S extends T> void refresh(S entity) {
 		this.entityManager.refresh(entity);
 	}
@@ -88,15 +86,6 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 		page.forEach(entity -> entity.setExternalReferences(xrefByEntity.get(entity.getId())));
 	}
 
-	private UUID getCurrentUserId() {
-		SecurityContext context = SecurityContextHolder.getContext();
-		String userId = "";
-		if (context.getAuthentication().getPrincipal() != null) {
-			userId = context.getAuthentication().getPrincipal().toString();
-		}
-		return UUID.fromString(userId);
-	}
-
 	private SearchQueryBuilder<T> applyUserId(SearchQueryBuilder<T> searchQuery) {
 
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -104,7 +93,7 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 				.map(auth -> auth.getAuthority()).collect(Collectors.toSet());
 
 		List<String> userIds = new ArrayList<>();
-		userIds.add(getCurrentUserId().toString());
+		userIds.add(SecurityUtils.getCurrentUserId().toString());
 		if (userRolesSet.contains("ROLE_ADMIN")) {
 			return searchQuery;
 		} else if (userRolesSet.contains("ROLE_USER")) {

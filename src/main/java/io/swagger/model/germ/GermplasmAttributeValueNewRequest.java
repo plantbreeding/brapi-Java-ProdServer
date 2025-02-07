@@ -1,6 +1,7 @@
 package io.swagger.model.germ;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.ExternalReferences;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ import java.util.Objects;
 public class GermplasmAttributeValueNewRequest {
 	@JsonProperty("additionalInfo")
 	@Valid
-	private Map<String, Object> additionalInfo = null;
+	private JsonNode additionalInfo = null;
 
 	@JsonProperty("attributeDbId")
 	private String attributeDbId = null;
@@ -41,7 +42,7 @@ public class GermplasmAttributeValueNewRequest {
 	@JsonProperty("value")
 	private String value = null;
 
-	public GermplasmAttributeValueNewRequest additionalInfo(Map<String, Object> additionalInfo) {
+	public GermplasmAttributeValueNewRequest additionalInfo(JsonNode additionalInfo) {
 		this.additionalInfo = additionalInfo;
 		return this;
 	}
@@ -53,11 +54,11 @@ public class GermplasmAttributeValueNewRequest {
 	 **/
 	@ApiModelProperty(value = "Additional arbitrary info")
 
-	public Map<String, Object> getAdditionalInfo() {
+	public JsonNode getAdditionalInfo() {
 		return additionalInfo;
 	}
 
-	public void setAdditionalInfo(Map<String, Object> additionalInfo) {
+	public void setAdditionalInfo(JsonNode additionalInfo) {
 		this.additionalInfo = additionalInfo;
 	}
 

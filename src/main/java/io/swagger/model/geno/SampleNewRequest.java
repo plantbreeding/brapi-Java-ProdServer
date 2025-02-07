@@ -1,6 +1,7 @@
 package io.swagger.model.geno;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.ExternalReferences;
 import jakarta.validation.Valid;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class SampleNewRequest   {
   @JsonProperty("additionalInfo")
   @Valid
-  private Map<String, Object> additionalInfo = null;
+  private JsonNode additionalInfo = null;
 
   @JsonProperty("column")
   private Integer column = null;
@@ -81,7 +82,7 @@ public class SampleNewRequest   {
   @JsonProperty("well")
   private String well = null;
 
-  public SampleNewRequest additionalInfo(Map<String, Object> additionalInfo) {
+  public SampleNewRequest additionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -92,11 +93,11 @@ public class SampleNewRequest   {
   **/
   @ApiModelProperty(value = "Additional arbitrary info")
   
-    public Map<String, Object>getAdditionalInfo() {
+    public JsonNode getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
+  public void setAdditionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

@@ -1,27 +1,28 @@
 package io.swagger.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Map;
 
 public abstract class BrAPIDataModel {
 
 	@JsonProperty("additionalInfo")
-	protected Map<String, Object> additionalInfo = null;
+	protected JsonNode additionalInfo = null;
 
 	@JsonProperty("externalReferences")
 	protected ExternalReferences externalReferences = null;
 
-	final public BrAPIDataModel additionalInfo(Map<String, Object>additionalInfo) {
+	final public BrAPIDataModel additionalInfo(JsonNode additionalInfo) {
 		this.additionalInfo = additionalInfo;
 		return this;
 	}
 
-	final public Map<String, Object>getAdditionalInfo() {
+	final public JsonNode getAdditionalInfo() {
 		return additionalInfo;
 	}
 
-	final public void setAdditionalInfo(Map<String, Object>additionalInfo) {
+	final public void setAdditionalInfo(JsonNode additionalInfo) {
 		this.additionalInfo = additionalInfo;
 	}
 	

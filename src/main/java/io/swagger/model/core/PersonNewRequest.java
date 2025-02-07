@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.model.ExternalReferences;
 
@@ -19,7 +20,7 @@ import jakarta.validation.Valid;
 public class PersonNewRequest   {
   @JsonProperty("additionalInfo")
   @Valid
-  private Map<String, Object> additionalInfo = null;
+  private JsonNode additionalInfo = null;
 
   @JsonProperty("description")
   private String description = null;
@@ -48,7 +49,7 @@ public class PersonNewRequest   {
   @JsonProperty("userID")
   private String userID = null;
 
-  public PersonNewRequest additionalInfo(Map<String, Object> additionalInfo) {
+  public PersonNewRequest additionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
     return this;
   }
@@ -59,11 +60,11 @@ public class PersonNewRequest   {
   **/
   @ApiModelProperty(value = "Additional arbitrary info")
   
-    public Map<String, Object>getAdditionalInfo() {
+    public JsonNode getAdditionalInfo() {
     return additionalInfo;
   }
 
-  public void setAdditionalInfo(Map<String, Object> additionalInfo) {
+  public void setAdditionalInfo(JsonNode additionalInfo) {
     this.additionalInfo = additionalInfo;
   }
 

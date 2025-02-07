@@ -3,13 +3,14 @@ package io.swagger.model.geno;
 import java.util.Map;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Call {
 	@JsonProperty("additionalInfo")
-	private Map<String, Object> additionalInfo = null;
+	private JsonNode additionalInfo = null;
 
 	@JsonProperty("callSetDbId")
 	private String callSetDbId = null;
@@ -78,16 +79,16 @@ public class Call {
 		return this;
 	}
 	
-	public Call additionalInfo(Map<String, Object> additionalInfo) {
+	public Call additionalInfo(JsonNode additionalInfo) {
 		this.additionalInfo = additionalInfo;
 		return this;
 	}
 
-	public Map<String, Object> getAdditionalInfo() {
+	public JsonNode getAdditionalInfo() {
 		return additionalInfo;
 	}
 
-	public void setAdditionalInfo(Map<String, Object> additionalInfo) {
+	public void setAdditionalInfo(JsonNode additionalInfo) {
 		this.additionalInfo = additionalInfo;
 	}
 
