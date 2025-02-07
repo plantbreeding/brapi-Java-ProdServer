@@ -339,7 +339,7 @@ public class ObservationUnitService {
 			toSave.add(entity);
 		}
 
-		return observationUnitRepository.saveAll(toSave)
+		return observationUnitRepository.saveAllAndFlush(toSave)
 				.stream()
 				.map(this::convertFromEntity)
 				.collect(Collectors.toList());
