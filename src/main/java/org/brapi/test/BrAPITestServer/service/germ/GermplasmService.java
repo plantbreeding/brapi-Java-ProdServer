@@ -321,7 +321,7 @@ public class GermplasmService {
 			throws BrAPIServerException {
 		GermplasmEntity entity = getGermplasmEntity(germplasmDbId, HttpStatus.NOT_FOUND);
 		updateEntity(entity, body);
-		GermplasmEntity savedEntity = germplasmRepository.saveAndFlush(entity);
+		GermplasmEntity savedEntity = germplasmRepository.save(entity);
 
 		return convertFromEntity(savedEntity);
 	}
@@ -334,7 +334,7 @@ public class GermplasmService {
 			toSave.add(entity);
 		}
 		// Save batch.
-		return germplasmRepository.saveAllAndFlush(toSave)
+		return germplasmRepository.saveAll(toSave)
 				.stream()
 				.map(this::convertFromEntity)
 				.collect(Collectors.toList());
@@ -502,6 +502,19 @@ public class GermplasmService {
 		}
 	}
 
+	public List<GermplasmEntity> findByNames(List<String> germplasmNames) {
+		var request = new GermplasmSearchRequest().germplasmNames(germplasmNames);
+		var metadata = new Metadata().pagination(new IndexPagination());
+		var page = findGermplasmEntities(request, metadata);
+
+		if (page.hasContent()) {
+			return page.getContent();
+		}
+
+		return null;
+	}
+
+	// TODO: Add lookupType param to RQ Germplasm which can short-circuit all the lookup logic to only one query here.
 	public GermplasmEntity findByUnknownIdentity(String germplasmStr) {
 
 		// First, check to see if the str provided is a real UUID.
