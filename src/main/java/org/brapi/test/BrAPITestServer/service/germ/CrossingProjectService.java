@@ -2,6 +2,7 @@ package org.brapi.test.BrAPITestServer.service.germ;
 
 import java.util.*;
 
+import io.swagger.model.IndexPagination;
 import jakarta.validation.Valid;
 
 import org.brapi.test.BrAPITestServer.exceptions.BrAPIServerDbIdNotFoundException;
@@ -63,6 +64,26 @@ public class CrossingProjectService {
 		}
 		PagingUtility.calculateMetaData(metadata, page);
 		return crossingProjects;
+	}
+
+	public List<CrossingProjectEntity> findCrossingProjectsByIds(List<String> crossingProjectIds) {
+		var metadata = new Metadata().pagination(new IndexPagination());
+		Pageable pageReq = PagingUtility.getPageRequest(metadata);
+
+		SearchQueryBuilder<CrossingProjectEntity> searchQuery = new SearchQueryBuilder<CrossingProjectEntity>(
+				CrossingProjectEntity.class);
+
+		if (crossingProjectIds != null && !crossingProjectIds.isEmpty()) {
+			searchQuery = searchQuery.appendList(crossingProjectIds, "id");
+		}
+
+		Page<CrossingProjectEntity> page = crossingProjectRepository.findAllBySearch(searchQuery, pageReq);
+
+		if (page.hasContent()) {
+			return page.getContent();
+		}
+
+		return null;
 	}
 
 	public CrossingProject getCrossingProject(String crossingProjectDbId) throws BrAPIServerException {
