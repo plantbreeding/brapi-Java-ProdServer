@@ -8,4 +8,6 @@ import org.brapi.test.BrAPITestServer.repository.BrAPIRepository;
 
 public interface PedigreeRepository extends BrAPIRepository<PedigreeNodeEntity, UUID>, PedigreeRepositoryCustom {
 	public List<PedigreeNodeEntity> findByGermplasm_Id(UUID germplasmDbId);
+
+	public List<PedigreeNodeEntity> findByGermplasm_IdIn(List<UUID> germplasmDbIds);
 }

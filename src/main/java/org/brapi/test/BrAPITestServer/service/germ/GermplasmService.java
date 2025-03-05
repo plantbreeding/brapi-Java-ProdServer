@@ -284,7 +284,7 @@ public class GermplasmService {
 
 		Page<GermplasmEntity> pedigree = germplasmRepository.findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
 
-		Map<String, PedigreeNodeEntity> pedigreeByGerm = new HashMap<>();
+ 		Map<String, PedigreeNodeEntity> pedigreeByGerm = new HashMap<>();
 		pedigree.forEach(germ -> pedigreeByGerm.put(germ.getId().toString(), germ.getPedigree()));
 
 		page.forEach(germ -> {
@@ -514,16 +514,26 @@ public class GermplasmService {
 		return null;
 	}
 
-	public List<GermplasmEntity> findByIds(List<String> germplasmDbIds) {
+	public List<GermplasmEntity> findByIds(List<String> germplasmDbIds) throws BrAPIServerDbIdNotFoundException {
 		var request = new GermplasmSearchRequest().germplasmDbIds(germplasmDbIds);
 		var metadata = new Metadata().pagination(new IndexPagination());
 		var page = findGermplasmEntities(request, metadata);
 
-		if (page.hasContent()) {
-			return page.getContent();
+		if (!page.hasContent()) {
+			return null;
 		}
 
-		return null;
+		var germsFoundInDb = page.getContent();
+
+		var germIdsFoundInDB = germsFoundInDb.stream()
+				.map(BrAPIBaseEntity::getId)
+				.collect(Collectors.toSet());
+
+		if (!germIdsFoundInDB.containsAll(germplasmDbIds.stream().map(UUID::fromString).toList())) {
+			throw new BrAPIServerDbIdNotFoundException("Germplasm Ids passed to findByIds were not found in the DB", HttpStatus.BAD_REQUEST);
+		}
+
+		return germsFoundInDb;
 	}
 
 	// TODO: Add lookupType param to RQ Germplasm which can short-circuit all the lookup logic to only one query here.
