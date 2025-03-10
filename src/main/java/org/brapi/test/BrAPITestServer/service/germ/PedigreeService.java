@@ -596,8 +596,7 @@ public class PedigreeService {
 	}
 
 	// This method should be used in use cases where there are existing node entities that may have edges.
-	private void updateEntitiesWithEdgesInBatch(Map<String, Pair<PedigreeNodeEntity,
-			PedigreeNode>> entityDtoPairsByGermId) throws BrAPIServerException {
+	private void updateEntitiesWithEdgesInBatch(Map<String, Pair<PedigreeNodeEntity, PedigreeNode>> entityDtoPairsByGermId) throws BrAPIServerException {
 		var germIds = entityDtoPairsByGermId.keySet()
 				.stream()
 				.toList();
@@ -749,7 +748,7 @@ public class PedigreeService {
 				germEntity.ifPresent(entity::setGermplasm);
 			}
 
-			UpdateUtility.updateEntity(node, entity);
+			UpdateUtility.updateEntityCheckExRefs(node, entity);
 
 			if (node.getCrossingYear() != null)
 				entity.setCrossingYear(node.getCrossingYear());
