@@ -335,10 +335,9 @@ public class PedigreeService {
 		// First, update the basic properties of the nodes in batch.
 		updateEntitiesWithEdgesInBatch(entityDtoPairsByGermplasmId);
 
-		List<PedigreeNodeEntity> savedEntities = pedigreeRepository.saveAll(entityDtoPairsByGermplasmId.values().stream().map(Pair::getLeft).toList());
-		List<PedigreeNode> saved = convertFromEntities(savedEntities,
-				new PedigreeSearchRequest().includeParents(true).includeProgeny(true).includeSiblings(true));
-		return saved;
+		pedigreeRepository.saveAll(entityDtoPairsByGermplasmId.values().stream().map(Pair::getLeft).toList());
+		// TODO: Create separate void method that only does save.  Have GermplasmApiController call that one.
+		return Collections.emptyList();
 	}
 
 	public void updateGermplasmPedigree(List<Germplasm> data) throws BrAPIServerException {
