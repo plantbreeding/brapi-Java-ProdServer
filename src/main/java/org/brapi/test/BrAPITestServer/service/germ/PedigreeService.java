@@ -148,7 +148,7 @@ public class PedigreeService {
 				.appendNamesList(request.getBinomialNames(), "germplasm.genus", "germplasm.genus", "germplasm.species")
 				.appendList(request.getFamilyCodes(), "familyCode");
 
-		Page<PedigreeNodeEntity> page = pedigreeRepository.findAllBySearch(searchQuery, pageReq);
+		Page<PedigreeNodeEntity> page = pedigreeRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 
 		List<PedigreeNodeEntity> filteredNodes = filterGenerations(request, page.getContent());
 
@@ -636,7 +636,7 @@ public class PedigreeService {
 			search.appendList(germIdsWithParentNodes, "conncetedNode.germplasm.id");
 			search.appendEnum(PedigreeEdgeEntity.EdgeType.child, "edgeType");
 			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
-			Page<PedigreeEdgeEntity> existingParentEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
+			Page<PedigreeEdgeEntity> existingParentEdges = pedigreeEdgeRepository.findAllBySearchAndPaginate(search, defaultPageSize);
 
 			var existingParentEdgesFromPassedEntities = entityDtoPairsByGermId.entrySet()
 					.stream()
@@ -691,7 +691,7 @@ public class PedigreeService {
 			search.appendList(germIdsWithProgenyNodes, "conncetedNode.germplasm.id");
 			search.appendEnum(PedigreeEdgeEntity.EdgeType.parent, "edgeType");
 			Pageable defaultPageSize = PagingUtility.getPageRequest(new Metadata().pagination(new IndexPagination().pageSize(10000000)));
-			Page<PedigreeEdgeEntity> existingProgenyEdges = pedigreeEdgeRepository.findAllBySearch(search, defaultPageSize);
+			Page<PedigreeEdgeEntity> existingProgenyEdges = pedigreeEdgeRepository.findAllBySearchAndPaginate(search, defaultPageSize);
 
 			var existingProgenyEdgeFromPassedEntities = entityDtoPairsByGermId.entrySet()
 					.stream()

@@ -44,7 +44,7 @@ public class MethodService {
 		}
 		searchQuery = searchQuery.appendSingle(UUID.fromString(methodDbId), "id").withExRefs(externalReferenceID,
 				externalReferenceSource);
-		Page<MethodEntity> methodPage = methodRepository.findAllBySearch(searchQuery, pageReq);
+		Page<MethodEntity> methodPage = methodRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		PagingUtility.calculateMetaData(metadata, methodPage);
 
 		List<Method> methods = methodPage.map(this::convertFromEntity).getContent();

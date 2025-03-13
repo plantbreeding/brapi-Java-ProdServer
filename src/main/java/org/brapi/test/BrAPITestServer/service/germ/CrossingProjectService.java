@@ -57,7 +57,7 @@ public class CrossingProjectService {
 			searchQuery = searchQuery.withExRefs(List.of(externalReferenceID),
                     List.of(externalReferenceSource));
 
-		Page<CrossingProjectEntity> page = crossingProjectRepository.findAllBySearch(searchQuery, pageReq);
+		Page<CrossingProjectEntity> page = crossingProjectRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		List<CrossingProject> crossingProjects = new ArrayList<>();
 		for (CrossingProjectEntity entity : page) {
 			crossingProjects.add(convertFromEntity(entity, includePotentialParents));
@@ -77,7 +77,7 @@ public class CrossingProjectService {
 			searchQuery = searchQuery.appendList(crossingProjectIds, "id");
 		}
 
-		Page<CrossingProjectEntity> page = crossingProjectRepository.findAllBySearch(searchQuery, pageReq);
+		Page<CrossingProjectEntity> page = crossingProjectRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 
 		if (page.hasContent()) {
 			return page.getContent();

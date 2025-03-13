@@ -62,6 +62,15 @@ public class SearchQueryBuilder<T> {
 		return this;
 	}
 
+	public SearchQueryBuilder<T> appendIds(List<UUID> ids) {
+		String paramName = paramFilter("id");
+		if (ids != null && !ids.isEmpty()) {
+			this.whereClause += "AND " + entityPrefix("id") + " in :" + paramName + " ";
+			this.params.put(paramName, ids);
+		}
+		return this;
+	}
+
 	public SearchQueryBuilder<T> appendIntList(List<Integer> list, String columnName) {
 		String paramName = paramFilter(columnName);
 		if (list != null && !list.isEmpty()) {
@@ -247,8 +256,37 @@ public class SearchQueryBuilder<T> {
 	}
 
 	public SearchQueryBuilder<T> leftJoinFetch(String join, String name) {
-		this.selectClause += "LEFT JOIN FETCH " + entityPrefix(join) + " " + paramFilter(name) + " ";
+		this.selectClause += generateLeftJoinFetch(join, name);
 		return this;
+	}
+
+	/**
+	 * Use this method to remove left join fetches from specific collection attributes so you can leverage the same query to
+	 * iterate through other lazily loaded collections on an entity you need to fetch.
+	 */
+	public SearchQueryBuilder<T> removeAndReplaceLeftJoinFetch(String join,
+															   String name,
+															   String existingJoin,
+															   String existingName) {
+
+		this.selectClause =
+				this.selectClause.replace(generateLeftJoinFetch(existingJoin, existingName), generateLeftJoinFetch(join, name));
+
+		return this;
+	}
+
+	/**
+	 * Use this method to remove left join fetches from specific collection attributes so you can leverage the same
+	 * base query criteria to add another join fetch with leftJoinFetch()
+	 */
+	public SearchQueryBuilder<T> removeLeftJoinFetch(String join, String name) {
+		this.selectClause =
+				this.selectClause.replace(generateLeftJoinFetch(join, name), "");
+		return this;
+	}
+
+	private String generateLeftJoinFetch(String join, String paramName) {
+		return "LEFT JOIN FETCH " + entityPrefix(join) + " " + paramFilter(paramName) + " ";
 	}
 
 	private String entityPrefix(String field) {

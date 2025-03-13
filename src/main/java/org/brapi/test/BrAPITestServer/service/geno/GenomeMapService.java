@@ -62,7 +62,7 @@ public class GenomeMapService {
 				.appendSingle(type, "type");
 
 		Pageable pageReq = PagingUtility.getPageRequest(metadata);
-		Page<GenomeMapEntity> page = genomeMapRepository.findAllBySearch(searchQuery, pageReq);
+		Page<GenomeMapEntity> page = genomeMapRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		List<GenomeMap> maps = page.map(this::convertFromEntity).getContent();
 		PagingUtility.calculateMetaData(metadata, page);
 		return maps;
@@ -84,7 +84,7 @@ public class GenomeMapService {
 				LinkageGroupEntity.class).appendSingle(UUID.fromString(mapDbId), "genomeMap.id");
 
 		Pageable pageReq = PagingUtility.getPageRequest(metadata);
-		Page<LinkageGroupEntity> page = linkageGroupRepository.findAllBySearch(searchQuery, pageReq);
+		Page<LinkageGroupEntity> page = linkageGroupRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		List<LinkageGroup> linkageGroups = page.map(this::convertFromEntity).getContent();
 		PagingUtility.calculateMetaData(metadata, page);
 		return linkageGroups;

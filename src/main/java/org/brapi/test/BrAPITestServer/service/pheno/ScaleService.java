@@ -49,7 +49,7 @@ public class ScaleService {
 		}
 		searchQuery = searchQuery.appendSingle(UUID.fromString(scaleDbId), "id").withExRefs(externalReferenceID,
 				externalReferenceSource);
-		Page<ScaleEntity> scalePage = scaleRepository.findAllBySearch(searchQuery, pageReq);
+		Page<ScaleEntity> scalePage = scaleRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		PagingUtility.calculateMetaData(metadata, scalePage);
 
 		List<Scale> scales = scalePage.map(this::convertFromEntity).getContent();

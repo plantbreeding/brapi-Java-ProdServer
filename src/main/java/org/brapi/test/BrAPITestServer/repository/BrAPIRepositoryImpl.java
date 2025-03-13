@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import io.swagger.model.Metadata;
+import io.swagger.model.germ.GermplasmSearchRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -28,44 +30,68 @@ import java.util.*;
 
 public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serializable>
 		extends SimpleJpaRepository<T, ID> implements BrAPIRepository<T, ID> {
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
 
 	public BrAPIRepositoryImpl(JpaEntityInformation<T, ID> entityInformation, EntityManager entityManager) {
 		super(entityInformation, entityManager);
 		this.entityManager = entityManager;
 	}
 
-	// This is the method that should be used for simple entities with few collections and eager loading requirements.
-	public Page<T> findAllBySearch(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
+	/**
+	 * 	Use this method to page simple entities with no lazily loaded collections or attributes.
+	 * 	WARN: Failure to do so can easily exhaust memory at scale and will cause hibernate warnings.
+	 */
+	public Page<T> findAllBySearchAndPaginate(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
 		applyUserId(searchQuery);
 		List<T> content = getPagedContent(searchQuery, pageReq);
 		Long totalCount = getTotalCount(searchQuery);
 
-		Page<T> page = new PageImpl<>(content, pageReq, totalCount);
-
-		return page;
+        return new PageImpl<>(content, pageReq, totalCount);
 	}
 
-	public Page<T> findAllBySearchNoPage(SearchQueryBuilder<T> searchQuery, Page<UUID> pagedIds, Pageable pageReq) {
+	/**
+	 * This method should be used when there is a need to page entities that are complex and have lots of lazily loaded,
+	 * one-to-many collection attributes. Call this method with the query you've built.
+	 * WARN: To avoid multiple bag fetch hibernate errors, only one collection that is one-many can be fetched at a time.
+	 * Ensure only one of these types of entity members is being fetched at time.
+	 * See {@link org.brapi.test.BrAPITestServer.service.germ.GermplasmService#findGermplasmEntities(GermplasmSearchRequest, Metadata)} for example usage.
+	 *
+	 * Once you fetch the first lazy loaded collection, if there are others you need to fetch for your entity it is
+	 * recommended to utilize the non-paging findAllBySearch() method, creating a searchQuery that inserts all the ids
+	 * of the entities found in the results from this method.  Again, follow code path of above example usage to see how this is done.
+	 *
+	 * If the need is to fetch according to an entirely different base criteria, feel free to call this method again.
+	 *
+	 * The results will be paged and ordered based on the submitted searchQuery and pageReq.
+    */
+	public Page<T> findAllBySearchPaginatingWithFetches(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
 		applyUserId(searchQuery);
 
-		var entities = searchEntitiesWithIds(searchQuery, pagedIds);
-
-		return new PageImpl<>(entities, pageReq, pagedIds.getTotalElements());
-	}
-
-
-
-	// For entities that are complex and have lots of Collections and lazy loaded entities, it is more efficient to grab the IDs of the on Page,
-	// and afterward fetch these collections using the Ids, this time without paging.
-	public Page<UUID> findAllBySearchIdsOnly(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
-		applyUserId(searchQuery);
+		// First grab all the ids of the entities according to the criteria of the searchQuery, paging as specified in the pageReq.
 		List<UUID> content = getPagedContentIdsOnly(searchQuery, pageReq);
 		Long totalCount = getTotalCount(searchQuery);
 
-		Page<UUID> page = new PageImpl<>(content, pageReq, totalCount);
+		var pagedIds = new PageImpl<>(content, pageReq, totalCount);
 
-		return page;
+		// Now execute another query to fetch all the entities requested in the searchQuery, passing the pagedIds found
+		// in the previous query.  We will fetch them utilizing the ids from the paged query, avoiding the hibernate
+		// warning of paging while fetching and consuming considerably less memory.
+        return findAllBySearchUsingIds(searchQuery, pagedIds, pageReq);
+	}
+
+	private Page<T> findAllBySearchUsingIds(SearchQueryBuilder<T> searchQuery, Page<UUID> pagedIds, Pageable pageReq) {
+		var entities = searchEntitiesWithIds(searchQuery, pagedIds.toList());
+
+		return new PageImpl<>(entities, pageReq, pagedIds.getSize());
+	}
+
+	/**
+	 * Use this method to run the searchQuery without pagination.  Useful for use cases where calls need to grab
+	 * every result at once, but use sparingly for use cases returning large result sets.
+	 */
+	public List<T> findAllBySearch(SearchQueryBuilder<T> searchQuery) {
+		applyUserId(searchQuery);
+		return searchEntities(searchQuery);
 	}
 
 	public Optional<T> findById(ID id) {
@@ -101,7 +127,7 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 		searchQuery.leftJoinFetch("externalReferences", "externalReferences")
 				   .appendList(page.stream().map(p -> p.getId().toString()).collect(Collectors.toList()), "id");
 
-		Page<T> xrefs = findAllBySearch(searchQuery, PageRequest.of(0, page.getSize()));
+		Page<T> xrefs = findAllBySearchAndPaginate(searchQuery, PageRequest.of(0, page.getSize()));
 
 		Map<String, List<ExternalReferenceEntity>> xrefByEntity = new HashMap<>();
 		xrefs.forEach(entity -> xrefByEntity.put(entity.getId().toString(), entity.getExternalReferences()));
@@ -129,28 +155,37 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 	private List<T> getPagedContent(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
 		TypedQuery<T> query = entityManager.createQuery(searchQuery.getQuery(), searchQuery.getClazz());
 
-		for (Entry<String, Object> entry : searchQuery.getParams().entrySet()) {
-			query.setParameter(entry.getKey(), entry.getValue());
-		}
+		setQueryParams(query, searchQuery);
 
 		query.setFirstResult((int) pageReq.getOffset());
 		query.setMaxResults(pageReq.getPageSize());
 
-		List<T> content = query.getResultList();
-		return content;
+        return query.getResultList();
 	}
 
-	private List<T> searchEntitiesWithIds(SearchQueryBuilder<T> searchQuery, Page<UUID> ids) {
-		searchQuery.appendList(ids.stream().map(UUID::toString).toList(), "id");
+	private List<T> searchEntitiesWithIds(SearchQueryBuilder<T> searchQuery, List<UUID> ids) {
+		searchQuery.appendList(ids.stream().map(Object::toString).toList(), "id");
 
 		TypedQuery<T> query = entityManager.createQuery(searchQuery.getQuery(), searchQuery.getClazz());
 
+		setQueryParams(query, searchQuery);
+
+        return query.getResultList();
+	}
+
+	private List<T> searchEntities(SearchQueryBuilder<T> searchQuery) {
+		TypedQuery<T> query = entityManager.createQuery(searchQuery.getQuery(), searchQuery.getClazz());
+
+		setQueryParams(query, searchQuery);
+
+		return query.getResultList();
+	}
+
+	private void setQueryParams(TypedQuery<T> query, SearchQueryBuilder<T> searchQuery) {
 		for (Entry<String, Object> entry : searchQuery.getParams().entrySet()) {
 			query.setParameter(entry.getKey(), entry.getValue());
 		}
-
-		List<T> content = query.getResultList();
-		return content;	}
+	}
 
 	private List<UUID> getPagedContentIdsOnly(SearchQueryBuilder<T> searchQuery, Pageable pageReq) {
 
@@ -163,8 +198,7 @@ public class BrAPIRepositoryImpl<T extends BrAPIPrimaryEntity, ID extends Serial
 		query.setFirstResult((int) pageReq.getOffset());
 		query.setMaxResults(pageReq.getPageSize());
 
-		List<UUID> content = query.getResultList();
-		return content;
+        return query.getResultList();
 	}
 
 

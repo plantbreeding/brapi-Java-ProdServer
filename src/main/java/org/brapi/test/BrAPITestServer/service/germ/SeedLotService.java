@@ -86,7 +86,7 @@ public class SeedLotService {
 			searchQuery = searchQuery.withExRefs(List.of(externalReferenceID),
                     List.of(externalReferenceSource));
 
-		Page<SeedLotEntity> page = seedLotRepository.findAllBySearch(searchQuery, pageReq);
+		Page<SeedLotEntity> page = seedLotRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		List<SeedLot> seedLots = page.map(this::convertFromEntity).getContent();
 		PagingUtility.calculateMetaData(metadata, page);
 		return seedLots;
@@ -177,7 +177,7 @@ public class SeedLotService {
 			searchQuery = searchQuery.withExRefs(List.of(externalReferenceID),
                     List.of(externalReferenceSource));
 
-		Page<SeedLotTransactionEntity> page = seedLotTransactionRepository.findAllBySearch(searchQuery, pageReq);
+		Page<SeedLotTransactionEntity> page = seedLotTransactionRepository.findAllBySearchAndPaginate(searchQuery, pageReq);
 		List<SeedLotTransaction> transactions = page.map(this::convertFromEntity).getContent();
 		PagingUtility.calculateMetaData(metadata, page);
 		return transactions;
